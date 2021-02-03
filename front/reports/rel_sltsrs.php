@@ -301,15 +301,20 @@ echo "
 								
 				//count by status
 				$query_stat = "
-				SELECT SUM(case when glpi_tickets.solvedate IS NULL then 1 else 0 end) AS solve_sla				
+				SELECT COUNT(id) AS solve_sla				
 				FROM glpi_tickets
-				WHERE glpi_tickets.is_deleted = '0'				
+				WHERE glpi_tickets.is_deleted = '0'	
+				AND status >= 5			
+				AND time_to_resolve IS NOT NULL
+				AND (closedate > time_to_resolve )
 				AND glpi_tickets.date ".$datas2."
 				".$slaid.$row['sla_id']."
 				".$entidade."";
 			
-				$result_stat = $DB->query($query_stat);			
+				$result_stat = $DB->query($query_stat);	
 				$solve_sla = $DB->result($result_stat,0,'solve_sla');
+
+				$barra = 100;
 														
 				//barra de porcentagem
 				if($conta_cons > 0) {
