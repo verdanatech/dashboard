@@ -492,7 +492,6 @@ function margins()
 									INNER JOIN glpi_groups as grupo ON ticket_group.groups_id = grupo.id
 									WHERE ticket_group.type = 2
 									ORDER BY ticket_group.id DESC;";
-
 									$result_group = $DB->query($query_group);
 
 									?>
@@ -676,10 +675,9 @@ function margins()
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_resolvedor . "' 
-	AND glpi_tickets.locations_id LIKE '%" . $id_operacao . "' 
-	ORDER BY id DESC ";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
+	($id_resolvedor == 0 ? " " : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ")
+	."ORDER BY id DESC ";
 
 					$result_cham = $DB->query($sql_cham);
 
@@ -695,9 +693,9 @@ function margins()
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "' 
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_resolvedor . "' 
-	AND glpi_tickets.locations_id LIKE '%" . $id_operacao . "' ";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
+	($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ").
+	"ORDER BY id DESC";
 
 					$result_cons1 = $DB->query($consulta1);
 					//$conta_cons = $DB->numrows($result_cons1);
@@ -743,9 +741,9 @@ function margins()
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_resolvedor . "' 
-	AND glpi_tickets.locations_id LIKE '%" . $id_operacao . "' ";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
+	($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC)")
+	."ORDER BY id DESC";
 
 						$result_stat = $DB->query($query_stat);
 
