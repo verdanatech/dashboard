@@ -137,7 +137,7 @@ $url_limpa = "#";
 						<div id="titulo_rel"> Chamados Reabertos </div>
 
 						<div id="datas-tec3" class="col-md-12 fluid">
-							<form id="form1" name="form1" class="form_rel" method="post" action="rel_tickets.php?con=1" style="margin-left: -12%;">
+							<form id="form1" name="form1" class="form_rel" method="post" action="rel_tickets_reopen.php" style="margin-left: -12%;">
 								<table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef" class="tab_tickets" width="550">
 									<tr>
 										<td style="margin-top:2px; width:110px;"><?php echo __('Period'); ?>: </td>

@@ -459,11 +459,11 @@ class PluginDashboardTicktsReopened
         $id_due = $this->getQueryDue();
         $id_resolver = $this->getQueryResolver();
         // ID Like
-        $id_req = $this->saerch['id_sel_font'];
-        $id_pri = $this->saerch['id_sel_pri'];
-        $id_cat = $this->saerch['id_sel_cat'];
-        $id_tip = $this->saerch['id_sel_typ'];
-        $id_localizacao = $this->saerch['id_sel_location'];
+        $id_req = $this->saerch['id_sel_font'] == 0 ? '' : $this->saerch['id_sel_font'];
+        $id_pri = $this->saerch['id_sel_pri'] == 0 ? '' : $this->saerch['id_sel_pri'];
+        $id_cat = $this->saerch['id_sel_cat'] == 0 ? '' : $this->saerch['id_sel_cat'];
+        $id_tip = $this->saerch['id_sel_typ'] == 0 ? '' : $this->saerch['id_sel_typ'];
+        $id_localizacao = $this->saerch['id_sel_location'] == 0 ? '' : $this->saerch['id_sel_location'];
 
         $sql_cham = "SELECT id, 
                             entities_id, 
