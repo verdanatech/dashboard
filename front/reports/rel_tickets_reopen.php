@@ -3,7 +3,6 @@
 include("../../../../inc/includes.php");
 include("../../../../inc/config.php");
 include("../../inc/rel_tickets_reopen.php");
-include "../inc/functions.php";
 
 Session::checkLoginUser();
 Session::checkRight("profile", READ);
@@ -28,7 +27,7 @@ $saerch = array(
 	'id_sel_resolver' => 0, // Grupo Resolvedor
 	'id_sel_operation' => 0, // Operação
 	'id_sel_location' => '', // Localização
-	'id_sel_impact' => 0 // Localização
+	'id_sel_impact' => 0 // impacto
 );
 
 // Recebento requisição casa exista alterar os valores
@@ -47,7 +46,7 @@ if (!empty($_REQUEST['submit'])) {
 	$saerch['id_sel_resolver'] = $_REQUEST['sel_resolver']; // Grupo Resolvedor
 	$saerch['id_sel_operation'] = $_REQUEST['sel_operation']; // Operação
 	$saerch['id_sel_location'] = $_REQUEST['sel_location']; // Localização
-	$saerch['id_sel_impact'] = $_REQUEST['sel_impact']; // Localização
+	$saerch['id_sel_impact'] = $_REQUEST['sel_impact']; // impacto
 }
 
 // Beetwen de pesquisa
@@ -56,14 +55,81 @@ $saerch["date_beetwen"] = "BETWEEN '" . $saerch['data_ini'] . " 00:00:00' AND '"
 // Objeto da classe de relatório para tickts
 $rel_object = new PluginDashboardTicktsReopened($saerch);
 
-$url_limpa = "#";
+$url_limpa = "rel_tickets_reopen.php";
 
+//--------------------------------------- Funções para layout --------------------------------------------------------
+
+
+function conv_data($data)
+{
+	if ($data != "") {
+		$source = $data;
+		$date = new DateTime($source);
+		return $date->format('d-m-Y');
+	} else {
+		return "";
+	}
+}
+
+function conv_data_hora($data)
+{
+	if ($data != "") {
+		$source = $data;
+		$date = new DateTime($source);
+		return $date->format('d-m-Y H:i:s');
+	} else {
+		return "";
+	}
+}
+
+function dropdown($name, array $options, $selected = null)
+{
+	/*** begin the select ***/
+	$dropdown = '<select style="width: 300px; height: 27px;" autofocus name="' . $name . '" id="' . $name . '">' . "\n";
+
+	$selected = $selected;
+	/*** loop over the options ***/
+	foreach ($options as $key => $option) {
+		/*** assign a selected value ***/
+		$select = $selected == $key ? ' selected' : null;
+		/*** add each option to the dropdown ***/
+		$dropdown .= '<option value="' . $key . '"' . $select . '>' . $option . '</option>' . "\n";
+	}
+	/*** close the select ***/
+	$dropdown .= '</select>' . "\n";
+
+	/*** and return the completed dropdown ***/
+	return $dropdown;
+}
+
+function margins()
+{
+
+	global $DB;
+	$query_lay = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'layout' AND users_id = " . $_SESSION['glpiID'] . " ";
+	$result_lay = $DB->query($query_lay);
+	$layout = $DB->result($result_lay, 0, 'value');
+
+	//redirect to index
+	if ($layout == '0') {
+		// sidebar
+		$margin = '0px 5% 0px 5%';
+	}
+
+	if ($layout == 1 || $layout == '') {
+		//top menu
+		$margin = '0px 2% 0px 2%';
+	}
+
+	return $margin;
+}
+// ------------------------------------------------------ Fim das funções para layout -----------------------------------------------------
 ?>
 
 <html>
 
 <head>
-	<title> GLPI - <?php echo __('Tickets', 'dashboard') . ' ' . __('Reopened', 'dashboard') . ' ' . __('by Group', 'dashboard') . 's'; ?> </title>
+	<title> GLPI - <?php echo __('Tickets', 'dashboard') . ' ' . __('Reabertos', 'dashboard') . ' ' . __('by Group', 'dashboard') . 's'; ?> </title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<meta http-equiv="content-language" content="en-us" />
@@ -305,7 +371,7 @@ $url_limpa = "#";
 										<td height="12px"></td>
 									</tr>
 									<tr>
-										<td style="margin-top:2px; width:165px;"><?php echo __('Operação'); ?>: </td>
+										<!-- <td style="margin-top:2px; width:165px;"><?php echo __('Operação'); ?>: </td>
 										<td style="margin-top:2px;">
 											<?php
 
@@ -318,7 +384,7 @@ $url_limpa = "#";
 
 											?>
 										</td>
-										<td height="12px"></td>
+										<td height="12px"></td> -->
 										<td style="margin-top:2px; width:100px;"><?php echo __('Location'); ?>: </td>
 										<td style="margin-top:2px;">
 											<?php
@@ -338,7 +404,7 @@ $url_limpa = "#";
 										<td style="margin-top:2px;">
 											<?php
 
-											// Select localização
+											// Select Impacto
 											$name = 'sel_impact';
 											$options = $rel_object->getSelectImpact();
 											$selected = $saerch['id_sel_impact'];
@@ -375,6 +441,33 @@ $url_limpa = "#";
 						</div>
 					</div>
 					<div class="well info_box fluid col-md-12 report" style="margin-left: -1px; margin-top: 24px;">
+						<?php
+						// Quantidade de chamados por status
+						$ticket_status_count = $rel_object->getCountState();
+						?>
+
+						<table class='fluid' style=' width:100%; font-size: 18px; font-weight:bold;  margin-bottom:25px;  margin-top:20px; ' cellpadding=1px>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'><?php echo __('Entity', 'dashboard'); ?>: </span><?php echo $rel_object->getSelectEntity($saerch['id_sel_ent']); ?></td>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'><?php echo __('Tickets', 'dashboard'); ?>: </span><?php echo $ticket_status_count['ticket']; ?></td>
+							<td colspan='3' style='font-size: 16px; font-weight:bold; vertical-align:middle; width:200px;'><span style='color:#000;'>
+									<?php echo __('Period', 'dashboard'); ?>: </span><?php echo conv_data($saerch['data_ini']) . " a " . conv_data($saerch['data_fin']); ?>
+							</td>
+							<td>&nbsp;</td>
+
+						</table>
+
+						<table style='font-size: 16px; font-weight:bold; width: 50%;' border=0>
+							<tr>
+								<td><span style='color: #000;'><?php echo _x('status', 'New'); ?> </span><b><?php echo $ticket_status_count['new']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Assigned'); ?> </span><b><?php echo ($ticket_status_count['assig'] + $ticket_status_count['plan']); ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Pending'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Solved', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Closed'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+						</table>
 
 						<table id='ticket' class='display' style='width: 99%; font-size: 11px; font-weight:bold;' cellpadding=2px>
 							<thead>
@@ -398,9 +491,10 @@ $url_limpa = "#";
 
 								<?php
 
-								// While preenchendo tabela
+								// Tickets a serem consultados
 								$tickets = $rel_object->getTickets();
 
+								// While preenchendo tabela
 								foreach ($tickets as $ticket) {
 
 									$status = $rel_object->getStatusIcon($ticket['status']);
@@ -424,7 +518,7 @@ $url_limpa = "#";
 										<td style="vertical-align:middle;">' . substr($row_user["title"], 0, 55) . '</td>
 										<td style="vertical-align:middle; max-width:550px;">' . html_entity_decode($row_user["content"]) . '</td>
 										<td style="vertical-align:middle;">' . $row_user["name"] . ' ' . $row_user["sname"] . '</td>
-										<td style="vertical-align:middle;">' . ( isset($row_tec["name"]) ? ($row_tec["name"] . ' ' . $row_tec["sname"]) : 'Não atribuido' ) . '</td>
+										<td style="vertical-align:middle;">' . (isset($row_tec["name"]) ? ($row_tec["name"] . ' ' . $row_tec["sname"]) : 'Não atribuido') . '</td>
 										<td style="vertical-align:middle; text-align:center;">' . conv_data_hora($ticket["date"]) . '</td>		
 										<td style="vertical-align:middle; text-align:center;">' . conv_data_hora($ticket["solvedate"]) . '</td>
 										';
@@ -443,7 +537,6 @@ $url_limpa = "#";
 									}
 
 									echo "</tr>";
-
 								}
 								// Fim while
 
