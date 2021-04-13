@@ -313,6 +313,12 @@ if($theme == '') {
                                             </a>
                                         </li> 
                                         <li class=' '>
+                                              <a href="./reports/rel_grupo_vol.php" data-original-title=' por Grupo Volume' target="_blank">
+                                                <i class="fa fa-angle-right"></i>
+                                                <span class='hidden-minibar'> <?php echo __('by Group','dashboard'). " Volume"; ?> </span>
+                                            </a>
+                                        </li> 
+                                        <li class=' '>
                                               <a href="./reports/rel_entidade.php" data-original-title=' por Entidade' target="_blank">
                                                 <i class="fa fa-angle-right"></i>
                                                 <span class='hidden-minibar'> <?php echo __('by Entity','dashboard'); ?> </span>
@@ -352,6 +358,12 @@ if($theme == '') {
                                               <a href="./reports/rel_tickets.php" data-original-title=' Tickets' target="_blank">
                                                 <i class="fa fa-angle-right"></i>
                                                 <span class='hidden-minibar'> <?php echo _n('Ticket','Tickets',2); ?></span>
+                                            </a>
+                                        </li>
+                                        <li class=' '>
+                                              <a href="./reports/rel_tickets_reopen.php" data-original-title=' Tickets Reabertos' target="_blank">
+                                                <i class="fa fa-angle-right"></i>
+                                                <span class='hidden-minibar'> <?php echo _n('Ticket','Tickets',2). " Reabertos"; ?></span>
                                             </a>
                                         </li>
                                         <li class=' '>

@@ -560,3 +560,9 @@ msgstr "Filhas"
 
 msgid "Task sum"
 msgstr "Soma de Tarefas"
+
+msgid "Pending"
+msgstr "Pendente"
+
+msgid "Reopened"
+msgstr "Reabertos"
