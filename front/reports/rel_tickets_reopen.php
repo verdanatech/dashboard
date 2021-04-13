@@ -15,18 +15,18 @@ Session::checkRight("profile", READ);
 
 $saerch = array(
 	// Valores padrão para periodo - Primeiro dia do ano ao dia atual
-	'data_ini' => date("Y-01-01"),
-	'data_fin' => date("Y-m-d"),
+	'data_ini' => $_GET['data_inicial'] ?? date("Y-01-01"),
+	'data_fin' => $_GET['data_final'] ?? date("Y-m-d"),
 	'id_sel_ent' => 0, // Entidade
 	'id_sel_sta' => 0, // Status
-	'id_sel_font' => '', // Fonte
-	'id_sel_pri' => '', // Prioridade
-	'id_sel_cat' => '', // Categoria
-	'id_sel_typ' => '', // Tipo
+	'id_sel_font' => 0, // Fonte
+	'id_sel_pri' => 0, // Prioridade
+	'id_sel_cat' => 0, // Categoria
+	'id_sel_typ' => 0, // Tipo
 	'id_sel_due' => 0, // Vencimento
-	'id_sel_resolver' => 0, // Grupo Resolvedor
+	'id_sel_resolver' => $_GET['sel_resolver'] ?? 0, // Grupo Resolvedor
 	'id_sel_operation' => 0, // Operação
-	'id_sel_location' => '', // Localização
+	'id_sel_location' => 0, // Localização
 	'id_sel_impact' => 0 // impacto
 );
 
