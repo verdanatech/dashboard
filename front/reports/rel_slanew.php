@@ -97,6 +97,10 @@ if (!empty($_POST['submit'])) {
 
         .fa fa-home {
             margin-left: 20px;
+        } 
+
+        .displayNone{
+            display: none;
         }
     </style>
 
@@ -118,9 +122,9 @@ if (!empty($_POST['submit'])) {
                         <div id="titulo_rel">
                             <?php echo __('Relatório', 'dashboard') . '  ' . __('by SLA', 'dashboard') ?> - <?php echo __('Time to resolve'); ?>
                         </div>
-                        <div class="container">
+                        <div class="container" style="margin: auto;">
 
-                            <table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef">
+                            <table border="0" cellspacing="0" cellpadding="2" bgcolor="#efefef" class="tab_tickets" width="550" style="margin: auto;">
                                 <tr>
                                     <td style="width: 303px; margin: 10px;">
 
@@ -145,7 +149,6 @@ if (!empty($_POST['submit'])) {
                                                         <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </td>
-                                                <td>&nbsp;</td>
                                             </tr>
                                         </table>
 
@@ -171,6 +174,9 @@ if (!empty($_POST['submit'])) {
                                         </select>
                                     </td>
 
+                                </tr>
+                                <tr>
+                                    <td style="height: 12px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="margin-top:10px;margin-left:180px;">
@@ -228,7 +234,7 @@ if (!empty($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            <div class='well info_box fluid col-md-12 col-sm-12 report' style='margin-left: -1px; margin-top: 1%;'>
+            <div id="cont-table" class='well info_box fluid col-md-12 col-sm-12 report displayNone' style='margin-left: -1px; margin-top: 1%;'>
 
                 <h2 style="text-align: center; margin-top: 20px; margin-bottom: 30px;">Informações Gráficas de SLAs</h2>
 
@@ -326,6 +332,7 @@ if (!empty($_POST['submit'])) {
                             res = JSON.parse(response);
 
                             $('#table_painel').show();
+                            $("#cont-table").removeClass("displayNone");
 
                             $.each(res["label"], function(i, val) {
                                 html = `<tr id="${i}"><td style="text-align: center; vertical-align: middle;"> ${val}</td></tr>`;
@@ -375,7 +382,7 @@ if (!empty($_POST['submit'])) {
                                     [5, 'desc'],
                                     [6, 'desc']
                                 ],
-                                displayLength: 25,
+                                displayLength: 10,
                                 lengthMenu: [
                                     [10, 25, 50, 100],
                                     [10, 25, 50, 100]
