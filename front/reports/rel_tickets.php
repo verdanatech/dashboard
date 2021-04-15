@@ -296,6 +296,11 @@ function margins()
 										} else {
 											$id_localizacao = '';
 										}
+										if (isset($_REQUEST["sel_impact"]) && $_REQUEST["sel_impact"] != '0') {
+											$id_impact = $_REQUEST["sel_impact"];
+										} else {
+											$id_impact = '';
+										}
 
 										if (isset($_REQUEST["sel_tip"]) && $_REQUEST["sel_tip"] != '0') {
 											$id_tip = $_REQUEST["sel_tip"];
@@ -579,6 +584,25 @@ function margins()
 
 									</td>
 									<!-- Fim do input localização -->
+									<td height="12px"></td>
+									<td style="margin-top:2px; width:100px;"><?php echo __('Impact'); ?>: </td>
+									<td style="margin-top:2px;">
+										<?php
+
+										// Select Impacto
+										$arr_impact[0] = "---";
+										for ($i = 1; $i <= 5; $i++) {
+											$arr_impact[$i] = Ticket::getImpactName($i);
+										}
+										$name = 'sel_impact';
+										$options = $arr_impact;
+										$selected = $id_impact;
+
+										echo dropdown($name, $options, $selected);
+
+										?>
+
+									</td>
 								</tr>
 
 
@@ -672,12 +696,13 @@ function margins()
 	" . $id_sta . "
 	" . $id_due . "
 	AND glpi_tickets.requesttypes_id LIKE '%" . $id_req . "'
+	AND glpi_tickets.impact LIKE '%" . $id_impact . "'
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
-	($id_resolvedor == 0 ? " " : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ")
-	."ORDER BY id DESC ";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'" .
+						($id_resolvedor == 0 ? " " : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ")
+						. "ORDER BY id DESC ";
 
 					$result_cham = $DB->query($sql_cham);
 
@@ -690,12 +715,13 @@ function margins()
 	" . $id_sta . "
 	" . $id_due . "
 	AND glpi_tickets.requesttypes_id LIKE '%" . $id_req . "'
+	AND glpi_tickets.impact LIKE '%" . $id_impact . "'
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "' 
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
-	($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ").
-	"ORDER BY id DESC";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'" .
+						($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC) ") .
+						"ORDER BY id DESC";
 
 					$result_cons1 = $DB->query($consulta1);
 					//$conta_cons = $DB->numrows($result_cons1);
@@ -738,12 +764,13 @@ function margins()
 	" . $id_sta . "
 	" . $id_due . "
 	AND glpi_tickets.requesttypes_id LIKE '%" . $id_req . "'
+	AND glpi_tickets.impact LIKE '%" . $id_impact . "'
 	AND glpi_tickets.priority LIKE '%" . $id_pri . "'
 	AND glpi_tickets.itilcategories_id LIKE '%" . $id_cat . "'
 	AND glpi_tickets.type LIKE '%" . $id_tip . "'
-	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'".
-	($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC)")
-	."ORDER BY id DESC";
+	AND glpi_tickets.locations_id LIKE '%" . $id_localizacao . "'" .
+							($id_resolvedor == 0 ? "" : "AND glpi_tickets.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '{$id_resolvedor}' ORDER BY id DESC)")
+							. "ORDER BY id DESC";
 
 						$result_stat = $DB->query($query_stat);
 
@@ -912,11 +939,11 @@ function margins()
 			<td style='vertical-align:middle;'> " . $type . " </td>
 			<td style='vertical-align:middle;'> " . $row_req['name'] . " </td>
 			<td style='vertical-align:middle;text-align:center;'> " . $pri . " </td>
-			<td style='vertical-align:middle; max-width:150px;'> " . $row_cat['name'] . " </td>		
+			<td style='vertical-align:middle; max-width:150px;'> " . ($row_cat['name'] ?? "Não definida") . " </td>		
 			<td style='vertical-align:middle;'> " . substr($row_user['title'], 0, 55) . " </td>
 			<td style='vertical-align:middle; max-width:550px;'> " . html_entity_decode($row_user['content']) . " </td>
-			<td style='vertical-align:middle;'> " . $row_user['name'] . " " . $row_user['sname'] . " </td>
-			<td style='vertical-align:middle;'> " . $row_tec['name'] . " " . $row_tec['sname'] . " </td>
+			<td style='vertical-align:middle;'> " . ($row_user['name'] ?? "") . " " . ($row_user['sname'] ?? "") . " </td>
+			<td style='vertical-align:middle;'> " . ($row_tec['name'] ?? "") . " " . ($row_tec['sname'] ?? "") . " </td>
 			<td style='vertical-align:middle; text-align:center;'> " . conv_data_hora($row['date']) . " </td>		
 			<td style='vertical-align:middle; text-align:center;'> " . conv_data_hora($row['solvedate']) . " </td>";
 
@@ -1102,6 +1129,11 @@ function margins()
 					});
 					$(document).ready(function() {
 						$("#sel_localizacao").select2({
+							dropdownAutoWidth: true
+						});
+					});
+					$(document).ready(function() {
+						$("#sel_impact").select2({
 							dropdownAutoWidth: true
 						});
 					});
