@@ -95,11 +95,16 @@ if (!empty($_POST['submit'])) {
 
         }
 
+        .table_search {
+            border-spacing: 20px 10px;
+            margin: auto;
+        }
+
         .fa fa-home {
             margin-left: 20px;
-        } 
+        }
 
-        .displayNone{
+        .displayNone {
             display: none;
         }
     </style>
@@ -124,9 +129,9 @@ if (!empty($_POST['submit'])) {
                         </div>
                         <div class="container" style="margin: auto;">
 
-                            <table border="0" cellspacing="0" cellpadding="2" bgcolor="#efefef" class="tab_tickets" width="550" style="margin: auto;">
+                            <table class="table_search">
                                 <tr>
-                                    <td style="width: 303px; margin: 10px;">
+                                    <td style="width: 322px; margin: 10px;">
 
                                         <?php
                                         $url = $_SERVER['REQUEST_URI'];
@@ -138,14 +143,14 @@ if (!empty($_POST['submit'])) {
                                             <tr>
                                                 <td>
                                                     <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
-                                                        <input class="col-md-9 form-control" size="13" type="text" name="date1" value="<?php echo $data_ini; ?>">
+                                                        <input class="col-md-9 form-control" size="9" type="text" name="date1" value="<?php echo $data_ini; ?>">
                                                         <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
                                                     <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
-                                                        <input class="col-md-9 form-control" size="13" type="text" name="date2" value="<?php echo  $data_fin; ?>">
+                                                        <input class="col-md-9 form-control" size="9" type="text" name="date2" value="<?php echo  $data_fin; ?>">
                                                         <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </td>
@@ -234,7 +239,7 @@ if (!empty($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            <div id="cont-table" class='well info_box fluid col-md-12 col-sm-12 report displayNone' style='margin-left: -1px; margin-top: 1%;'>
+            <div id="cont-table" class='well info_box fluid col-md-12 col-sm-12 report displayNone' style='margin-left: -1px; margin-top: -2.5%;'>
 
                 <h2 style="text-align: center; margin-top: 20px; margin-bottom: 30px;">Informações Gráficas de SLAs</h2>
 
