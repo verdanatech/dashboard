@@ -526,7 +526,7 @@ function margins()
 									<td height="12px"></td>
 								</tr>
 								<tr>
-									<td style="margin-top:2px; width:165px;"><?php echo __('Operação'); ?>: </td>
+									<!-- <td style="margin-top:2px; width:165px;"><?php echo __('Operação'); ?>: </td>
 									<td style="margin-top:2px;">
 										<?php
 										// Query para Select operação
@@ -540,25 +540,25 @@ function margins()
 
 										// $result_operation = $DB->query($query_operation);
 
-										$arr_operation[0] = "-----";
+										// $arr_operation[0] = "-----";
 
 										// foreach ($result_operation as $result) {
 										// 	$arr_operation[$result["location_id"]] = $result["location_name"];
 										// }
 
-										$name = 'sel_operacao';
-										$options = $arr_operation;
-										$selected = $id_operacao;
+										// $name = 'sel_operacao';
+										// $options = $arr_operation;
+										// $selected = $id_operacao;
 
-										echo dropdown($name, $options, $selected);
+										// echo dropdown($name, $options, $selected);
 										?>
-									</td>
+									</td> -->
 									<!-- Input Localização -->
-									<td height="12px"></td>
+									<!-- <td height="12px"></td> -->
 									<td style="margin-top:2px; width:100px;"><?php echo __('Location'); ?>: </td>
 									<td style="margin-top:2px;">
 										<?php
-										// Query para Select operação
+										// Query para Select localização
 										$query_localizacao = "SELECT 
 															location.id AS location_id,
 															location.name AS location_name
@@ -643,11 +643,12 @@ function margins()
 				if ($con == "1") {
 
 					if (!isset($_POST['date1'])) {
-						$data_ini2 = $_GET['date1'];
-						$data_fin2 = $_GET['date2'];
+						$data_ini2 = $_GET['date1'] ?? date("Y-01-01");
+						$data_fin2 = $_GET['date2'] ?? date("Y-m-d");
+						
 					} else {
-						$data_ini2 = $_POST['date1'];
-						$data_fin2 = $_POST['date2'];
+						$data_ini2 = $_POST['date1'] ?? date("Y-01-01");
+						$data_fin2 = $_POST['date2'] ?? date("Y-m-d");
 					}
 
 					//entity
