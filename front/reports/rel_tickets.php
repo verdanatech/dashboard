@@ -590,7 +590,7 @@ function margins()
 										<?php
 
 										// Select Impacto
-										$arr_impact[0] = "---";
+										$arr_impact[0] = "----";
 										for ($i = 1; $i <= 5; $i++) {
 											$arr_impact[$i] = Ticket::getImpactName($i);
 										}
