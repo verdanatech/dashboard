@@ -513,6 +513,7 @@ if ($theme == 'trans.css') {
 			<li><a tabindex="-1" href="./metrics/index.php" target="_blank"> <?php echo __('Overall', 'dashboard'); ?> </a></li>
 			<li><a tabindex="-1" href="./metrics/select_ent.php" target="_blank"> <?php echo __('by Entity', 'dashboard'); ?> </a></li>
 			<li><a tabindex="-1" href="./metrics/select_grupo.php" target="_blank"> <?php echo __('by Group', 'dashboard'); ?> </a></li>
+			<li><a tabindex="-1" href="./metrics/dash_new.php" target="_blank"> <?php echo __('by SLA', 'dashboard'); ?> </a></li>
 		</ul>
 	</li>
 
