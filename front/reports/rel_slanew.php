@@ -78,6 +78,35 @@ if (!empty($_POST['submit'])) {
             margin-left: 30%;
             margin-top: 20px;
         }
+
+        a:link,
+        a:visited,
+        a:active {
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #000099;
+        }
+
+        #table_painel {
+            font-size: 18px;
+            font-weight: bold;
+
+        }
+
+        .table_search {
+            border-spacing: 20px 10px;
+            margin: auto;
+        }
+
+        .fa fa-home {
+            margin-left: 20px;
+        }
+
+        .displayNone {
+            display: none;
+        }
     </style>
 
     <?php echo '<link rel="stylesheet" type="text/css" href="../css/style-' . $_SESSION['style'] . '">';  ?>
@@ -93,62 +122,41 @@ if (!empty($_POST['submit'])) {
                 <div id="pad-wrapper">
                     <div id="head-lg" class="fluid">
 
-                        <style type="text/css">
-                            a:link,
-                            a:visited,
-                            a:active {
-                                text-decoration: none;
-                            }
-
-                            a:hover {
-                                color: #000099;
-                            }
-
-                            #table_painel {
-                                font-size: 18px;
-                                font-weight: bold;
-                            }
-
-                            .fa fa-home {
-                                margin-left: 20px;
-                            }
-                        </style>
                         <a href="../index.php"><i class="fa fa-home" style="font-size:14pt;"></i><span></span></a>
 
                         <div id="titulo_rel">
                             <?php echo __('Relatório', 'dashboard') . '  ' . __('by SLA', 'dashboard') ?> - <?php echo __('Time to resolve'); ?>
                         </div>
-                        <div class="container">
+                        <div class="container" style="margin: auto;">
 
-                            <table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef">
+                            <table class="table_search">
                                 <tr>
-                                    <td style="width: 310px;">
-                                        <?php
+                                    <td style="width: 322px; margin: 10px;">
 
+                                        <?php
                                         $url = $_SERVER['REQUEST_URI'];
                                         $arr_url = explode("?", $url);
                                         $url2 = $arr_url[0];
-
-                                        echo '
-								<table>
-									<tr>
-										<td>
-										   <div class="input-group date" id="dp1" data-date="' . $data_ini . '" data-date-format="yyyy-mm-dd">
-										    	<input class="col-md-9 form-control" size="13" type="text" name="date1" value="' . $data_ini . '" >
-										    	<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-									    	</div>
-										</td>
-										<td>&nbsp;</td>
-										<td>
-									   	<div class="input-group date" id="dp2" data-date="' . $data_fin . '" data-date-format="yyyy-mm-dd">
-										    	<input class="col-md-9 form-control" size="13" type="text" name="date2" value="' . $data_fin . '" >
-										    	<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-									    	</div>
-										</td>
-										<td>&nbsp;</td>
-									</tr>
-								</table> ';
                                         ?>
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
+                                                        <input class="col-md-9 form-control" size="9" type="text" name="date1" value="<?php echo $data_ini; ?>">
+                                                        <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
+                                                        <input class="col-md-9 form-control" size="9" type="text" name="date2" value="<?php echo  $data_fin; ?>">
+                                                        <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+
                                         <script language="Javascript">
                                             $('#dp1').datepicker('update');
                                             $('#dp2').datepicker('update');
@@ -158,11 +166,10 @@ if (!empty($_POST['submit'])) {
                                         <select id="select_sla" name="sel_sla" class="js-example-basic-multiple js-states" style="width: 180px; text-transform: capitalize; margin-top:20px;">
                                             <option>Selecione o SLA</option>
                                             <?php
-                                            $sql_loc = "
-                                            SELECT id, name AS name
-                                            FROM glpi_slas
-                                            where type = 0
-                                            ORDER BY name ASC ";
+                                            $sql_loc = "SELECT id, name AS name
+                                                        FROM glpi_slas
+                                                        where type = 0
+                                                        ORDER BY name ASC ";
                                             $result_loc = $DB->query($sql_loc);
 
                                             foreach ($result_loc as $value) {
@@ -170,7 +177,11 @@ if (!empty($_POST['submit'])) {
                                             }
                                             ?>
                                         </select>
+                                    </td>
 
+                                </tr>
+                                <tr>
+                                    <td style="height: 12px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="margin-top:10px;margin-left:180px;">
@@ -178,12 +189,12 @@ if (!empty($_POST['submit'])) {
                                             <option value="0">Todos</option>
                                             <?php
                                             $sql_tecgrup = "SELECT g.name,g.id as id_grupo
-												from glpi_tickets as t
-												LEFT JOIN
-												glpi_groups_tickets AS gt on (t.id = gt.tickets_id)
-												LEFT JOIN glpi_groups AS g on (gt.groups_id = g.id)
-												where gt.type = 2
-												group by g.id";
+                                                            from glpi_tickets as t
+                                                            LEFT JOIN
+                                                            glpi_groups_tickets AS gt on (t.id = gt.tickets_id)
+                                                            LEFT JOIN glpi_groups AS g on (gt.groups_id = g.id)
+                                                            where gt.type = 2
+                                                            group by g.id";
                                             $result_group = $DB->query($sql_tecgrup);
 
                                             foreach ($result_group as $value) {
@@ -193,6 +204,7 @@ if (!empty($_POST['submit'])) {
                                             }
                                             ?>
                                         </select>
+                                    </td>
 
                                     <td style="margin-top:2px;">
                                         <select style="width:180px;" class="form-control" name="type_impacto" id="type_impacto">
@@ -205,34 +217,40 @@ if (!empty($_POST['submit'])) {
                                             <option value="1">Muito Baixo</option>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td height=" 15px">
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <button class="btn btn-primary btn-sm" type="submit" onclick="recebeDados()">Consultar</button>
+                                        <button class=" btn btn-primary btn-sm" type="button" name="Limpar" value="Limpar" onclick="location.href='<?php echo $url2 ?>'"> <i class="fa fa-trash-o"></i>&nbsp; <?php echo __('Clean', 'dashboard'); ?> </button>
+                                    </td>
+                                </tr>
+                            </table>
+
 
                         </div>
-                        </tr>
-                        <tr>
-                            <td height=" 15px">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center">
-                                <button class="btn btn-primary btn-sm" type="submit" onclick="recebeDados()">Consultar</button>
-                                <button class=" btn btn-primary btn-sm" type="button" name="Limpar" value="Limpar" onclick="location.href='<?php echo $url2 ?>'"> <i class="fa fa-trash-o"></i>&nbsp; <?php echo __('Clean', 'dashboard'); ?> </button>
-                            </td>
-                            </td>
-                        </tr>
-                        </table>
+
+
 
 
                     </div>
                 </div>
             </div>
-            <br><br><br>
-            <div id="container">
+            <div id="cont-table" class='well info_box fluid col-md-12 col-sm-12 report displayNone' style='margin-left: -1px; margin-top: -2.5%;'>
 
-            </div>
-            <div class="table-responsive">
-                <table id="table_painel" class="table table-hover">
-                    <thead>
+                <h2 style="text-align: center; margin-top: 20px; margin-bottom: 30px;">Informações Gráficas de SLAs</h2>
+
+                <div id="grafico"></div>
+
+                <hr style="margin: 60px 0;">
+
+                <h2 style="text-align: center; margin-top: 20px; margin-bottom: 40px;">Informações Tabelada de SLAs</h2>
+
+                <table id="table_painel" class='display' style='font-size: 12px; font-weight:bold;'>
+                    <thead style="background-color: #373b40; color: #fff;">
                         <th style="text-align: center; vertical-align: middle;">Data</th>
                         <th style="text-align: center; vertical-align: middle;"><b>Dentro do SLA<b></th>
                         <th style="text-align: center; vertical-align: middle;"><b>Fora do SLA<b></th>
@@ -244,6 +262,7 @@ if (!empty($_POST['submit'])) {
                     <tbody>
                     </tbody>
                 </table>
+
             </div>
 
 
@@ -318,6 +337,7 @@ if (!empty($_POST['submit'])) {
                             res = JSON.parse(response);
 
                             $('#table_painel').show();
+                            $("#cont-table").removeClass("displayNone");
 
                             $.each(res["label"], function(i, val) {
                                 html = `<tr id="${i}"><td style="text-align: center; vertical-align: middle;"> ${val}</td></tr>`;
@@ -347,18 +367,30 @@ if (!empty($_POST['submit'])) {
                                 html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
                                 $(`#${i}`).append(html);
                             });
+
+                            $('#table_painel')
+                                .removeClass('display')
+                                .addClass('table table-striped table-bordered table-hover dataTable');
+
                             $('#table_painel').DataTable({
                                 select: false,
                                 dom: 'Blfrtip',
                                 filter: false,
                                 pagingType: "full_numbers",
+                                deferRender: true,
                                 sorting: [
-                                    [1, 'asc']
+                                    [0, 'desc'],
+                                    [1, 'desc'],
+                                    [2, 'desc'],
+                                    [3, 'desc'],
+                                    [4, 'desc'],
+                                    [5, 'desc'],
+                                    [6, 'desc']
                                 ],
                                 displayLength: 10,
                                 lengthMenu: [
-                                    [10, 25, 50, 100, -1],
-                                    [10, 25, 50, 100, "Todos"]
+                                    [10, 25, 50, 100],
+                                    [10, 25, 50, 100]
                                 ],
                                 columnDefs: [{
                                     type: 'date-br',
@@ -368,28 +400,13 @@ if (!empty($_POST['submit'])) {
                                     url: '../lib/portuguese-datatable.json'
                                 },
                                 buttons: [{
-                                        extend: "copyHtml5",
-                                        text: "<?php echo __('Copy'); ?>"
-                                    },
-                                    {
                                         extend: "collection",
                                         text: "<?php echo __('Print', 'dashboard'); ?>",
                                         buttons: [{
-                                                extend: "print",
-                                                autoPrint: true,
-                                                text: "<?php echo __('All', 'dashboard'); ?>",
-                                            },
-                                            {
-                                                extend: "print",
-                                                autoPrint: true,
-                                                text: "<?php echo __('Selected', 'dashboard'); ?>",
-                                                exportOptions: {
-                                                    modifier: {
-                                                        selected: true
-                                                    }
-                                                }
-                                            }
-                                        ]
+                                            extend: "print",
+                                            autoPrint: true,
+                                            text: "<?php echo __('All', 'dashboard'); ?>",
+                                        }]
                                     },
                                     {
                                         extend: "collection",
@@ -398,7 +415,7 @@ if (!empty($_POST['submit'])) {
                                             {
                                                 extend: "pdfHtml5",
                                                 orientation: "landscape",
-                                                message: "",
+                                                message: "Relatório por SLA - Tempo para solução",
                                             }
                                         ]
                                     }
@@ -413,7 +430,7 @@ if (!empty($_POST['submit'])) {
                             res["ped_sla"] = res["PED"].map(i => Number(i));
                             res["pef_sla"] = res["PEF"].map(i => Number(i));
 
-                            Highcharts.chart('container', {
+                            Highcharts.chart('grafico', {
 
                                 title: {
                                     text: 'SLAS'
@@ -493,9 +510,6 @@ if (!empty($_POST['submit'])) {
             </script>
         </div>
     </div>
-
-    </div>
-
 
 </body>
 

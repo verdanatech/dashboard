@@ -101,6 +101,10 @@ if ($sel_ent == '' || $sel_ent == -1) {
 			color: #000099;
 		}
 
+		a.btn>span {
+			color: #666;
+		}
+
 		.label-md {
 			min-width: 45px !important;
 			display: inline-block !important
