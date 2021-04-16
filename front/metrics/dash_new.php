@@ -60,45 +60,44 @@ if (!empty($_POST['submit'])) {
     <script src="reload.js"></script>
     <script src="reload_param.js"></script>
 
+
 </head>
-
-
-<a href="../index.php"><i class="fa fa-home" style="font-size:14pt;"></i><span></span></a>
 
 <body class="black">
 
-    <h3 align="center" style="color:white;font-size:30px"><b>Dashboard por SLA</b></h3>
+    <a href="../index.php"><i class="fa fa-home" style="font-size:14pt;"></i><span></span></a>
 
-    <div class="container" align="center" style="margin-top: 20px;">
-        <table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef">
+    <h3 align="center" style="color:white; font-size:40px; margin-bottom: 41px;">Dashboard por SLA</h3>
+
+    <div class="container" align="center">
+        <table style="border-collapse: separate; border-spacing: 14px 14px;" bgcolor="#efefef">
             <tr>
                 <td style="width: 310px;">
                     <?php
-
                     $url = $_SERVER['REQUEST_URI'];
                     $arr_url = explode("?", $url);
                     $url2 = $arr_url[0];
-
-                    echo '
-								<table>
-									<tr>
-										<td>
-										   <div class="input-group date" id="dp1" data-date="' . $data_ini . '" data-date-format="yyyy-mm-dd">
-										    	<input class="col-md-9 form-control" size="13" type="text" name="date1" value="' . $data_ini . '" >
-										    	<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-									    	</div>
-										</td>
-										<td>&nbsp;</td>
-										<td>
-									   	<div class="input-group date" id="dp2" data-date="' . $data_fin . '" data-date-format="yyyy-mm-dd">
-										    	<input class="col-md-9 form-control" size="13" type="text" name="date2" value="' . $data_fin . '" >
-										    	<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
-									    	</div>
-										</td>
-										<td>&nbsp;</td>
-									</tr>
-								</table> ';
                     ?>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
+                                    <input class="col-md-9 form-control" size="13" type="text" name="date1" value="<?php echo $data_ini; ?>">
+                                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
+                                    <input class="col-md-9 form-control" size="13" type="text" name="date2" value="<?php echo $data_fin; ?>">
+                                    <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+
                     <script language="Javascript">
                         $('#dp1').datepicker('update');
                         $('#dp2').datepicker('update');
@@ -108,11 +107,10 @@ if (!empty($_POST['submit'])) {
                     <select id="select_sla" name="sel_sla" class="js-example-basic-multiple js-states" style="width: 180px; text-transform: capitalize; margin-top:20px;">
                         <option>Selecione o SLA</option>
                         <?php
-                        $sql_loc = "
-                                            SELECT id, name AS name
-                                            FROM glpi_slas
-                                            where type = 0
-                                            ORDER BY name ASC ";
+                        $sql_loc = "SELECT id, name AS name
+                                    FROM glpi_slas
+                                    where type = 0
+                                    ORDER BY name ASC ";
                         $result_loc = $DB->query($sql_loc);
 
                         foreach ($result_loc as $value) {
@@ -120,8 +118,6 @@ if (!empty($_POST['submit'])) {
                         }
                         ?>
                     </select>
-                </td>
-                <td width=" 15px">
                 </td>
                 <td style="margin-top:2px;margin-left:20px;">
                     <select class="form-control" name="type_impacto" id="type_impacto">
@@ -161,26 +157,27 @@ if (!empty($_POST['submit'])) {
                         <option>Selecione o tipo do chamado</option>
                         <option value="1">Incidente</option>
                         <option value="2">Requisição</option>
-
                     </select>
                 </td>
 
             </tr>
+        </table>
 
     </div>
-    <tr>
-        <td height=" 15px">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" align="center">
-            <button class="btn btn-primary btn-sm" type="submit" onclick="recebeDados()">Consultar</button>
-            <button class=" btn btn-primary btn-sm" type="button" name="Limpar" value="Limpar" onclick="location.href='<?php echo $url2 ?>'"> <i class="fa fa-trash-o"></i>&nbsp; <?php echo __('Clean', 'dashboard'); ?> </button>
-        </td>
-        </td>
-    </tr>
-    </table>
+
+    <div style="margin: 10px 0px 40px 0px;">
+        <table style="margin: auto; border-collapse: separate; border-spacing: 10px 5px;">
+            <tr>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="submit" onclick="recebeDados()">Consultar</button>
+                </td>
+                <td>
+                    <button class=" btn btn-primary btn-sm" type="button" name="Limpar" value="Limpar" onclick="location.href='<?php echo $url2 ?>'"> <i class="fa fa-trash-o"></i>&nbsp; <?php echo __('Clean', 'dashboard'); ?> </button>
+                </td>
+            </tr>
+        </table>
     </div>
+
     <script type="text/javascript">
         $('#dp1').datepicker('update');
         $('#dp2').datepicker('update');
@@ -206,141 +203,150 @@ if (!empty($_POST['submit'])) {
             });
         });
     </script>
-    <div class="container ">
-        <div class="row-fluid" style="margin-top: 25px;margin-left:50px">
-            <div class="col-lg-12" role="main">
-                <div class="row wrap">
-                    <div style="" class="col-md-4 cf-item">
-                        <header>
-                            <p id="graf1"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Críticos', 'dashboard'); ?> - </p>
-                        </header>
-                        <div class="content cf-gauge1" id="cf-gauge-1">
-                            <div class="val-current">
-                                <div class="metric" id="cf-gauge-1-m"></div>
-                            </div>
-                            <div class="canvas">
-                                <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
-                            </div>
-                            <div class="val-min">
-                                <div class="metric-small"></div>
-                            </div>
-                            <div class="val-max">
-                                <div class="metric-small"></div>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div style="margin-left:40px" class="col-md-4 cf-item">
-                        <header>
-                            <p id="graf2"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?> - </p>
-                        </header>
-                        <div class="content cf-gauge2" id="cf-gauge-2">
-                            <div class="val-current">
-                                <div class="metric" id="cf-gauge-2-m"></div>
-                            </div>
-                            <div class="canvas">
-                                <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
-                            </div>
-                            <div class="val-min">
-                                <div class="metric-small"></div>
-                            </div>
-                            <div class="val-max">
-                                <div class="metric-small"></div>
-                            </div>
+    <div id="graficos" class="hidden container">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="row wrap">
-                    <div style="" class="col-md-4 cf-item">
-                        <header>
-                            <p id="graf3"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?> - </p>
-                        </header>
-                        <div class="content cf-gauge3" id="cf-gauge-3">
-                            <div class="val-current">
-                                <div class="metric" id="cf-gauge-3-m"></div>
-                            </div>
-                            <div class="canvas">
-                                <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
-                            </div>
-                            <div class="val-min">
-                                <div class="metric-small"></div>
-                            </div>
-                            <div class="val-max">
-                                <div class="metric-small"></div>
-                            </div>
-                        </div>
+        <div class="row">
 
+            <!-- Grafico-row-1 01 -->
+            <div style="margin: 2%;" class="col-md-4 cf-item">
+                <header>
+                    <p id="graf1"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Críticos', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge1" id="cf-gauge-1">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-1-m"></div>
                     </div>
-                    <div style="margin-left:40px" class="col-md-4 cf-item">
-                        <header>
-                            <p id="graf4"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?> - </p>
-                        </header>
-                        <div class="content cf-gauge4" id="cf-gauge-4">
-                            <div class="val-current">
-                                <div class="metric" id="cf-gauge-4-m"></div>
-                            </div>
-                            <div class="canvas">
-                                <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
-                            </div>
-                            <div class="val-min">
-                                <div class="metric-small"></div>
-                            </div>
-                            <div class="val-max">
-                                <div class="metric-small"></div>
-                            </div>
-                        </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
                     </div>
-                </div>
-            </div>
-            <div class="row wrap">
-                <div style="" class="col-md-4 cf-item">
-                    <header>
-                        <p style="font-size:14px;" id="graf5"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?> - </p>
-                    </header>
-                    <div class="content cf-gauge5" id="cf-gauge-5">
-                        <div class="val-current">
-                            <div class="metric" id="cf-gauge-5-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
                     </div>
-                </div>
-                <div style="margin-left:40px" class=" col-md-4 cf-item">
-                    <header>
-                        <p style="font-size:14px;" id="graf6"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?> - </p>
-                    </header>
-                    <div class="content cf-gauge6" id="cf-gauge-6">
-                        <div class="val-current">
-                            <div class="metric" id="cf-gauge-6-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
 
-                    </div>
                 </div>
             </div>
 
+            <!-- Grafico-row-1 02 -->
+            <div style="margin: 2%;" class="col-md-4 cf-item">
+                <header>
+                    <p id="graf2"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge2" id="cf-gauge-2">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-2-m"></div>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Grafico-row-1 03 -->
+            <div style="margin: 2%;" class="col-md-4 cf-item">
+                <header>
+                    <p id="graf3"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge3" id="cf-gauge-3">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-3-m"></div>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
+        <div class="row">
+
+            <!-- Grafico-row-2 01 -->
+            <div style="margin: 2%;" class="col-md-4 cf-item">
+                <header>
+                    <p id="graf4"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge4" id="cf-gauge-4">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-4-m"></div>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafico-row-2 02 -->
+            <div style="margin: 2%;" class="col-md-4 cf-item">
+                <header>
+                    <p style="font-size:14px;" id="graf5"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge5" id="cf-gauge-5">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-5-m"></div>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafico-row-2 03 -->
+            <div style="margin: 2%;" class=" col-md-4 cf-item">
+                <header>
+                    <p style="font-size:14px;" id="graf6"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?> - </p>
+                </header>
+                <div class="content cf-gauge6" id="cf-gauge-6">
+                    <div class="val-current">
+                        <div class="metric" id="cf-gauge-6-m"></div>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
     </div>
 
 </body>
@@ -398,6 +404,7 @@ if (!empty($_POST['submit'])) {
             },
             async: false,
             success: function(response) {
+                $("#graficos").removeClass("hidden");
                 res = JSON.parse(response);
 
                 res["critico"] = res["critico"].map(i => Number(i));
