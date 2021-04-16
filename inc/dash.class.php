@@ -98,7 +98,16 @@ class NewDashboard
             AND t.is_deleted = 0
             AND t.type=1
             AND t.time_to_resolve >  t.closedate
-            ORDER BY t.id DESC LIMIT 1) as incidente");
+            ORDER BY t.id DESC LIMIT 1) as incidente,
+
+            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
+            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            AND t.is_deleted = 0
+            AND t.time_to_resolve >  t.closedate
+            ORDER BY t.id DESC LIMIT 1) as tickets_total
+            
+            ");
 
 
 
@@ -110,6 +119,7 @@ class NewDashboard
             $row['baixo'][] = $rows['baixo'];
             $row['requisicao'][] = $rows['requisicao'];
             $row['incidente'][] = $rows['incidente'];
+            $row['tickets_total'][] = $rows['tickets_total'];
         }
 
 
