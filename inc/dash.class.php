@@ -104,7 +104,9 @@ class NewDashboard
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
+            AND t.slas_id_ttr = '$sla'
             " . $gt . "
+            " . $impact . "
             ORDER BY t.id DESC LIMIT 1) as tickets_total
             
             ");
