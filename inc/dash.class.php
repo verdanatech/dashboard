@@ -84,7 +84,7 @@ class NewDashboard
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $impact . "
-            AND t.type=2
+            AND t.type= 2
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
             ORDER BY t.id DESC LIMIT 1) as requisicao,
@@ -107,6 +107,7 @@ class NewDashboard
             AND t.slas_id_ttr = '$sla'
             " . $gt . "
             " . $impact . "
+            AND t.time_to_resolve >  t.closedate
             ORDER BY t.id DESC LIMIT 1) as tickets_total
             
             ");

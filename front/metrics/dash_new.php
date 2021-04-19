@@ -26,40 +26,27 @@ if (!empty($_POST['submit'])) {
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>GLPI<?php echo __('Metrics', 'dashboard'); ?></title>
+    <title>GLPI - <?php echo __('Metrics', 'dashboard'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="dash.css" rel="stylesheet">
     <script>
         var themeColour = 'black';
     </script>
-
+    <link href="dash.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
     <script src="gauge.min.js"></script>
     <link rel="icon" href="../img/dash.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../img/dash.ico" type="image/x-icon" />
-
     <script src="../js/jquery.js"></script>
     <script src="moment.js"></script>
-    <script src="jquery.easypiechart.js"></script>
-
-    <script src="dash.css"></script>
-    <script src="chart.js"></script>
-    <script src="jquery-sparkline.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="controlfrog-plugins.js"></script>
     <script src="gauge.js"></script>
     <script src="../js/bootstrap-datepicker.js"></script>
     <link href="../css/datepicker.css" rel="stylesheet" type="text/css">
     <link href="../css/font-awesome.css" type="text/css" rel="stylesheet" />
     <link href="../inc/select2/select2.css" rel="stylesheet" type="text/css">
     <script src="../inc/select2/select2.js" type="text/javascript" language="javascript"></script>
-
     <script src="../js/themes/dark-unica.js" type="text/javascript"></script>
     <script src="../js/modules/no-data-to-display.js" type="text/javascript"></script>
-    <script src="reload.js"></script>
-    <script src="reload_param.js"></script>
-
 
 </head>
 
@@ -67,21 +54,21 @@ if (!empty($_POST['submit'])) {
 
     <a href="../index.php"><i class="fa fa-home" style="font-size:14pt;"></i><span></span></a>
 
-    <h3 align="center" style="color:white; font-size:40px; margin-bottom: 41px;">Dashboard por SLA</h3>
+    <h3 style="color:white; font-size:40px; margin-bottom: 41px;" align="center">Dashboard por SLA</h3>
 
     <div class="container" align="center">
-        <table style="border-collapse: separate; border-spacing: 14px 14px;" bgcolor="#efefef">
+        <table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef" class="tab_tickets" width="550">
             <tr>
-                <td style="width: 310px;">
-                    <?php
-                    $url = $_SERVER['REQUEST_URI'];
-                    $arr_url = explode("?", $url);
-                    $url2 = $arr_url[0];
-                    ?>
+                <?php
+                $url = $_SERVER['REQUEST_URI'];
+                $arr_url = explode("?", $url);
+                $url2 = $arr_url[0];
+                ?>
 
+                <td style="width: 200px;">
                     <table>
                         <tr>
-                            <td>
+                            <td style="width: 1x;"><label for=data1>Data Inicial</label>
                                 <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
                                     <input class="col-md-9 form-control" size="13" type="text" name="date1" value="<?php echo $data_ini; ?>">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
@@ -89,22 +76,21 @@ if (!empty($_POST['submit'])) {
                             </td>
                             <td>&nbsp;</td>
                             <td>
+                                <label for=data2>Data Final</label>
                                 <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
                                     <input class="col-md-9 form-control" size="13" type="text" name="date2" value="<?php echo $data_fin; ?>">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </td>
-                            <td>&nbsp;</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                         </tr>
                     </table>
-
-                    <script language="Javascript">
-                        $('#dp1').datepicker('update');
-                        $('#dp2').datepicker('update');
-                    </script>
                 </td>
-                <td style="margin-top:2px;">
-                    <select id="select_sla" name="sel_sla" class="js-example-basic-multiple js-states" style="width: 180px; text-transform: capitalize; margin-top:20px;">
+
+                <td style="margin-top:2px; width:10px;"></td>
+                <td>
+                    <label for="select_sla">Sla Tempo de Solução</label>
+                    <select id="select_sla" name="sel_sla" class="js-example-responsive js-states" style="width: 180px; text-transform: capitalize; margin-left:20px;">
                         <option>Selecione o SLA</option>
                         <?php
                         $sql_loc = "SELECT id, name AS name
@@ -114,13 +100,15 @@ if (!empty($_POST['submit'])) {
                         $result_loc = $DB->query($sql_loc);
 
                         foreach ($result_loc as $value) {
-                            echo "<option style='text-transform: capitalize; ' $selected  value=" . $value['id'] . ">" . ($value['name']) . "</option>";
+                            echo "<option style='text-transform: capitalize; '   value=" . $value['id'] . ">" . ($value['name']) . "</option>";
                         }
                         ?>
                     </select>
                 </td>
-                <td style="margin-top:2px;margin-left:20px;">
-                    <select class="form-control" name="type_impacto" id="type_impacto">
+                <td class="separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="margin-left: 10px;">
+                    <label for="type_impacto">Impacto</label>
+                    <select class="js-example-responsive js-states" name="type_impacto" id="type_impacto" style="width:180px;">
                         <option>Selecione o Impacto</option>
                         <option value="0">Todos</option>
                         <option value="5">Muito Alto</option>
@@ -132,8 +120,14 @@ if (!empty($_POST['submit'])) {
                 </td>
             </tr>
             <tr>
-                <td style="margin-top:4px;margin-left:180px;">
-                    <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple=" multiple" style="width: 308px;margin-top:4px; text-transform: capitalize;">
+                <td height="12px"></td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <label for="select_groups">Grupo Resolvedor</label>
+                    <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple="multiple" style="width: 308px;margin-top:4px; text-transform: capitalize;">
                         <option value="0">Todos</option>
                         <?php
                         $sql_tecgrup = "SELECT g.name,g.id as id_grupo
@@ -146,13 +140,14 @@ if (!empty($_POST['submit'])) {
                         $result_group = $DB->query($sql_tecgrup);
 
                         foreach ($result_group as $value) {
-
-                            $selected = (isset($_POST['sel_gr']) && $_POST['sel_gr'] == $value['id_grupo']) ? 'selected' : '';
-                            echo "<option style='text-transform: capitalize; ' $selected  value=" . $value['id_grupo'] . ">" . ($value['name']) . "</option>";
+                            echo "<option style='text-transform: capitalize; '   value=" . $value['id_grupo'] . ">" . ($value['name']) . "</option>";
                         }
                         ?>
                     </select>
-                <td style="margin-top:4px;">
+                </td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <td style="margin-left: 10px;">
+                    <label for="type_chamado">Tipo de Chamado</label>
                     <select style="width:180px;margin-top:4px;" class="form-control" name="type_chamado" id="type_chamado">
                         <option>Selecione o tipo do chamado</option>
                         <option value="0">Todos</option>
@@ -342,7 +337,7 @@ if (!empty($_POST['submit'])) {
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 </body>
@@ -360,14 +355,17 @@ if (!empty($_POST['submit'])) {
 
         if (!groups) {
             alert("Selecione a opção de grupos");
-            document.location.reload(true)
+            groups.focus();
+
+            return;
         }
         if (impacto == "Selecione o Impacto") {
             impacto = 0;
         }
         if (sla == "Selecione o SLA") {
             alert("Selecione o SLA");
-            document.location.reload(true)
+            sla.focus();
+            return;
         }
         if (chamado == "Selecione o tipo do chamado") {
             chamado = 0;
@@ -377,6 +375,7 @@ if (!empty($_POST['submit'])) {
     }
 
     function buscarDados(data1, data2, groups, sla, chamado, impacto) {
+
         $.ajax({
             url: 'ajax/ajax_dash.php',
             type: 'GET',
@@ -388,50 +387,51 @@ if (!empty($_POST['submit'])) {
                 chamado: chamado,
                 impacto: impacto
             },
-            async: false,
+            async: true,
             success: function(response) {
 
 
 
                 $("#graficos").removeClass("hidden");
                 res = JSON.parse(response);
+                var critico = parseInt(...res["critico"], 10);
+                var medio = parseInt(...res["medio"], 10);
+                var alto = parseInt(...res["alto"], 10);
+                var baixo = parseInt(...res["baixo"], 10);
+                var requisicao = parseInt(...res["requisicao"], 10);
+                var incidentes = parseInt(...res["incidente"], 10);
+                var total = parseInt(...res["tickets_total"], 10);
 
-                res["critico"] = res["critico"].map(i => Number(i));
-                res['medio'] = res['medio'].map(i => Number(i));;
-                res['alto'] = res['alto'].map(i => Number(i));
-                res['baixo'] = res['baixo'].map(i => Number(i));
-                res['requisicao'] = res['requisicao'].map(i => Number(i));
-                res['incidente'] = res['incidente'].map(i => Number(i));
-
-                initGauge(0, res["tickets_total"], ...res["critico"]);
+                initGauge(0, total, critico);
                 $('#div_grafic01').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
 
-                initGauge2(0, res["tickets_total"], ...res["medio"]);
+                initGauge2(0, total, medio);
                 $('#div_grafic02').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
 
-                initGauge3(0, res["tickets_total"], ...res["alto"]);
+                initGauge3(0, total, alto);
                 $('#div_grafic03').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
 
-                initGauge4(0, res["tickets_total"], ...res["baixo"]);
+                initGauge4(0, total, baixo);
                 $('#div_grafic04').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
 
-                initGauge5(0, res["tickets_total"], ...res["requisicao"]);
+                initGauge5(0, total, requisicao);
                 $('#div_grafic05').click(function() {
                     window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
 
-                initGauge6(0, res["tickets_total"], ...res["incidente"]);
+                initGauge6(0, total, incidentes);
                 $('#div_grafic06').click(function() {
                     window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
                 });
+
             },
             error: (error) => {
                 console.log(JSON.stringify(error));
