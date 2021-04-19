@@ -155,6 +155,7 @@ if (!empty($_POST['submit'])) {
                 <td style="margin-top:4px;">
                     <select style="width:180px;margin-top:4px;" class="form-control" name="type_chamado" id="type_chamado">
                         <option>Selecione o tipo do chamado</option>
+                        <option value="0">Todos</option>
                         <option value="1">Incidente</option>
                         <option value="2">Requisição</option>
                     </select>
@@ -405,7 +406,7 @@ if (!empty($_POST['submit'])) {
             async: false,
             success: function(response) {
 
-                console.log(response);
+
 
                 $("#graficos").removeClass("hidden");
                 res = JSON.parse(response);
