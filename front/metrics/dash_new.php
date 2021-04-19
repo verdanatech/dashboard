@@ -26,7 +26,7 @@ if (!empty($_POST['submit'])) {
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>GLPI - <?php echo __('Metrics', 'dashboard'); ?></title>
+    <title>GLPI<?php echo __('Metrics', 'dashboard'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -209,9 +209,9 @@ if (!empty($_POST['submit'])) {
         <div class="row">
 
             <!-- Grafico-row-1 01 -->
-            <div style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic01" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf1"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Críticos', 'dashboard'); ?> - </p>
+                    <p id="graf1"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Críticos', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge1" id="cf-gauge-1">
                     <div class="val-current">
@@ -231,9 +231,9 @@ if (!empty($_POST['submit'])) {
             </div>
 
             <!-- Grafico-row-1 02 -->
-            <div style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic02" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf2"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?> - </p>
+                    <p id="graf2"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge2" id="cf-gauge-2">
                     <div class="val-current">
@@ -253,9 +253,9 @@ if (!empty($_POST['submit'])) {
             </div>
 
             <!-- Grafico-row-1 03 -->
-            <div style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic03" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf3"><span></span><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?> - </p>
+                    <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge3" id="cf-gauge-3">
                     <div class="val-current">
@@ -278,9 +278,9 @@ if (!empty($_POST['submit'])) {
         <div class="row">
 
             <!-- Grafico-row-2 01 -->
-            <div style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic04" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf4"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?> - </p>
+                    <p id="graf4"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge4" id="cf-gauge-4">
                     <div class="val-current">
@@ -299,9 +299,9 @@ if (!empty($_POST['submit'])) {
             </div>
 
             <!-- Grafico-row-2 02 -->
-            <div style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic05" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf5"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?> - </p>
+                    <p style="font-size:14px;" id="graf5"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge5" id="cf-gauge-5">
                     <div class="val-current">
@@ -320,9 +320,9 @@ if (!empty($_POST['submit'])) {
             </div>
 
             <!-- Grafico-row-2 03 -->
-            <div style="margin: 2%;" class=" col-md-4 cf-item">
+            <div id="div_grafic06" style="margin: 2%; cursor: pointer;" class=" col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf6"><span></span><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?> - </p>
+                    <p style="font-size:14px;" id="graf6"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?></p>
                 </header>
                 <div class="content cf-gauge6" id="cf-gauge-6">
                     <div class="val-current">
@@ -341,12 +341,7 @@ if (!empty($_POST['submit'])) {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
+        
     </div>
 
 </body>
@@ -377,20 +372,10 @@ if (!empty($_POST['submit'])) {
             chamado = 0;
         }
 
-
-
         buscarDados(data1, data2, groups, sla, chamado, impacto);
     }
 
-
-
     function buscarDados(data1, data2, groups, sla, chamado, impacto) {
-        $("#graf1 a").empty();
-        $("#graf2 a").empty()
-        $("#graf3 a").empty()
-        $("#graf4 a").empty()
-        $("#graf5 a").empty()
-        $("#graf6 a").empty()
         $.ajax({
             url: 'ajax/ajax_dash.php',
             type: 'GET',
@@ -416,35 +401,36 @@ if (!empty($_POST['submit'])) {
                 res['baixo'] = res['baixo'].map(i => Number(i));
                 res['requisicao'] = res['requisicao'].map(i => Number(i));
                 res['incidente'] = res['incidente'].map(i => Number(i));
-                var html = "";
+
                 initGauge(0, res["tickets_total"], ...res["critico"]);
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf1`).append(html);
+                $('#div_grafic01').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
+
                 initGauge2(0, res["tickets_total"], ...res["medio"]);
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf2`).append(html);
-                initGauge3(0, res["tickets_total"], ...res["alto"])
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf3`).append(html);
-                initGauge4(0, res["tickets_total"], ...res["baixo"])
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf4`).append(html);
-                initGauge5(0, res["tickets_total"], ...res["requisicao"])
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf5`).append(html);
-                initGauge6(0, res["tickets_total"], ...res["incidente"])
-                html = `<a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0'
-                " target='_blank'style="font-size:10px">Abrir Chamados</a>`;
-                $(`#graf6`).append(html);
+                $('#div_grafic02').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
 
+                initGauge3(0, res["tickets_total"], ...res["alto"]);
+                $('#div_grafic03').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
 
+                initGauge4(0, res["tickets_total"], ...res["baixo"]);
+                $('#div_grafic04').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php??is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
 
+                initGauge5(0, res["tickets_total"], ...res["requisicao"]);
+                $('#div_grafic05').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
 
+                initGauge6(0, res["tickets_total"], ...res["incidente"]);
+                $('#div_grafic06').click(function() {
+                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
+                });
             },
             error: (error) => {
                 console.log(JSON.stringify(error));
