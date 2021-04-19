@@ -186,6 +186,10 @@ function margins()
 			min-width: 45px !important;
 			display: inline-block !important
 		}
+
+		a.btn>span {
+			color: #666;
+		}
 	</style>
 
 	<?php echo '<link rel="stylesheet" type="text/css" href="../css/style-' . $_SESSION['style'] . '">';  ?>
