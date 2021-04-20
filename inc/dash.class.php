@@ -13,7 +13,6 @@ class NewDashboard
         $group = $dados['groups'];
         $chamado = $dados['chamado'];
         $impacto = $dados['impacto'];
-        $groups = implode(",", $group);
 
         $data_atual = date("Y-m-d");
         $slaid = "";
@@ -26,7 +25,8 @@ class NewDashboard
             $slaid = "AND t.type = $chamado";
         }
 
-        if ($groups != 0) {
+        if ($group != 0) {
+            $groups = implode(",", $group);
             $gt = "AND gt.groups_id IN ($groups)";
         }
 

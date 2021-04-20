@@ -10,7 +10,13 @@ html, body, .container-fluid {
     height: 50%;
 }
 */
-
+a:link,
+a:visited,
+a:active
+a:hover {
+    text-decoration: none;
+    color: inherit; 
+}
 .fa-home {
 margin-left: 40px;
 margin-top: 20px;
@@ -24,11 +30,7 @@ body {
   color: #1f1d1d;  /*#f2f2f2; //#25394d;*/
   font-size: 12px; }
 
-a {
-  color: #16a085; }
 
-a:hover {
-  color: #1abc9c; }
 
 .cf-container {
   width: 100%;

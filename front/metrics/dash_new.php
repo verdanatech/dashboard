@@ -89,7 +89,7 @@ if (!empty($_POST['submit'])) {
 
                 <td style="margin-top:2px; width:10px;"></td>
                 <td>
-                    <label for="select_sla">Sla Tempo de Solução</label>
+                    <label for="select_sla">SLA Tempo de Solução</label>
                     <select id="select_sla" name="sel_sla" class="js-example-responsive js-states" style="width: 180px; text-transform: capitalize; margin-left:20px;">
                         <option>Selecione o SLA</option>
                         <?php
@@ -128,7 +128,7 @@ if (!empty($_POST['submit'])) {
                 <td>
                     <label for="select_groups">Grupo Resolvedor</label>
                     <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple="multiple" style="width: 308px;margin-top:4px; text-transform: capitalize;">
-                        <option value="0">Todos</option>
+
                         <?php
                         $sql_tecgrup = "SELECT g.name,g.id as id_grupo
 												from glpi_tickets as t
@@ -205,136 +205,155 @@ if (!empty($_POST['submit'])) {
         <div class="row">
 
             <!-- Grafico-row-1 01 -->
+
             <div id="div_grafic01" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf1"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Críticos', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge1" id="cf-gauge-1">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-1-m"></div>
-                    </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
-                    </div>
+                <a style="text-decoration:none" id="graf01" target="_blank">
+                    <div class="content cf-gauge1" id="cf-gauge-1">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-1-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-1-a"></div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-1-b"></div>
+                        </div>
 
-                </div>
+                    </div>
             </div>
+            </a>
 
             <!-- Grafico-row-1 02 -->
+
             <div id="div_grafic02" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf2"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge2" id="cf-gauge-2">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-2-m"></div>
-                    </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
+                <a style="text-decoration:none" id="graf02" target="_blank">
+                    <div class="content cf-gauge2" id="cf-gauge-2">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-2-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-2-a"></div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
+
                     </div>
 
-                </div>
             </div>
+            </a>
 
             <!-- Grafico-row-1 03 -->
+
             <div id="div_grafic03" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge3" id="cf-gauge-3">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-3-m"></div>
+                <a style="text-decoration:none" id="graf03" target="_blank">
+                    <div class="content cf-gauge3" id="cf-gauge-3">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-3-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-3-a"></div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
                     </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
-                    </div>
-                </div>
 
             </div>
+            </a>
         </div>
 
         <div class="row">
 
             <!-- Grafico-row-2 01 -->
+
             <div id="div_grafic04" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf4"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge4" id="cf-gauge-4">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-4-m"></div>
+                <a style="text-decoration:none" id="graf04" target="_blank">
+                    <div class="content cf-gauge4" id="cf-gauge-4">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-4-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-4-a"> </div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
                     </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- Grafico-row-2 02 -->
+
             <div id="div_grafic05" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf5"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge5" id="cf-gauge-5">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-5-m"></div>
+                <a style="text-decoration:none" id="graf05" target="_blank">
+                    <div class="content cf-gauge5" id="cf-gauge-5">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-5-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-5-a"> </div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
                     </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- Grafico-row-2 03 -->
+
             <div id="div_grafic06" style="margin: 2%; cursor: pointer;" class=" col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf6"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?></p>
                 </header>
-                <div class="content cf-gauge6" id="cf-gauge-6">
-                    <div class="val-current">
-                        <div class="metric" id="cf-gauge-6-m"></div>
-                    </div>
-                    <div class="canvas">
-                        <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small"></div>
-                    </div>
+                <a style="text-decoration:none" id="graf06" target="_blank">
+                    <div class="content cf-gauge6" id="cf-gauge-6">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-6-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-6-a"> </div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
 
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -353,18 +372,14 @@ if (!empty($_POST['submit'])) {
         var sla = $("#select_sla").val();
         var impacto = $("#type_impacto").val();
 
-        if (!groups) {
-            alert("Selecione a opção de grupos");
-            groups.focus();
-
-            return;
+        if (groups == " ") {
+            groups = 0;
         }
         if (impacto == "Selecione o Impacto") {
             impacto = 0;
         }
         if (sla == "Selecione o SLA") {
             alert("Selecione o SLA");
-            sla.focus();
             return;
         }
         if (chamado == "Selecione o tipo do chamado") {
@@ -387,10 +402,10 @@ if (!empty($_POST['submit'])) {
                 chamado: chamado,
                 impacto: impacto
             },
-            async: true,
+            async: false,
             success: function(response) {
 
-
+                var grupos = `${groups}`;
 
                 $("#graficos").removeClass("hidden");
                 res = JSON.parse(response);
@@ -401,36 +416,102 @@ if (!empty($_POST['submit'])) {
                 var requisicao = parseInt(...res["requisicao"], 10);
                 var incidentes = parseInt(...res["incidente"], 10);
                 var total = parseInt(...res["tickets_total"], 10);
+                if (groups == null) {
+                    $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                if (groups == null) {
+                    $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=&&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                if (groups == null) {
+                    $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=&&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                if (groups == null) {
+                    $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                if (groups == null) {
+                    $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                if (groups == null) {
+                    $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
+                } else {
+                    $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
+                }
+                var opts = {
+                    angle: 0.15,
+                    lineWidth: 0.44,
+                    radiusScale: 0.90,
+                    pointer: {
+                        length: 0.48,
+                        strokeWidth: 0.035,
+                        color: '#f2f2f2'
+                    },
+                    limitMax: false,
+                    limitMin: false,
+                    colorStart: '#898989',
+                    colorStop: '#15094F',
+                    strokeColor: '#898989',
+                    generateGradient: false,
+                    highDpiSupport: false,
+                };
+                var target = document.getElementById('cf-gauge-1-g');
+                var gauge = new Gauge(target).setOptions(opts);
+                gauge.maxValue = total;
+                gauge.setMinValue(0);
+                gauge.animationSpeed = 32;
+                gauge.set(critico);
+                document.getElementById("cf-gauge-1-m").innerHTML = critico;
+                document.getElementById("cf-gauge-1-a").innerHTML = total;
+                var target1 = document.getElementById('cf-gauge-2-g');
+                var gauge1 = new Gauge(target1).setOptions(opts);
+                gauge1.maxValue = total;
+                gauge1.setMinValue(0);
+                gauge1.animationSpeed = 32;
+                gauge1.set(medio);
+                document.getElementById("cf-gauge-2-m").innerHTML = medio;
+                document.getElementById("cf-gauge-2-a").innerHTML = total;
+                var target2 = document.getElementById('cf-gauge-3-g');
+                var gauge2 = new Gauge(target2).setOptions(opts);
+                gauge2.maxValue = total;
+                gauge2.setMinValue(0);
+                gauge2.animationSpeed = 32;
+                gauge2.set(alto);
+                document.getElementById("cf-gauge-3-m").innerHTML = alto;
+                document.getElementById("cf-gauge-3-a").innerHTML = total;
+                var target3 = document.getElementById('cf-gauge-4-g');
+                var gauge3 = new Gauge(target3).setOptions(opts);
+                gauge3.maxValue = total;
+                gauge3.setMinValue(0);
+                gauge3.animationSpeed = 32;
+                gauge3.set(baixo);
+                document.getElementById("cf-gauge-4-m").innerHTML = baixo;
+                document.getElementById("cf-gauge-4-a").innerHTML = total;
+                var target4 = document.getElementById('cf-gauge-5-g');
+                var gauge4 = new Gauge(target4).setOptions(opts);
+                gauge4.maxValue = total;
+                gauge4.setMinValue(0);
+                gauge4.animationSpeed = 32;
+                gauge4.set(requisicao);
+                document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
+                document.getElementById("cf-gauge-5-a").innerHTML = total;
+                var target5 = document.getElementById('cf-gauge-6-g');
+                var gauge5 = new Gauge(target5).setOptions(opts);
+                gauge5.maxValue = total;
+                gauge5.setMinValue(0);
+                gauge5.animationSpeed = 32;
+                gauge5.set(incidentes);
+                document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
+                document.getElementById("cf-gauge-6-a").innerHTML = total;
 
-                initGauge(0, total, critico);
-                $('#div_grafic01').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=6&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
-
-                initGauge2(0, total, medio);
-                $('#div_grafic02').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=3&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
-
-                initGauge3(0, total, alto);
-                $('#div_grafic03').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=4&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
-
-                initGauge4(0, total, baixo);
-                $('#div_grafic04').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=3&criteria[5][searchtype]=equals&criteria[5][value]=2&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
-
-                initGauge5(0, total, requisicao);
-                $('#div_grafic05').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
-
-                initGauge6(0, total, incidentes);
-                $('#div_grafic06').click(function() {
-                    window.open(`<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[6][link]=AND&criteria[6][field]=12&criteria[6][searchtype]=equals&criteria[6][value]=6&criteria[7][link]=AND&criteria[7][field]=14&criteria[7][searchtype]=equals&criteria[7][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
-                });
 
             },
             error: (error) => {
