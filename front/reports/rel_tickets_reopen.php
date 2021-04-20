@@ -233,7 +233,7 @@ function margins()
 											</table>
 
 										</td>
-										<td class="separator">&nbsp;</td>
+										<td class="separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 										<td style="margin-top:2px; width:100px;"><?php echo __('Entity'); ?>: </td>
 										<td style="margin-top:2px;">
 											<?php
