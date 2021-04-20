@@ -156,11 +156,10 @@ a:hover { color: #000099; }
 				<td style="margin-top:2px;">
 		<?php		
 
-		$sql_ent = "
-		SELECT id, completename AS name
-		FROM `glpi_entities`
-		WHERE id IN (".$ents.")
-		ORDER BY `name` ASC ";
+		$sql_ent = "SELECT id, completename AS name
+					FROM glpi_entities
+					WHERE id IN (".$ents.")
+					ORDER BY name ASC ";
 
 		$result_ent = $DB->query($sql_ent);
 
@@ -168,11 +167,13 @@ a:hover { color: #000099; }
 		$arr_ent[0] = "-- ". __('Select a entity', 'dashboard') . " --" ;
 
 		//$DB->data_seek($result_ent, 0) ;
-		while ($row_result = $DB->fetch_assoc($result_ent))
-	    {
-	    	$v_row_result = $row_result['id'];
-	    	$arr_ent[$v_row_result] = $row_result['name'] ;
-	    }
+		if($result_ent != false){
+			while ($row_result = $DB->fetch_assoc($result_ent))
+			{
+				$v_row_result = $row_result['id'];
+				$arr_ent[$v_row_result] = $row_result['name'] ;
+			}
+		}
 
 		$name = 'sel_ent';
 		$options = $arr_ent;
