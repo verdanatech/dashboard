@@ -1,5 +1,7 @@
 <?php
 
+require "helper.class.php";
+
 class PluginDashboardTicktsReopened
 {
 

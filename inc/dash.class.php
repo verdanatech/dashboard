@@ -13,7 +13,6 @@ class NewDashboard
         $group = $dados['groups'];
         $chamado = $dados['chamado'];
         $impacto = $dados['impacto'];
-        $groups = implode(",", $group);
 
         $data_atual = date("Y-m-d");
         $slaid = "";
@@ -26,7 +25,8 @@ class NewDashboard
             $slaid = "AND t.type = $chamado";
         }
 
-        if ($groups != 0) {
+        if ($group != 0) {
+            $groups = implode(",", $group);
             $gt = "AND gt.groups_id IN ($groups)";
         }
 
@@ -84,7 +84,7 @@ class NewDashboard
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $impact . "
-            AND t.type=2
+            AND t.type= 2
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
             ORDER BY t.id DESC LIMIT 1) as requisicao,
@@ -107,6 +107,7 @@ class NewDashboard
             AND t.slas_id_ttr = '$sla'
             " . $gt . "
             " . $impact . "
+            AND t.time_to_resolve >  t.closedate
             ORDER BY t.id DESC LIMIT 1) as tickets_total
             
             ");
