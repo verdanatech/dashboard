@@ -74,7 +74,7 @@ class Relatorio_SLA
             " . $slaid . "
             AND t.is_deleted = 0
             AND t.status < 5
-            AND t.time_to_resolve > $data_atual    
+            AND t.time_to_resolve > '$data_atual  00:00:00'   
            ORDER BY t.id DESC LIMIT 1) AS NRD,
                         
             (SELECT COUNT(t.id) FROM glpi_tickets as t
@@ -84,8 +84,8 @@ class Relatorio_SLA
             " . $slaid . "
             " . $gt . "
             AND t.is_deleted = 0
-            AND t.status <5
-            AND t.time_to_resolve < $data_atual
+            AND t.status < 5
+            AND t.time_to_resolve < '$data_atual  00:00:00'   
             ORDER BY t.id DESC LIMIT 1) as NRF,
             
             (SELECT COUNT(t.id) FROM glpi_tickets as t

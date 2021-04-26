@@ -74,11 +74,6 @@ if (!empty($_POST['submit'])) {
             text-decoration: none;
         }
 
-        .container {
-            margin-left: 30%;
-            margin-top: 20px;
-        }
-
         a:link,
         a:visited,
         a:active {
@@ -95,10 +90,7 @@ if (!empty($_POST['submit'])) {
 
         }
 
-        .table_search {
-            border-spacing: 20px 10px;
-            margin: auto;
-        }
+
 
         .fa fa-home {
             margin-left: 20px;
@@ -106,6 +98,10 @@ if (!empty($_POST['submit'])) {
 
         .displayNone {
             display: none;
+        }
+
+        label {
+            color: #fff;
         }
     </style>
 
@@ -127,21 +123,22 @@ if (!empty($_POST['submit'])) {
                         <div id="titulo_rel">
                             <?php echo __('Relatório', 'dashboard') . '  ' . __('by SLA', 'dashboard') ?> - <?php echo __('Time to resolve'); ?>
                         </div>
-                        <div class="container" style="margin: auto;">
+                        <div class="container" align="center">
 
-                            <table class="table_search">
+                            <table border="0" cellspacing="0" cellpadding="3" bgcolor="#efefef" class="tab_tickets" width="550">
                                 <tr>
-                                    <td style="width: 322px; margin: 10px;">
 
-                                        <?php
-                                        $url = $_SERVER['REQUEST_URI'];
-                                        $arr_url = explode("?", $url);
-                                        $url2 = $arr_url[0];
-                                        ?>
 
+                                    <?php
+                                    $url = $_SERVER['REQUEST_URI'];
+                                    $arr_url = explode("?", $url);
+                                    $url2 = $arr_url[0];
+                                    ?>
+                                    <td style="width: 200px;">
                                         <table>
                                             <tr>
                                                 <td>
+                                                    <label for=" dp1">Data Inicial</label>
                                                     <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
                                                         <input class="col-md-9 form-control" size="9" type="text" name="date1" value="<?php echo $data_ini; ?>">
                                                         <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
@@ -149,20 +146,25 @@ if (!empty($_POST['submit'])) {
                                                 </td>
                                                 <td>&nbsp;</td>
                                                 <td>
+                                                    <label for="dp2">Data Final</label>
                                                     <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
                                                         <input class="col-md-9 form-control" size="9" type="text" name="date2" value="<?php echo  $data_fin; ?>">
                                                         <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </td>
+                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                             </tr>
                                         </table>
-
-                                        <script language="Javascript">
-                                            $('#dp1').datepicker('update');
-                                            $('#dp2').datepicker('update');
-                                        </script>
                                     </td>
-                                    <td style="margin-top:2px;">
+
+                                    <script language="Javascript">
+                                        $('#dp1').datepicker('update');
+                                        $('#dp2').datepicker('update');
+                                    </script>
+
+                                    <td style="margin-top:2px; width:10px;"></td>
+                                    <td>
+                                        <label for="select_sla">SLA Tempo de Solução</label>
                                         <select id="select_sla" name="sel_sla" class="js-example-basic-multiple js-states" style="width: 180px; text-transform: capitalize; margin-top:20px;">
                                             <option>Selecione o SLA</option>
                                             <?php
@@ -178,13 +180,14 @@ if (!empty($_POST['submit'])) {
                                             ?>
                                         </select>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td height="12px"></td>
+                                </tr>
 
-                                </tr>
                                 <tr>
-                                    <td style="height: 12px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="margin-top:10px;margin-left:180px;">
+                                    <td>
+                                        <label for="select_groups">Grupo Resolvedor</label>
                                         <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple=" multiple" style="width: 300px; text-transform: capitalize; margin-top:20px;">
                                             <option value="0">Todos</option>
                                             <?php
@@ -205,9 +208,10 @@ if (!empty($_POST['submit'])) {
                                             ?>
                                         </select>
                                     </td>
-
-                                    <td style="margin-top:2px;">
-                                        <select style="width:180px;" class="form-control" name="type_impacto" id="type_impacto">
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                                    <td style="margin-left: 20px;">
+                                        <label for="type_impacto">Impacto</label>
+                                        <select style="width:180px;margin-top:4px" class="form-control" name="type_impacto" id="type_impacto">
                                             <option>Selecione o Impacto</option>
                                             <option value="0">Todos</option>
                                             <option value="5">Muito Alto</option>
@@ -218,20 +222,23 @@ if (!empty($_POST['submit'])) {
                                         </select>
                                     </td>
                                 </tr>
+                            </table>
+                        </div>
+
+                        <div style="margin: 10px 0px 40px 0px;">
+                            <table style="margin: auto; border-collapse: separate; border-spacing: 10px 5px;">
                                 <tr>
-                                    <td height=" 15px">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" align="center">
+                                    <td>
                                         <button class="btn btn-primary btn-sm" type="submit" onclick="recebeDados()">Consultar</button>
+                                    </td>
+                                    <td>
                                         <button class=" btn btn-primary btn-sm" type="button" name="Limpar" value="Limpar" onclick="location.href='<?php echo $url2 ?>'"> <i class="fa fa-trash-o"></i>&nbsp; <?php echo __('Clean', 'dashboard'); ?> </button>
                                     </td>
                                 </tr>
                             </table>
-
-
                         </div>
+
+
 
 
 
@@ -270,9 +277,7 @@ if (!empty($_POST['submit'])) {
             <script type="text/javascript">
                 $(document).ready(function() {
 
-                    $("#sel1").select2({
-                        dropdownAutoWidth: true
-                    });
+
 
                     $("#select_groups").select2({
                         placeholder: 'Selecione o Grupo Resolvedor',
@@ -302,14 +307,14 @@ if (!empty($_POST['submit'])) {
                     }
                     if (groups == "") {
                         alert("Selecione a opção de grupos");
-                        document.location.reload(true)
+                        return
                     }
                     if (impacto == "Selecione o Impacto") {
                         impacto = 0;
                     }
                     if (sla == "Selecione o SLA") {
                         alert("Selecione o SLA");
-                        document.location.reload(true)
+                        return
                     }
 
                     buscarDados(data1, data2, groups, impacto, sla);
