@@ -90,7 +90,9 @@ if (!empty($_POST['submit'])) {
 
         }
 
-
+        div#sel {
+            ;
+        }
 
         .fa fa-home {
             margin-left: 20px;
@@ -134,7 +136,7 @@ if (!empty($_POST['submit'])) {
                                     $arr_url = explode("?", $url);
                                     $url2 = $arr_url[0];
                                     ?>
-                                    <td style="width: 200px;">
+                                    <td style="width: 320px;">
                                         <table>
                                             <tr>
                                                 <td>
@@ -186,9 +188,9 @@ if (!empty($_POST['submit'])) {
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td style="width: 280px">
                                         <label for="select_groups">Grupo Resolvedor</label>
-                                        <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple=" multiple" style="width: 300px; text-transform: capitalize; margin-top:20px;">
+                                        <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple="multiple" style="width: 300px; text-transform: capitalize; margin-top:20px;">
                                             <option value="0">Todos</option>
                                             <?php
                                             $sql_tecgrup = "SELECT g.name,g.id as id_grupo
@@ -208,10 +210,10 @@ if (!empty($_POST['submit'])) {
                                             ?>
                                         </select>
                                     </td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp; </td>
-                                    <td style="margin-left: 20px;">
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>
                                         <label for="type_impacto">Impacto</label>
-                                        <select style="width:180px;margin-top:4px" class="form-control" name="type_impacto" id="type_impacto">
+                                        <select style="width:200px;margin-top:4px" class="form-control" name="type_impacto" id="type_impacto">
                                             <option>Selecione o Impacto</option>
                                             <option value="0">Todos</option>
                                             <option value="5">Muito Alto</option>
@@ -349,28 +351,60 @@ if (!empty($_POST['submit'])) {
                                 $(`#table_painel`).append(html);
                             });
                             $.each(res["dentro"], function(i, val) {
-                                html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'>${val}</a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'>${val}</a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'>${val}</a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
                             });
                             $.each(res["fora"], function(i, val) {
-                                html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
+
                             });
                             $.each(res["NRD"], function(i, val) {
-                                html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
                             });
                             $.each(res["NRF"], function(i, val) {
-                                html = `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
                             });
+
                             $.each(res["PED"], function(i, val) {
-                                html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
                             });
                             $.each(res["PEF"], function(i, val) {
-                                html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                $(`#${i}`).append(html);
+                                if (groups != 0) {
+                                    html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                } else {
+                                    html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
+                                    $(`#${i}`).append(html);
+                                }
                             });
 
                             $('#table_painel')

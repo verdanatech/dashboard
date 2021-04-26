@@ -96,7 +96,7 @@ class Relatorio_SLA
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status = 4  
-            AND t.time_to_resolve > $data_atual
+            AND t.time_to_resolve > '$data_atual  00:00:00'  
             ORDER BY t.id DESC LIMIT 1) as PED,
             
             (SELECT COUNT(t.id) FROM glpi_tickets as t
@@ -107,7 +107,7 @@ class Relatorio_SLA
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status =4
-            AND t.time_to_resolve < $data_atual
+            AND t.time_to_resolve < '$data_atual  00:00:00'  
             ORDER BY t.id DESC LIMIT 1) as PEF");
 
 
