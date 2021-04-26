@@ -213,7 +213,7 @@ if (!empty($_POST['submit'])) {
                                     <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                     <td>
                                         <label for="type_impacto">Impacto</label>
-                                        <select style="width:200px;margin-top:4px" class="form-control" name="type_impacto" id="type_impacto">
+                                        <select style="width:180px;margin-top:4px" class="form-control" name="type_impacto" id="type_impacto">
                                             <option>Selecione o Impacto</option>
                                             <option value="0">Todos</option>
                                             <option value="5">Muito Alto</option>
