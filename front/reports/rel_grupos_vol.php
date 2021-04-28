@@ -288,7 +288,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											 AND glpi_tickets.is_deleted = 0
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-											 AND glpi_tickets.date_creation " . $datas2 . "
+											 AND glpi_tickets.date " . $datas2 . "
 											 " . $entidade . " 
 											 ORDER BY glpi_tickets.id DESC LIMIT 1";
 
@@ -304,7 +304,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 												 AND glpi_tickets.is_deleted = 0
 												 AND glpi_tickets.status IN " . $status_pending . "
 												 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-												 AND glpi_tickets.date_creation " . $datas2 . "
+												 AND glpi_tickets.date " . $datas2 . "
 												 " . $entidade . "  
 												 ORDER BY glpi_tickets.id DESC LIMIT 1";
 
@@ -320,7 +320,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											 AND glpi_tickets.is_deleted = 0
 											 AND glpi_tickets.status IN {$status_solved_and_closed}
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-											 AND glpi_tickets.date_creation " . $datas2 . "
+											 AND glpi_tickets.date " . $datas2 . "
 											 " . $entidade . " 
 											 ORDER BY glpi_tickets.id DESC LIMIT 1";
 
@@ -337,7 +337,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											" . $entidade . "			
-											AND glpi_tickets.date_creation " . $datas2 . "
+											AND glpi_tickets.date " . $datas2 . "
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
 								$result_salved_and_closed = $DB->query($sql_salved_and_closed) or die("erro_ab");
@@ -358,7 +358,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											AND glpi_tickets.time_to_resolve > '{$day}'
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											" . $entidade . "			
-											AND glpi_tickets.date_creation " . $datas2 . "
+											AND glpi_tickets.date " . $datas2 . "
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
 								$result_salved_and_closed_dp = $DB->query($sql_salved_and_closed_dp) or die("erro_ab");
@@ -374,7 +374,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											AND glpi_tickets.time_to_resolve < '{$day}'
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											" . $entidade . "			
-											AND glpi_tickets.date_creation " . $datas2 . " 
+											AND glpi_tickets.date " . $datas2 . " 
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
 								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_ab");
