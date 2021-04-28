@@ -418,7 +418,7 @@ if (!empty($_POST['submit'])) {
                                 pagingType: "full_numbers",
                                 deferRender: true,
                                 sorting: [
-                                    [0, 'desc'],
+                                    [0, 'asc'],
                                     [1, 'desc'],
                                     [2, 'desc'],
                                     [3, 'desc'],

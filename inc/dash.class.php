@@ -12,14 +12,14 @@ class NewDashboard
         $sla = $dados['sla'];
         $group = $dados['groups'];
         $chamado = $dados['chamado'];
-        $impacto = $dados['impacto'];
+        $prioridade = $dados['prioridade'];
 
         $data_atual = date("Y-m-d");
         $slaid = "";
         $gt = "";
-        $impact = "";
-        if ($impacto != 0) {
-            $impact = "AND t.impact LIKE '%$impacto%'";
+        $priority = "";
+        if ($prioridade != 0) {
+            $priority = "AND t.priority LIKE '%$prioridade%'";
         }
         if ($chamado != 0) {
             $slaid = "AND t.type = $chamado";
@@ -33,22 +33,22 @@ class NewDashboard
         $query = $DB->query("SELECT
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
-            " . $impact . "
+            " . $priority . "
             AND t.time_to_resolve > t.closedate 
             AND t.priority = 6
             ORDER BY t.id DESC LIMIT 1) AS critico,
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
-            " . $impact . "
+            " . $priority . "
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
             AND t.priority = 3 
@@ -56,11 +56,11 @@ class NewDashboard
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
-            " . $impact . "
+            " . $priority . "
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
             AND t.priority = 4 
@@ -68,11 +68,11 @@ class NewDashboard
 
            (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
-            " . $impact . "
+            " . $priority . "
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
             AND t.priority = 2 
@@ -80,10 +80,9 @@ class NewDashboard
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $impact . "
             AND t.type= 2
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
@@ -91,10 +90,9 @@ class NewDashboard
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $impact . "
             AND t.is_deleted = 0
             AND t.type=1
             AND t.time_to_resolve >  t.closedate
@@ -102,11 +100,10 @@ class NewDashboard
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
             AND t.slas_id_ttr = '$sla'
             " . $gt . "
-            " . $impact . "
             AND t.time_to_resolve >  t.closedate
             ORDER BY t.id DESC LIMIT 1) as tickets_total
             
