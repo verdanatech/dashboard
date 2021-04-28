@@ -49,7 +49,7 @@ class Relatorio_SLA
             $query = $DB->query("SELECT
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
@@ -58,7 +58,7 @@ class Relatorio_SLA
             
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
@@ -68,7 +68,7 @@ class Relatorio_SLA
         
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
@@ -79,7 +79,7 @@ class Relatorio_SLA
                         
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "
@@ -90,7 +90,7 @@ class Relatorio_SLA
             
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "
@@ -101,7 +101,7 @@ class Relatorio_SLA
             
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "

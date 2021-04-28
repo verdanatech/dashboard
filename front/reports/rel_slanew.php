@@ -343,6 +343,7 @@ if (!empty($_POST['submit'])) {
 
                             res = JSON.parse(response);
 
+                            console.log(res);
                             $('#table_painel').show();
                             $("#cont-table").removeClass("displayNone");
 
