@@ -351,7 +351,7 @@ if (!empty($_POST['submit'])) {
                                 let data = val.replace("/", "-") + "-" + data1.split("-")[0];
 
                                 let html = `<tr id="${i}">`;
-                                
+
                                 html += `<td style="text-align: center; vertical-align: middle;">${val}</td>`;
 
                                 if (groups != 0) {
@@ -444,6 +444,23 @@ if (!empty($_POST['submit'])) {
                                 .removeClass('display')
                                 .addClass('table table-striped table-bordered table-hover dataTable');
 
+                            jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+                                "date-br-pre": function(a) {
+                                    if (a == null || a == "") {
+                                        return 0;
+                                    }
+                                    var brDatea = a.split('/');
+                                    return (brDatea[2] + brDatea[1] + brDatea[0]) * 1;
+                                },
+
+                                "date-br-asc": function(a, b) {
+                                    return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                                },
+
+                                "date-br-desc": function(a, b) {
+                                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                                }
+                            });
                             $('#table_painel').DataTable({
                                 select: false,
                                 dom: 'Blfrtip',
@@ -452,12 +469,7 @@ if (!empty($_POST['submit'])) {
                                 deferRender: true,
                                 sorting: [
                                     [0, 'asc'],
-                                    [1, 'desc'],
-                                    [2, 'desc'],
-                                    [3, 'desc'],
-                                    [4, 'desc'],
-                                    [5, 'desc'],
-                                    [6, 'desc']
+
                                 ],
                                 displayLength: 10,
                                 lengthMenu: [
@@ -466,7 +478,7 @@ if (!empty($_POST['submit'])) {
                                 ],
                                 columnDefs: [{
                                     type: 'date-br',
-                                    targets: 1
+                                    targets: 0
                                 }],
                                 language: {
                                     url: '../lib/portuguese-datatable.json'
