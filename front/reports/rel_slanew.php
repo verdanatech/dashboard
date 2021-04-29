@@ -343,69 +343,101 @@ if (!empty($_POST['submit'])) {
 
                             res = JSON.parse(response);
 
-                            console.log(res);
                             $('#table_painel').show();
                             $("#cont-table").removeClass("displayNone");
 
                             $.each(res["label"], function(i, val) {
-                                html = `<tr id="${i}"><td style="text-align: center; vertical-align: middle;"> ${val}</td></tr>`;
+
+                                let data = val.replace("/", "-") + "-" + data1.split("-")[0];
+
+                                let html = `<tr id="${i}">`;
+                                
+                                html += `<td style="text-align: center; vertical-align: middle;">${val}</td>`;
+
+                                if (groups != 0) {
+
+                                    // Criando URL para criterios em grupos
+                                    let url_criterios_01 = "";
+                                    let url_criterios_02 = "";
+                                    let url_criterios_03 = "";
+                                    let url_criterios_04 = "";
+                                    let url_criterios_05 = "";
+                                    let url_criterios_06 = "";
+
+                                    $.each(groups, (index, grupo) => {
+
+                                        console.log(index);
+
+                                        // Iniciando criterio por laço
+                                        url_criterios_01 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_02 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_03 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_04 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_05 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_06 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        // -----------------------------------------------------------------------------------------------------
+
+                                        // Criterios para SLA dentro do prazo
+                                        url_criterios_01 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=6&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                        // Criterios para SLA fora do prazo
+                                        url_criterios_02 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=1&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=6&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                        // Criterios para SLA não resolvidos dentro da SLA
+                                        url_criterios_03 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=notclosed&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                        // Criterios não resolvido fora do SLA
+                                        url_criterios_04 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=1&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=notclosed&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                        // Criterios Pendência Externa dentro do SLA
+                                        url_criterios_05 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=1&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                        // Criterios Pendência Externa fora do SLA
+                                        url_criterios_06 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=1&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=1&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+
+                                    });
+
+                                    // Validação para SLA dentro do prazo
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_01}&search=Pesquisar&itemtype=Ticket" target="_blank"> ${res["dentro"][i]} </a></td>`;
+
+                                    // Validação para SLA fora do prazo
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_02}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["fora"][i]} </a></td>`;
+
+                                    // Validação para SLA não resolvidos dentro da SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_03}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["NRD"][i]} </a></td>`;
+
+                                    // Validação não resolvido fora do SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_04}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["NRF"][i]} </a></td>`;
+
+                                    // Validação Pendência Externa dentro do SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_05}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PED"][i]} </a></td>`;
+
+                                    // Validação Pendência Externa fora do SLA
+                                    html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_06}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PEF"][i]} </a></td>`;
+
+
+                                } else {
+                                    // Validação para SLA dentro do prazo
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=6&search=Pesquisar&itemtype=Ticket" target="_blank"> ${res["dentro"][i]} </a></td>`;
+
+                                    // Validação para SLA fora do prazo
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=1&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=6&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["fora"][i]} </a></td>`;
+
+                                    // Validação para SLA não resolvidos dentro da SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["NRD"][i]} </a></td>`;
+
+                                    // Validação não resolvido fora do SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=1&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["NRF"][i]} </a></td>`;
+
+                                    // Validação Pendência Externa dentro do SLA
+                                    html += `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=1&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PED"][i]} </a></td>`;
+
+                                    // Validação Pendência Externa fora do SLA
+                                    html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=1&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=1&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PEF"][i]} </a></td>`;
+                                }
+
+                                html += `</tr>`;
                                 $(`#table_painel`).append(html);
-                            });
-                            $.each(res["dentro"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'>${val}</a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'>${val}</a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
-                            });
-                            $.each(res["fora"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=6&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
-
-                            });
-                            $.each(res["NRD"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
-                            });
-                            $.each(res["NRF"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style="text-align: center; vertical-align: middle;"> <a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notclosed&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
-                            });
-
-                            $.each(res["PED"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style="text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=0&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
-                            });
-                            $.each(res["PEF"], function(i, val) {
-                                if (groups != 0) {
-                                    html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=${groups}&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                } else {
-                                    html = `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=${data1}+00:00&criteria[1][value]=${data1}+00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=${data2}+23:55&criteria[2][value]=${data2}+23:55:00&criteria[3][link]=AND&criteria[3][field]=30&criteria[3][searchtype]=equals&criteria[3][value]=${sla}&criteria[4][link]=AND&criteria[4][field]=82&criteria[4][searchtype]=equals&criteria[4][value]=1&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=4d&search=Pesquisar&itemtype=Ticket&start=0'" target='_blank'> ${val} </a></td>`;
-                                    $(`#${i}`).append(html);
-                                }
                             });
 
                             $('#table_painel')
