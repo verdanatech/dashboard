@@ -83,6 +83,7 @@ class NewDashboard
             WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
+            " . $priority . "
             AND t.type= 2
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
@@ -93,6 +94,7 @@ class NewDashboard
             WHERE t.date BETWEEN  ' $data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
+            " . $priority . "
             AND t.is_deleted = 0
             AND t.type=1
             AND t.time_to_resolve >  t.closedate

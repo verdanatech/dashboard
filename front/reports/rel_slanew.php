@@ -191,7 +191,6 @@ if (!empty($_POST['submit'])) {
                                     <td style="width: 280px">
                                         <label for="select_groups">Grupo Resolvedor</label>
                                         <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple="multiple" style="width: 300px; text-transform: capitalize; margin-top:20px;">
-                                            <option value="0">Todos</option>
                                             <?php
                                             $sql_tecgrup = "SELECT g.name,g.id as id_grupo
                                                             from glpi_tickets as t
@@ -308,8 +307,7 @@ if (!empty($_POST['submit'])) {
                         impacto = 0;
                     }
                     if (groups == "") {
-                        alert("Selecione a opção de grupos");
-                        return
+                        groups = 0;
                     }
                     if (impacto == "Selecione o Impacto") {
                         impacto = 0;

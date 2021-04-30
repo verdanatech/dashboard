@@ -14,7 +14,6 @@ class Relatorio_SLA
         $impact = $dados['impact'];
         $group = $dados['groups'];
         $sla = $dados['sla'];
-        $groups = implode(",", $group);
         $data_inicial_time = strtotime($data_inicial);
         $data_final_time = strtotime($data_final);
         $data_atual = date("Y-m-d");
@@ -24,10 +23,10 @@ class Relatorio_SLA
             $slaid = " AND t.impact LIKE '%$impact%'";
         }
 
-        if ($groups != 0) {
-            $gt = " AND gt.groups_id IN  ($groups)";
+        if ($group != 0) {
+            $groups = implode(",", $group);
+            $gt = "AND gt.groups_id IN ($groups)";
         }
-
         if ($data_inicial_time > $data_final_time) {
             return false;
         }
