@@ -46,7 +46,7 @@ class Relatorio_SLA
 
             //Consulta
             $query = $DB->query("SELECT
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
@@ -55,7 +55,7 @@ class Relatorio_SLA
             AND t.time_to_resolve> t.closedate 
             ORDER BY t.id DESC LIMIT 1) AS dentro,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
@@ -65,7 +65,7 @@ class Relatorio_SLA
             AND t.time_to_resolve < t.closedate 
             ORDER BY t.id DESC LIMIT 1) AS fora,
         
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
@@ -76,7 +76,7 @@ class Relatorio_SLA
             AND t.time_to_resolve > '$data_atual  00:00:00'   
            ORDER BY t.id DESC LIMIT 1) AS NRD,
                         
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
@@ -87,7 +87,7 @@ class Relatorio_SLA
             AND t.time_to_resolve < '$data_atual  00:00:00'   
             ORDER BY t.id DESC LIMIT 1) as NRF,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
@@ -98,7 +98,7 @@ class Relatorio_SLA
             AND t.time_to_resolve > '$data_atual  00:00:00'  
             ORDER BY t.id DESC LIMIT 1) as PED,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
