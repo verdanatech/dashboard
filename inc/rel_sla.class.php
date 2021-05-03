@@ -107,7 +107,15 @@ class Relatorio_SLA
             AND t.is_deleted = 0
             AND t.status =4
             AND t.time_to_resolve < '$data_atual  00:00:00'  
-            ORDER BY t.id DESC LIMIT 1) as PEF");
+            ORDER BY t.id DESC LIMIT 1) as PEF,           
+            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            AND t.slas_id_ttr = $sla
+            " . $slaid . "
+            " . $gt . "
+            AND t.is_deleted = 0
+            ORDER BY t.id DESC LIMIT 1) as total");
 
 
 
@@ -118,6 +126,7 @@ class Relatorio_SLA
                 $row['NRF'][] = $rows['NRF'];
                 $row['PED'][] = $rows['PED'];
                 $row['PEF'][] = $rows['PEF'];
+                $row['total'][] = $rows['total'];
             }
         }
 
