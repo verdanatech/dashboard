@@ -287,6 +287,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											 AND glpi_itilsolutions.items_id = glpi_tickets.id
 											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											 AND glpi_tickets.is_deleted = 0
+											 AND glpi_tickets.status != 6
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											 AND glpi_groups_tickets.type = 2
 											 AND glpi_tickets.date " . $datas2 . "

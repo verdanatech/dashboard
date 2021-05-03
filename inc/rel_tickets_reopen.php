@@ -101,7 +101,7 @@ class PluginDashboardTicktsReopened
         $arr_cat = array();
         $arr_cat[0] = "---";
 
-        while ($row_cat = $DB->fetch_assoc($result_cat)) {
+        while ($row_cat = $DB->fetch_assoc($result_cat)) { 
             $arr_cat[$row_cat['id']] = $row_cat['name'];
         }
 
@@ -418,7 +418,7 @@ class PluginDashboardTicktsReopened
         } elseif ($this->saerch['id_sel_sta'] == 'notold') {
 
             return "AND t.status NOT IN ('5','6')";
-        } else {
+        } elseif($this->saerch['id_sel_sta'] != 0) {
 
             return "AND t.status = " . $this->saerch['id_sel_sta'];
         }
@@ -446,7 +446,7 @@ class PluginDashboardTicktsReopened
 
         if ($this->saerch["id_sel_resolver"] != 0) {
 
-            return "AND t.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '" . $this->saerch['id_sel_resolver'] . "' ORDER BY id DESC) ";
+            return "AND t.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '" . $this->saerch['id_sel_resolver'] . "' AND type = 2 ORDER BY id DESC) ";
         }
 
         return '';
