@@ -280,7 +280,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 							while ($id_grp = $DB->fetch_assoc($result_tec)) {
 
 								// Tickets Reabertos
-								$sql_tickts_reopened = "SELECT count( glpi_tickets.id ) AS total
+								$sql_tickts_reopened = "SELECT count(DISTINCT glpi_tickets.id ) AS total
 											 FROM glpi_groups_tickets, glpi_tickets, glpi_itilsolutions
 											 WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
 											 AND glpi_itilsolutions.itemtype = 'Ticket'
@@ -288,6 +288,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											 AND glpi_tickets.is_deleted = 0
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+											 AND glpi_groups_tickets.type = 2
 											 AND glpi_tickets.date " . $datas2 . "
 											 " . $entidade . " 
 											 ORDER BY glpi_tickets.id DESC LIMIT 1";
@@ -296,30 +297,33 @@ if ($sel_ent == '' || $sel_ent == -1) {
 								$reabertos = $DB->result($result_tickts_reopened, 0, 'total') + 0;
 
 
-								//chamados Pendente
-								$sql_pending = "SELECT count( glpi_tickets.id ) AS total
-											 	 FROM glpi_groups_tickets, glpi_tickets
-												 WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-												 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-												 AND glpi_tickets.is_deleted = 0
+								//chamados Pendente 
+								$sql_pending = "SELECT 
+													COUNT(DISTINCT glpi_tickets.id) AS total
+												FROM glpi_tickets
+													INNER JOIN glpi_groups_tickets AS g ON glpi_tickets.id = g.tickets_id
+												WHERE glpi_tickets.is_deleted = 0
 												 AND glpi_tickets.status IN " . $status_pending . "
-												 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+												 AND g.type = 2
+												 AND g.groups_id = " . $id_grp['id'] . "
 												 AND glpi_tickets.date " . $datas2 . "
 												 " . $entidade . "  
 												 ORDER BY glpi_tickets.id DESC LIMIT 1";
+												 
 
 								$result_pending = $DB->query($sql_pending) or die("erro_pending");
 								$pending = $DB->result($result_pending, 0, 'total') + 0;
 
 
 								//chamados solucionados
-								$sql_sol = "SELECT count( glpi_tickets.id ) AS total
+								$sql_sol = "SELECT count(DISTINCT glpi_tickets.id ) AS total
 											 FROM glpi_groups_tickets, glpi_tickets
 											 WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
 											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											 AND glpi_tickets.is_deleted = 0
-											 AND glpi_tickets.status IN {$status_solved_and_closed}
+											 AND glpi_tickets.status = 5
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+											 AND glpi_groups_tickets.type = 2
 											 AND glpi_tickets.date " . $datas2 . "
 											 " . $entidade . " 
 											 ORDER BY glpi_tickets.id DESC LIMIT 1";
@@ -329,56 +333,70 @@ if ($sel_ent == '' || $sel_ent == -1) {
 
 
 								// backlog geral ----------------------------------------------------------------------------------
-								$sql_salved_and_closed = "SELECT count( glpi_tickets.id ) AS total
+								$sql_salved_and_closed = "SELECT count(DISTINCT glpi_tickets.id ) AS total
 											FROM glpi_groups_tickets, glpi_tickets
 											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
 											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											AND glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+											AND glpi_groups_tickets.type = 2
 											" . $entidade . "			
 											AND glpi_tickets.date " . $datas2 . "
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
+											
 
 								$result_salved_and_closed = $DB->query($sql_salved_and_closed) or die("erro_ab");
 								$data_salved_and_closed = $DB->result($result_salved_and_closed, 0, 'total') + 0;
 
+								// backlog FP -----------------------------------------------------------------------------------------
+								$sql_salved_and_closed_fp = "SELECT DISTINCT glpi_tickets.id AS id
+											FROM glpi_groups_tickets, glpi_tickets
+											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
+											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
+											AND glpi_tickets.is_deleted = 0
+											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
+											AND glpi_tickets.time_to_resolve < DATE(NOW())
+											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+											AND glpi_groups_tickets.type = 2
+											" . $entidade . "			
+											AND glpi_tickets.date " . $datas2 . " 
+											ORDER BY glpi_tickets.id DESC";
 
-								// Dia de hj para verificar os com tempo de solução em dia ou excedido
-								$day = date("Y-m-d H:i:s");
+								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_fp");
+								$keys_salved_and_closed_fp = "";
+
+								if($result_salved_and_closed_fp != false){
+									
+									$result = $result_salved_and_closed_fp->fetch_all(MYSQLI_ASSOC);
+									$array = array();
+
+									foreach($result as $value){
+										array_push($array, $value['id']);
+									}
+
+									$keys_salved_and_closed_fp = "AND glpi_tickets.id NOT IN ('". implode(",",  $array) ."')";
+								}
+								
+								$data_salved_and_closed_fp = $result_salved_and_closed_fp->num_rows + 0;
 
 
 								// backlog DP ---------------------------------------------------------------------------------
-								$sql_salved_and_closed_dp = "SELECT count( glpi_tickets.id ) AS total
-											FROM glpi_groups_tickets, glpi_tickets
+								$sql_salved_and_closed_dp = "SELECT count(DISTINCT glpi_tickets.id ) AS total
+											FROM glpi_tickets, glpi_groups_tickets
 											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
 											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
 											AND glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
-											AND glpi_tickets.time_to_resolve > '{$day}'
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-											" . $entidade . "			
+											AND glpi_groups_tickets.type = 2
+											{$entidade}			
 											AND glpi_tickets.date " . $datas2 . "
+											{$keys_salved_and_closed_fp}
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
-								$result_salved_and_closed_dp = $DB->query($sql_salved_and_closed_dp) or die("erro_ab");
+								$result_salved_and_closed_dp = $DB->query($sql_salved_and_closed_dp) or die("erro_dp");
 								$data_salved_and_closed_dp = $DB->result($result_salved_and_closed_dp, 0, 'total') + 0;
-
-								// backlog FP -----------------------------------------------------------------------------------------
-								$sql_salved_and_closed_fp = "SELECT count( glpi_tickets.id ) AS total
-											FROM glpi_groups_tickets, glpi_tickets
-											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-											AND glpi_tickets.is_deleted = 0
-											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
-											AND glpi_tickets.time_to_resolve < '{$day}'
-											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-											" . $entidade . "			
-											AND glpi_tickets.date " . $datas2 . " 
-											ORDER BY glpi_tickets.id DESC LIMIT 1";
-
-								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_ab");
-								$data_salved_and_closed_fp = $DB->result($result_salved_and_closed_fp, 0, 'total') + 0;
 
 								// MONTAGEM DA TABELA
 								echo "
@@ -387,8 +405,8 @@ if ($sel_ent == '' || $sel_ent == -1) {
 					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=notold&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $data_salved_and_closed . "</a></td>
 					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notold&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $data_salved_and_closed_dp . "</a></td>			
 					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=1&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notold&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $data_salved_and_closed_fp . "</a></td>	
-					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=4&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=notclosed&criteria[5][link]=AND&criteria[5][field]=12&criteria[5][searchtype]=equals&criteria[5][value]=notold&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $pending . "</a></td>
-					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=old&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $solucionados . "</a></td>			
+					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=4&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $pending . "</a></td>
+					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=8&criteria[0][searchtype]=equals&criteria[0][value]=" . $id_grp['id'] . "&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=morethan&_select_criteria[1][value]=0&_criteria[1][value]=" . $data_ini . " 00:00:00&criteria[1][value]=" . $data_ini . " 00:00:00&criteria[2][link]=AND&criteria[2][field]=15&criteria[2][searchtype]=lessthan&_select_criteria[2][value]=0&_criteria[2][value]=" . $data_fin . " 23:59:59&criteria[2][value]=" . $data_fin . " 23:59:59&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=5&search=Pesquisar&itemtype=Ticket' target='_blank'>" . $solucionados . "</a></td>			
 					<td style='vertical-align:middle; text-align:center;'><a href='" . $CFG_GLPI['url_base'] . "/plugins/dashboard/front/reports/rel_tickets_reopen.php?sel_resolver=" . $id_grp['id'] . "&data_inicial=$data_ini&data_final=$data_fin' target='_blank'>" . $reabertos . "</a></td>					
 				   ";
 
