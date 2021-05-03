@@ -12,9 +12,4 @@ $dados = $_GET;
 $row = [];
 $row = $relatorio->ticketsSla($dados);
 
-
-
-
-
-
 echo json_encode($row);

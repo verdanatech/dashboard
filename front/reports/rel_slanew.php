@@ -266,6 +266,7 @@ if (!empty($_POST['submit'])) {
                         <th style="text-align: center; vertical-align: middle;"><b>Não Resolvido Fora do SLA<b></th>
                         <th style="text-align: center; vertical-align: middle;"><b>Pendência Externa Dentro do SLA<b></th>
                         <th style="text-align: center; vertical-align: middle;"><b>Pendência Externa Fora do SLA<b></th>
+                        <th style="text-align: center; vertical-align: middle;"><b>Total de Chamados<b></th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -361,10 +362,11 @@ if (!empty($_POST['submit'])) {
                                     let url_criterios_04 = "";
                                     let url_criterios_05 = "";
                                     let url_criterios_06 = "";
+                                    let url_criterios_07 = "";
 
                                     $.each(groups, (index, grupo) => {
 
-                                        console.log(index);
+
 
                                         // Iniciando criterio por laço
                                         url_criterios_01 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
@@ -373,6 +375,9 @@ if (!empty($_POST['submit'])) {
                                         url_criterios_04 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                                         url_criterios_05 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                                         url_criterios_06 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_06 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                                        url_criterios_07 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+
                                         // -----------------------------------------------------------------------------------------------------
 
                                         // Criterios para SLA dentro do prazo
@@ -392,6 +397,8 @@ if (!empty($_POST['submit'])) {
 
                                         // Criterios Pendência Externa fora do SLA
                                         url_criterios_06 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=1&criteria[${index}][criteria][4][link]=AND&criteria[${index}][criteria][4][field]=12&criteria[${index}][criteria][4][searchtype]=equals&criteria[${index}][criteria][4][value]=4&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}`;
+                                        // Criterios Total de Chamados
+                                        url_criterios_07 += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=contains&criteria[${index}][criteria][1][value]=${data}&criteria[${index}][criteria][2][link]=AND&criteria[${index}][criteria][2][field]=30&criteria[${index}][criteria][2][searchtype]=equals&criteria[${index}][criteria][2][value]=${sla}&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=8&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=${grupo}`;
 
                                     });
 
@@ -412,6 +419,8 @@ if (!empty($_POST['submit'])) {
 
                                     // Validação Pendência Externa fora do SLA
                                     html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_06}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PEF"][i]} </a></td>`;
+                                    // Validação Total de Chamados
+                                    html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?${url_criterios_07}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["total"][i]} </a></td>`;
 
 
                                 } else {
@@ -432,6 +441,8 @@ if (!empty($_POST['submit'])) {
 
                                     // Validação Pendência Externa fora do SLA
                                     html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=1&criteria[4][link]=AND&criteria[4][field]=12&criteria[4][searchtype]=equals&criteria[4][value]=4&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["PEF"][i]} </a></td>`;
+                                    // Validação Total de Chamados
+                                    html += `<td style = "text-align: center; vertical-align: middle;"><a href="<?php echo $CFG_GLPI['url_base']; ?>/front/ticket.php?criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=contains&criteria[1][value]=${data}&criteria[2][link]=AND&criteria[2][field]=30&criteria[2][searchtype]=equals&criteria[2][value]=${sla}&search=Pesquisar&itemtype=Ticket" target='_blank'> ${res["total"][i]} </a></td>`;
                                 }
 
                                 html += `</tr>`;
