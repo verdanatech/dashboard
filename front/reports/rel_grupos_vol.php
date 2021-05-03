@@ -365,22 +365,20 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											ORDER BY glpi_tickets.id DESC";
 
 								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_fp");
+								$data_salved_and_closed_fp = $result_salved_and_closed_fp->num_rows + 0;
 								$keys_salved_and_closed_fp = "";
 
-								if($result_salved_and_closed_fp != false){
+								if($data_salved_and_closed_fp > 0){
 									
 									$result = $result_salved_and_closed_fp->fetch_all(MYSQLI_ASSOC);
 									$array = array();
 
 									foreach($result as $value){
-										array_push($array, $value['id']);
+										array_push($array, ("'".$value['id']."'"));
 									}
 
-									$keys_salved_and_closed_fp = "AND glpi_tickets.id NOT IN ('". implode(",",  $array) ."')";
+									$keys_salved_and_closed_fp = "AND glpi_tickets.id NOT IN (". implode(",",  $array) .")";
 								}
-								
-								$data_salved_and_closed_fp = $result_salved_and_closed_fp->num_rows + 0;
-
 
 								// backlog DP ---------------------------------------------------------------------------------
 								$sql_salved_and_closed_dp = "SELECT count(DISTINCT glpi_tickets.id ) AS total
@@ -397,6 +395,7 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
 								$result_salved_and_closed_dp = $DB->query($sql_salved_and_closed_dp) or die("erro_dp");
+								// var_dump($sql_salved_and_closed_dp);exit;
 								$data_salved_and_closed_dp = $DB->result($result_salved_and_closed_dp, 0, 'total') + 0;
 
 								// MONTAGEM DA TABELA
