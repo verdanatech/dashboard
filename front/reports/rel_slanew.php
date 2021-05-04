@@ -375,7 +375,6 @@ if (!empty($_POST['submit'])) {
                                         url_criterios_04 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                                         url_criterios_05 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                                         url_criterios_06 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
-                                        url_criterios_06 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                                         url_criterios_07 += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
 
                                         // -----------------------------------------------------------------------------------------------------
