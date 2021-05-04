@@ -84,15 +84,16 @@ if (!empty($_POST['submit'])) {
             color: #000099;
         }
 
+        div#head-lg {
+            min-height: 370px;
+        }
+
         #table_painel {
             font-size: 18px;
             font-weight: bold;
 
         }
 
-        div#sel {
-            ;
-        }
 
         .fa fa-home {
             margin-left: 20px;
@@ -118,7 +119,7 @@ if (!empty($_POST['submit'])) {
 
             <div id="charts" class="fluid chart">
                 <div id="pad-wrapper">
-                    <div id="head-lg" class="fluid">
+                    <div id="head-lg" class="container-fluid">
 
                         <a href="../index.php"><i class="fa fa-home" style="font-size:14pt;"></i><span></span></a>
 
@@ -247,6 +248,7 @@ if (!empty($_POST['submit'])) {
                     </div>
                 </div>
             </div>
+            <br><br>
             <div id="cont-table" class='well info_box fluid col-md-12 col-sm-12 report displayNone' style='margin-left: -1px; margin-top: -2.5%;'>
 
                 <h2 style="text-align: center; margin-top: 20px; margin-bottom: 30px;">Informações Gráficas de SLAs</h2>
