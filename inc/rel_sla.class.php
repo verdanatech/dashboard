@@ -14,7 +14,6 @@ class Relatorio_SLA
         $impact = $dados['impact'];
         $group = $dados['groups'];
         $sla = $dados['sla'];
-        $groups = implode(",", $group);
         $data_inicial_time = strtotime($data_inicial);
         $data_final_time = strtotime($data_final);
         $data_atual = date("Y-m-d");
@@ -24,10 +23,10 @@ class Relatorio_SLA
             $slaid = " AND t.impact LIKE '%$impact%'";
         }
 
-        if ($groups != 0) {
-            $gt = " AND gt.groups_id IN  ($groups)";
+        if ($group != 0) {
+            $groups = implode(",", $group);
+            $gt = "AND gt.groups_id IN ($groups)";
         }
-
         if ($data_inicial_time > $data_final_time) {
             return false;
         }
@@ -47,18 +46,18 @@ class Relatorio_SLA
 
             //Consulta
             $query = $DB->query("SELECT
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
             AND t.time_to_resolve> t.closedate 
             ORDER BY t.id DESC LIMIT 1) AS dentro,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
@@ -66,49 +65,57 @@ class Relatorio_SLA
             AND t.time_to_resolve < t.closedate 
             ORDER BY t.id DESC LIMIT 1) AS fora,
         
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
             AND t.is_deleted = 0
             AND t.status < 5
-            AND t.time_to_resolve > $data_atual    
+            AND t.time_to_resolve > '$data_atual  00:00:00'   
            ORDER BY t.id DESC LIMIT 1) AS NRD,
                         
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "
             AND t.is_deleted = 0
-            AND t.status <5
-            AND t.time_to_resolve < $data_atual
+            AND t.status < 5
+            AND t.time_to_resolve < '$data_atual  00:00:00'   
             ORDER BY t.id DESC LIMIT 1) as NRF,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status = 4  
-            AND t.time_to_resolve > $data_atual
+            AND t.time_to_resolve > '$data_atual  00:00:00'  
             ORDER BY t.id DESC LIMIT 1) as PED,
             
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date_creation BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $slaid . "
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status =4
-            AND t.time_to_resolve < $data_atual
-            ORDER BY t.id DESC LIMIT 1) as PEF");
+            AND t.time_to_resolve < '$data_atual  00:00:00'  
+            ORDER BY t.id DESC LIMIT 1) as PEF,           
+            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
+            WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
+            AND t.slas_id_ttr = $sla
+            " . $slaid . "
+            " . $gt . "
+            AND t.is_deleted = 0
+            ORDER BY t.id DESC LIMIT 1) as total");
 
 
 
@@ -119,6 +126,7 @@ class Relatorio_SLA
                 $row['NRF'][] = $rows['NRF'];
                 $row['PED'][] = $rows['PED'];
                 $row['PEF'][] = $rows['PEF'];
+                $row['total'][] = $rows['total'];
             }
         }
 
