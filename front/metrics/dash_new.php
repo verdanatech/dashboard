@@ -111,7 +111,7 @@ if (!empty($_POST['submit'])) {
                 <td>
                     <label for="select_groups">Grupo Resolvedor</label>
                     <select id="select_groups" name="sel_gr[]" class="js-example-basic-multiple js-states" multiple="multiple" style="width: 308px;margin-top:4px; text-transform: capitalize;">
-
+                        <option value="0">Todos</option>
                         <?php
                         $sql_tecgrup = "SELECT g.name,g.id as id_grupo
 												from glpi_tickets as t
