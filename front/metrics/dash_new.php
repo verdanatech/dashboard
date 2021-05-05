@@ -210,7 +210,27 @@ if (!empty($_POST['submit'])) {
             <!-- Grafico-row-1 02 -->
             <!-- Grafico-row-1 03 -->
 
-
+            <div id="div_grafic03" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+                <header>
+                    <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
+                </header>
+                <a style="text-decoration:none" id="graf03" target="_blank">
+                    <div class="content cf-gauge3" id="cf-gauge-3">
+                        <div class="val-current">
+                            <div class="metric" id="cf-gauge-3-m"></div>
+                        </div>
+                        <div class="canvas">
+                            <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
+                        </div>
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-3-a"></div>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
             <div id="div_grafic02" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
                 <header>
@@ -235,27 +255,7 @@ if (!empty($_POST['submit'])) {
 
             </div>
             </a>
-            <div id="div_grafic03" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
-                <header>
-                    <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
-                </header>
-                <a style="text-decoration:none" id="graf03" target="_blank">
-                    <div class="content cf-gauge3" id="cf-gauge-3">
-                        <div class="val-current">
-                            <div class="metric" id="cf-gauge-3-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-3-a"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+
 
 
         </div>
