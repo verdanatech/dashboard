@@ -11,12 +11,12 @@ class NewDashboard
         $data_final = $dados['data2'];
         $group = $dados['groups'];
         $chamado = $dados['chamado'];
-        $impacto = $dados['prioridade'];
+        $impacto = $dados['impacto'];
 
-        $data_atual = date("Y-m-d");
+        $data_atual = date("Y-m-d H:i:s");
         $slaid = "";
         $gt = "";
-        $priority = "";
+        $impact = "";
         if ($impacto != 0) {
             $impact = "AND t.impact LIKE '%$impacto%'";
         }
@@ -37,8 +37,8 @@ class NewDashboard
             " . $slaid . "
             " . $impact . "
             AND t.time_to_resolve > t.closedate 
-            AND t.imapact = 6
-            ORDER BY t.id DESC LIMIT 1) AS critico,
+            AND t.impact = 5
+            ORDER BY t.id DESC LIMIT 1) AS muito_alto,
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
@@ -46,7 +46,7 @@ class NewDashboard
             " . $gt . "
             " . $slaid . "
             " . $impact . "
-            AND t.is_deleted = 0
+            AND t.is_deleted = 0            
             AND t.time_to_resolve > t.closedate
             AND t.impact = 3 
             ORDER BY t.id DESC LIMIT 1) AS medio,
@@ -70,7 +70,7 @@ class NewDashboard
             " . $impact . "
             AND t.is_deleted = 0
             AND t.time_to_resolve > t.closedate
-            AND t.priority = 2 
+            AND t.impact = 2 
            ORDER BY t.id DESC LIMIT 1) AS baixo,
 
             (SELECT COUNT(t.id) FROM glpi_tickets as t
@@ -107,7 +107,7 @@ class NewDashboard
 
 
         while ($rows = $DB->fetch_assoc($query)) {
-            $row['critico'][] = $rows['critico'];
+            $row['muito_alto'][] = $rows['muito_alto'];
             $row['medio'][] = $rows['medio'];
             $row['alto'][] = $rows['alto'];
             $row['baixo'][] = $rows['baixo'];
