@@ -28,7 +28,7 @@ class NewDashboard
         }
 
         $query = $DB->query("SELECT
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -44,7 +44,7 @@ class NewDashboard
             AND t.impact = 5
             ORDER BY t.id DESC LIMIT 1) AS muito_alto,
 
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -61,7 +61,7 @@ class NewDashboard
               0) = 0)
             ORDER BY t.id DESC LIMIT 1) AS medio,
 
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -78,7 +78,7 @@ class NewDashboard
              0) = 0)
            ORDER BY t.id DESC LIMIT 1) AS alto,
 
-           (SELECT COUNT(t.id) FROM glpi_tickets as t
+           (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
              WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -95,7 +95,7 @@ class NewDashboard
               0) = 0)
             ORDER BY t.id DESC LIMIT 1) AS baixo,
 
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -111,7 +111,7 @@ class NewDashboard
              0) = 0)
             ORDER BY t.id DESC LIMIT 1) as requisicao,
 
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
@@ -127,7 +127,7 @@ class NewDashboard
             0) = 0)
             ORDER BY t.id DESC LIMIT 1) as incidente,
 
-            (SELECT COUNT(t.id) FROM glpi_tickets as t
+            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
