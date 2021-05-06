@@ -462,12 +462,12 @@ function margins()
 
 						<table style='font-size: 16px; font-weight:bold; width: 50%;' border=0>
 							<tr>
-								<td><span style='color: #000;'><?php echo _x('status', 'New'); ?> </span><b><?php echo $ticket_status_count['new']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Assigned'); ?> </span><b><?php echo ($ticket_status_count['assig'] + $ticket_status_count['plan']); ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Pending'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Solved', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Closed'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Porcentagem'); ?> </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b></td>
+								<td><span style='color: #000;'><?php echo _x('status', 'New:'); ?> </span><b><?php echo $ticket_status_count['new']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Assigned:'); ?> </span><b><?php echo ($ticket_status_count['assig'] + $ticket_status_count['plan']); ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Pending:'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Solved:', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Closed:'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Porcentagem:'); ?> </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>

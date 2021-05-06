@@ -517,7 +517,7 @@ class PluginDashboardTicktsReopened
                         ORDER BY t.id DESC ");
 
         $result_percent = $DB->fetch_assoc($query_percent);
-        var_dump($result_percent);
+
         $porcent = ($DB->result($result_stat, 0, 'ticket') / $result_percent['ticket']) * 100;
 
         return array(
