@@ -163,8 +163,6 @@ if (!empty($_POST['submit'])) {
         $('#dp2').datepicker('update');
         $(document).ready(function() {
             $("#graficos").hide();
-
-
             $("#select_groups").select2({
                 placeholder: 'Selecione o Grupo Resolvedor',
                 dropdownAutoWidth: true

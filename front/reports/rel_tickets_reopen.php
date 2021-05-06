@@ -467,6 +467,7 @@ function margins()
 								<td><span style='color: #000;'><?php echo __('Pending'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Solved', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Closed'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
+								<td><span style='color: #000;'><?php echo __('Porcentagem'); ?> </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
