@@ -182,75 +182,82 @@ if (!empty($_POST['submit'])) {
 
         <div class="row">
 
-
-            <div id="div_grafic01" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+            <div id="div_grafic01" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf1"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Muito Alto', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf01" target="_blank">
-                    <div class="content cf-gauge1" id="cf-gauge-1">
-                        <div class="val-current">
+
+                <div class="content cf-gauge1" id="cf-gauge-1">
+
+                    <div class="val-current">
+                        <a style="text-decoration:none;" id="graf01" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-1-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-1-a"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small" id="cf-gauge-1-b"></div>
-                        </div>
-
+                        </a>
                     </div>
-            </div>
-            </a>
 
-            <div id="div_grafic03" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-1-a"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small" id="cf-gauge-1-b"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="div_grafic03" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf03" target="_blank">
-                    <div class="content cf-gauge3" id="cf-gauge-3">
-                        <div class="val-current">
+
+                <div class="content cf-gauge3" id="cf-gauge-3">
+                    <div class="val-current">
+                        <a style="text-decoration:none" id="graf03" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-3-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-3-a"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-3-a"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+
             </div>
 
-            <div id="div_grafic02" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+            <div id="div_grafic02" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf2"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf02" target="_blank">
-                    <div class="content cf-gauge2" id="cf-gauge-2">
-                        <div class="val-current">
-                            <div class="metric" style="font-size: 3.5em;" id="cf-gauge-2-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-2-a"></div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
 
+                <div class="content cf-gauge2" id="cf-gauge-2">
+                    <div class="val-current">
+                        <a style="text-decoration:none" id="graf02" target="_blank">
+                            <div class="metric" style="font-size: 3.5em;" id="cf-gauge-2-m"></div>
+                        </a>
+                    </div>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-2-a"></div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
                     </div>
 
+                </div>
+
             </div>
-            </a>
+
 
 
 
@@ -258,72 +265,78 @@ if (!empty($_POST['submit'])) {
 
         <div class="row">
 
-            <div id="div_grafic04" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+            <div id="div_grafic04" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
                     <p id="graf4"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf04" target="_blank">
-                    <div class="content cf-gauge4" id="cf-gauge-4">
-                        <div class="val-current">
+
+                <div class="content cf-gauge4" id="cf-gauge-4">
+                    <div class="val-current">
+                        <a style="text-decoration:none" id="graf04" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-4-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-4-a"> </div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-4-a"> </div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+
             </div>
 
 
-            <div id="div_grafic05" style="margin: 2%; cursor: pointer;" class="col-md-4 cf-item">
+            <div id="div_grafic05" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf5"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf05" target="_blank">
-                    <div class="content cf-gauge5" id="cf-gauge-5">
-                        <div class="val-current">
+
+                <div class="content cf-gauge5" id="cf-gauge-5">
+                    <div class="val-current">
+                        <a style="text-decoration:none" id="graf05" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-5-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-5-a"> </div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-5-a"> </div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+                </div>
+
             </div>
 
-            <div id="div_grafic06" style="margin: 2%; cursor: pointer;" class=" col-md-4 cf-item">
+            <div id="div_grafic06" style="margin: 2%;" class=" col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf6"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?></p>
                 </header>
-                <a style="text-decoration:none" id="graf06" target="_blank">
-                    <div class="content cf-gauge6" id="cf-gauge-6">
-                        <div class="val-current">
-                            <div class="metric" style="font-size: 3.5em;" id="cf-gauge-6-m"></div>
-                        </div>
-                        <div class="canvas">
-                            <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
-                        </div>
-                        <div class="val-min">
-                            <div class="metric-small" id="cf-gauge-6-a"> </div>
-                        </div>
-                        <div class="val-max">
-                            <div class="metric-small"></div>
-                        </div>
 
+                <div class="content cf-gauge6" id="cf-gauge-6">
+                    <div class="val-current">
+                        <a style="text-decoration:none" id="graf06" target="_blank">
+                            <div class="metric" style="font-size: 3.5em;" id="cf-gauge-6-m"></div>
+                        </a>
                     </div>
-                </a>
+                    <div class="canvas">
+                        <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
+                    </div>
+                    <div class="val-min">
+                        <div class="metric-small" id="cf-gauge-6-a"> </div>
+                    </div>
+                    <div class="val-max">
+                        <div class="metric-small"></div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
