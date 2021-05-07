@@ -101,7 +101,7 @@ class PluginDashboardTicktsReopened
         $arr_cat = array();
         $arr_cat[0] = "---";
 
-        while ($row_cat = $DB->fetch_assoc($result_cat)) { 
+        while ($row_cat = $DB->fetch_assoc($result_cat)) {
             $arr_cat[$row_cat['id']] = $row_cat['name'];
         }
 
@@ -418,7 +418,7 @@ class PluginDashboardTicktsReopened
         } elseif ($this->saerch['id_sel_sta'] == 'notold') {
 
             return "AND t.status NOT IN ('5','6')";
-        } elseif($this->saerch['id_sel_sta'] != 0) {
+        } elseif ($this->saerch['id_sel_sta'] != 0) {
 
             return "AND t.status = " . $this->saerch['id_sel_sta'];
         }
@@ -498,6 +498,28 @@ class PluginDashboardTicktsReopened
 
         $result_stat = $DB->query($query_stat);
 
+        $query_percent = $DB->query("SELECT
+                        COUNT(t.id) AS ticket
+                        FROM glpi_tickets AS t
+                         WHERE 
+                            t.is_deleted = 0
+                            {$entidade} 
+                            {$period}                          
+                            {$id_due}
+                            {$id_impact}
+                            {$id_resolver}
+                            AND t.status >=5
+                            AND t.requesttypes_id LIKE '%{$id_req}'
+                            AND t.priority LIKE '%{$id_pri}'
+                            AND t.itilcategories_id LIKE '%{$id_cat}'
+                            AND t.type LIKE '%{$id_tip}'
+                            AND t.locations_id LIKE '%{$id_localizacao}' 
+                        ORDER BY t.id DESC ");
+
+        $result_percent = $DB->fetch_assoc($query_percent);
+
+        $porcent = ($DB->result($result_stat, 0, 'ticket') / $result_percent['ticket']) * 100;
+
         return array(
             'ticket' => $DB->result($result_stat, 0, 'ticket') + 0,
             'new' => $DB->result($result_stat, 0, 'new') + 0,
@@ -505,7 +527,8 @@ class PluginDashboardTicktsReopened
             'plan' => $DB->result($result_stat, 0, 'plan') + 0,
             'pend' => $DB->result($result_stat, 0, 'pend') + 0,
             'solve' => $DB->result($result_stat, 0, 'solve') + 0,
-            'close' => $DB->result($result_stat, 0, 'close') + 0
+            'close' => $DB->result($result_stat, 0, 'close') + 0,
+            'porcent' => $porcent
         );
     }
 
@@ -528,7 +551,8 @@ class PluginDashboardTicktsReopened
         $id_tip = $this->saerch['id_sel_typ'] == 0 ? '' : $this->saerch['id_sel_typ'];
         $id_localizacao = $this->saerch['id_sel_location'] == 0 ? '' : $this->saerch['id_sel_location'];
 
-        $sql_cham = "SELECT t.id,
+        $sql_cham = "SELECT 
+                            t.id,
                             t.entities_id,
                             t.name,
                             t.date,
