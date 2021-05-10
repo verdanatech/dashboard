@@ -24,7 +24,7 @@ class NewDashboard
 
         if ($group != 0) {
             $groups = implode(",", $group);
-            $gt = "AND gt.groups_id IN ($groups) AND gt.type =2";
+            $gt = "AND gt.groups_id IN ($groups) AND gt.type = 2";
         }
 
         $query = $DB->query("SELECT
@@ -42,6 +42,7 @@ class NewDashboard
                1,
              0) = 0)
             AND t.impact = 5
+
             ORDER BY t.id DESC LIMIT 1) AS muito_alto,
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -142,7 +143,6 @@ class NewDashboard
              ORDER BY t.id DESC LIMIT 1) as tickets_total
             
             ");
-
 
 
 

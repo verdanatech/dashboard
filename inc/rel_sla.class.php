@@ -52,7 +52,13 @@ class Relatorio_SLA
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
-            AND t.time_to_resolve> t.closedate 
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+                  1,
+             0) = 0) 
             ORDER BY t.id DESC LIMIT 1) AS dentro,
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -62,7 +68,13 @@ class Relatorio_SLA
             " . $gt . "
             " . $slaid . "
             AND t.is_deleted = 0
-            AND t.time_to_resolve < t.closedate 
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+              1,
+            0) = 1) 
             ORDER BY t.id DESC LIMIT 1) AS fora,
         
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -73,7 +85,13 @@ class Relatorio_SLA
             " . $slaid . "
             AND t.is_deleted = 0
             AND t.status < 5
-            AND t.time_to_resolve > '$data_atual  00:00:00'   
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+                  1,
+             0) = 0)    
            ORDER BY t.id DESC LIMIT 1) AS NRD,
                         
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -84,7 +102,13 @@ class Relatorio_SLA
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status < 5
-            AND t.time_to_resolve < '$data_atual  00:00:00'   
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+                  1,
+             0) = 1)    
             ORDER BY t.id DESC LIMIT 1) as NRF,
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -95,7 +119,13 @@ class Relatorio_SLA
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status = 4  
-            AND t.time_to_resolve > '$data_atual  00:00:00'  
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+                  1,
+             0) = 0) 
             ORDER BY t.id DESC LIMIT 1) as PED,
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -106,7 +136,13 @@ class Relatorio_SLA
             " . $gt . "
             AND t.is_deleted = 0
             AND t.status =4
-            AND t.time_to_resolve < '$data_atual  00:00:00'  
+            AND (IF(t.`time_to_resolve` IS NOT NULL
+            AND t.`status` <> 4
+            AND (t.`solvedate` > t.`time_to_resolve`
+            OR (t.`solvedate` IS NULL
+            AND t.`time_to_resolve` < NOW())),
+                  1,
+             0) = 1)  
             ORDER BY t.id DESC LIMIT 1) as PEF,           
             (SELECT COUNT(t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
