@@ -471,7 +471,8 @@ class PluginDashboardTicktsReopened
         }else if($tickets_reopen <= 0){
             return 0;
         }else{
-            return ($tickets_reopen / $tickets) * 100;
+            $value = ($tickets_reopen / $tickets) * 100;
+            return $value > 100 ? 100 : $value;
         }
 
         

@@ -467,7 +467,7 @@ function margins()
 								<td><span style='color: #000;'><?php echo __('Pendente:'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Solucionado:', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Fechado:'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
-								<td><span style='color: #000;'>Porcentagem: </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b> <span class="glyphicon glyphicon-question-sign" style="cursor: help;" title="Fórmula = (Tickets reabertos referente a pesquisa / Tickets do tipo Incidente e Requisição com status solucionado ou fechado) * 100"></span></td>
+								<td><span style='color: #000;'>Porcentagem: </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b> <span class="glyphicon glyphicon-question-sign" style="cursor: help;" title="Fórmula = (Chamados reabertos referente a pesquisa / Chamados do tipo Incidente e Requisição com status solucionado ou fechado) * 100"></span></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
