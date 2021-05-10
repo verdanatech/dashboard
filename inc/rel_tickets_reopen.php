@@ -461,6 +461,7 @@ class PluginDashboardTicktsReopened
                   FROM
                     glpi_tickets AS t
                   WHERE t.is_deleted = 0
+                  AND t.status IN ('5','6')
                   ORDER BY t.id DESC";
 
         $tickets = $DB->result($DB->query($query), 0, 'ticket') + 0;
