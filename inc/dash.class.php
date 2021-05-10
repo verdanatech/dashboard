@@ -34,6 +34,7 @@ class NewDashboard
             " . $gt . "
             " . $slaid . "
             " . $impact . "
+            AND t.is_deleted = 0 
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`
@@ -42,7 +43,6 @@ class NewDashboard
                1,
              0) = 0)
             AND t.impact = 5
-
             ORDER BY t.id DESC LIMIT 1) AS muito_alto,
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -133,6 +133,7 @@ class NewDashboard
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
             " . $gt . "
+            " . $impact . "
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`

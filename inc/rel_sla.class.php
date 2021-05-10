@@ -52,6 +52,7 @@ class Relatorio_SLA
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $slaid . "
+            AND t.is_deleted = 0
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`
