@@ -452,6 +452,30 @@ class PluginDashboardTicktsReopened
         return '';
     }
 
+    // Porcentagem de tickets reabertos
+    public function getPorcentageTicket($tickets_reopen){
+
+        global $DB;
+        $query = "SELECT 
+                    COUNT(DISTINCT t.id) AS ticket
+                  FROM
+                    glpi_tickets AS t
+                  WHERE t.is_deleted = 0
+                  ORDER BY t.id DESC";
+
+        $tickets = $DB->result($DB->query($query), 0, 'ticket') + 0;
+
+        if($tickets_reopen >= $tickets){
+            return 100;
+        }else if($tickets_reopen <= 0){
+            return 0;
+        }else{
+            return ($tickets_reopen / $tickets) * 100;
+        }
+
+        
+    }
+
     public function getCountState()
     {
         global $DB;
@@ -498,32 +522,11 @@ class PluginDashboardTicktsReopened
 
         $result_stat = $DB->query($query_stat);
 
-        $query_percent = $DB->query("SELECT
-                        COUNT(t.id) AS ticket
-                        FROM glpi_tickets AS t
-                         WHERE 
-                            t.is_deleted = 0
-                            {$entidade} 
-                            {$period}                          
-                            {$id_due}
-                            {$id_impact}
-                            {$id_resolver}
-                            AND t.status >=5
-                            AND t.requesttypes_id LIKE '%{$id_req}'
-                            AND t.priority LIKE '%{$id_pri}'
-                            AND t.itilcategories_id LIKE '%{$id_cat}'
-                            AND t.type LIKE '%{$id_tip}'
-                            AND t.locations_id LIKE '%{$id_localizacao}' 
-                        ORDER BY t.id DESC ");
+        $tickets = $DB->result($result_stat, 0, 'ticket') + 0;
+        $porcent = $this->getPorcentageTicket($tickets);
 
-        $result_percent = $DB->fetch_assoc($query_percent);
-        if ($result_percent['ticket'] > 0) {
-            $porcent = ($DB->result($result_stat, 0, 'ticket') / $result_percent['ticket']) * 100;
-        } else {
-            $porcent = 0;
-        }
         return array(
-            'ticket' => $DB->result($result_stat, 0, 'ticket') + 0,
+            'ticket' => $tickets,
             'new' => $DB->result($result_stat, 0, 'new') + 0,
             'assig' => $DB->result($result_stat, 0, 'assig') + 0,
             'plan' => $DB->result($result_stat, 0, 'plan') + 0,
