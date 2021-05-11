@@ -304,7 +304,8 @@ class PluginDashboardTicktsReopened
                         WHERE glpi_tickets.id = glpi_tickets_users.tickets_id
                         AND glpi_tickets.id = {$id}
                         AND glpi_tickets_users.users_id = glpi_users.id
-                        AND glpi_tickets_users.type = 1 ";
+                        AND glpi_tickets_users.type = 1 
+                        ORDER BY glpi_tickets.id DESC";
 
         $result_user = $DB->query($sql_user);
 
@@ -321,7 +322,8 @@ class PluginDashboardTicktsReopened
                         WHERE glpi_tickets.id = glpi_tickets_users.tickets_id
                         AND glpi_tickets.id = {$id}
                         AND glpi_tickets_users.users_id = glpi_users.id
-                        AND glpi_tickets_users.type = 2 ";
+                        AND glpi_tickets_users.type = 2
+                        ORDER BY glpi_tickets.id DESC ";
 
         $result_tec = $DB->query($sql_tec);
 
@@ -337,7 +339,8 @@ class PluginDashboardTicktsReopened
         $sql_req = "SELECT DISTINCT glpi_tickets.id AS id, glpi_requesttypes.name AS name
                             FROM glpi_tickets , glpi_requesttypes
                             WHERE glpi_tickets.requesttypes_id = glpi_requesttypes.id
-                            AND glpi_tickets.id = {$id} ";
+                            AND glpi_tickets.id = {$id} 
+                            ORDER BY glpi_tickets.id DESC";
 
         $result_req = $DB->query($sql_req);
         return $DB->fetch_assoc($result_req);
@@ -365,7 +368,8 @@ class PluginDashboardTicktsReopened
         $sql_cat = "SELECT DISTINCT glpi_tickets.id AS id, glpi_itilcategories.completename AS name
                              FROM glpi_tickets, glpi_itilcategories
                              WHERE glpi_tickets.itilcategories_id = glpi_itilcategories.id
-                             AND glpi_tickets.id = {$id} ";
+                             AND glpi_tickets.id = {$id} 
+                             ORDER BY glpi_tickets.id DESC";
 
         $result_cat = $DB->query($sql_cat);
         return $DB->fetch_assoc($result_cat);

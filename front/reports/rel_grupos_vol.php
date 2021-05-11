@@ -353,12 +353,20 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											INNER JOIN glpi_tickets oN glpi_groups_tickets.tickets_id = glpi_tickets.id
 											WHERE glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
-											AND glpi_tickets.time_to_resolve < DATE(NOW())
+											AND (IF(glpi_tickets.time_to_resolve IS NOT NULL
+												AND glpi_tickets.status <> 4
+												AND (glpi_tickets.solvedate > glpi_tickets.time_to_resolve
+												OR (glpi_tickets.solvedate IS NULL
+												AND glpi_tickets.time_to_resolve < NOW())),
+											1,
+											0) = 1)
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											AND glpi_groups_tickets.type = 2
 											" . $entidade . "			
 											AND glpi_tickets.date " . $datas2 . " 
 											ORDER BY glpi_tickets.id DESC";
+
+											// var_dump($sql_salved_and_closed_fp);exit;
 
 								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_fp");
 								$data_salved_and_closed_fp = $result_salved_and_closed_fp->num_rows + 0;
@@ -369,6 +377,13 @@ if ($sel_ent == '' || $sel_ent == -1) {
 											INNER JOIN glpi_groups_tickets ON glpi_groups_tickets.tickets_id = glpi_tickets.id
 											WHERE glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
+											AND (IF(glpi_tickets.time_to_resolve IS NOT NULL
+												AND glpi_tickets.status <> 4
+												AND (glpi_tickets.solvedate > glpi_tickets.time_to_resolve
+												OR (glpi_tickets.solvedate IS NULL
+												AND glpi_tickets.time_to_resolve < NOW())),
+											1,
+											0) = 0)
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											AND glpi_groups_tickets.type = 2
 											{$entidade}			
