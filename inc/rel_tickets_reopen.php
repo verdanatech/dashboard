@@ -170,7 +170,7 @@ class PluginDashboardTicktsReopened
     {
         global $DB;
 
-        $query_group = "SELECT DISTINCT
+        $query_group = "SELECT
                         ticket_group.groups_id AS id_group,
                         grupo.name AS name_group
                         FROM glpi_groups_tickets AS ticket_group
