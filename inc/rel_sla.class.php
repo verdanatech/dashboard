@@ -17,10 +17,10 @@ class Relatorio_SLA
         $data_inicial_time = strtotime($data_inicial);
         $data_final_time = strtotime($data_final);
         $data_atual = date("Y-m-d");
-        $slaid = "";
+        $impacto = "";
         $gt = "";
         if ($impact != 0) {
-            $slaid = " AND t.impact LIKE '%$impact%'";
+            $impacto = " AND t.impact LIKE '%$impact%'";
         }
 
         if ($group != 0) {
@@ -51,7 +51,8 @@ class Relatorio_SLA
             WHERE t.date BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $slaid . "
+            " . $impacto . "
+            AND gt.type=2
             AND t.is_deleted = 0
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -67,7 +68,8 @@ class Relatorio_SLA
             WHERE t.date BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $slaid . "
+            " . $impacto . "
+            AND gt.type=2
             AND t.is_deleted = 0
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -83,8 +85,9 @@ class Relatorio_SLA
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $slaid . "
+            " . $impacto . "
             AND t.is_deleted = 0
+            AND gt.type=2
             AND t.status < 5
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -99,9 +102,10 @@ class Relatorio_SLA
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
-            " . $slaid . "
+            " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
+            AND gt.type = 2
             AND t.status < 5
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -116,9 +120,10 @@ class Relatorio_SLA
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
-            " . $slaid . "
+            " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
+            AND gt.type=2
             AND t.status = 4  
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -133,9 +138,10 @@ class Relatorio_SLA
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
-            " . $slaid . "
+            " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
+            AND gt.type=2
             AND t.status =4
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -149,9 +155,10 @@ class Relatorio_SLA
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
             WHERE t.date BETWEEN  ' $date_inicial_formater 00:00:00' AND ' $date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
-            " . $slaid . "
+            " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
+            AND gt.type=2   
             ORDER BY t.id DESC LIMIT 1) as total");
 
 
