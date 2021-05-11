@@ -280,12 +280,11 @@ if ($sel_ent == '' || $sel_ent == -1) {
 							while ($id_grp = $DB->fetch_assoc($result_tec)) {
 
 								// Tickets Reabertos
-								$sql_tickts_reopened = "SELECT count(DISTINCT glpi_tickets.id ) AS total
-											 FROM glpi_groups_tickets, glpi_tickets, glpi_itilsolutions
-											 WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											 AND glpi_itilsolutions.itemtype = 'Ticket'
-											 AND glpi_itilsolutions.items_id = glpi_tickets.id
-											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
+								$sql_tickts_reopened = "SELECT COUNT(DISTINCT glpi_tickets.id ) AS total
+											 FROM glpi_groups_tickets
+											 INNER JOIN glpi_tickets ON glpi_tickets.id = glpi_groups_tickets.tickets_id
+											 INNER JOIN glpi_itilsolutions ON glpi_itilsolutions.items_id = glpi_tickets.id
+											 WHERE glpi_itilsolutions.itemtype = 'Ticket'
 											 AND glpi_tickets.is_deleted = 0
 											 AND glpi_tickets.status != 6
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
@@ -317,11 +316,10 @@ if ($sel_ent == '' || $sel_ent == -1) {
 
 
 								//chamados solucionados
-								$sql_sol = "SELECT count(DISTINCT glpi_tickets.id ) AS total
-											 FROM glpi_groups_tickets, glpi_tickets
-											 WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											 AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-											 AND glpi_tickets.is_deleted = 0
+								$sql_sol = "SELECT COUNT(DISTINCT glpi_tickets.id ) AS total
+											 FROM glpi_groups_tickets
+											 INNER JOIN glpi_tickets ON glpi_groups_tickets.tickets_id = glpi_tickets.id
+											 WHERE glpi_tickets.is_deleted = 0
 											 AND glpi_tickets.status = 5
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											 AND glpi_groups_tickets.type = 2
@@ -334,17 +332,16 @@ if ($sel_ent == '' || $sel_ent == -1) {
 
 
 								// backlog geral ----------------------------------------------------------------------------------
-								$sql_salved_and_closed = "SELECT count(DISTINCT glpi_tickets.id ) AS total
-											FROM glpi_groups_tickets, glpi_tickets
-											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-											AND glpi_tickets.is_deleted = 0
-											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
-											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
-											AND glpi_groups_tickets.type = 2
-											" . $entidade . "			
-											AND glpi_tickets.date " . $datas2 . "
-											ORDER BY glpi_tickets.id DESC LIMIT 1";
+								$sql_salved_and_closed = "SELECT COUNT(DISTINCT glpi_tickets.id ) AS total
+															FROM glpi_groups_tickets
+															INNER JOIN glpi_tickets ON glpi_groups_tickets.tickets_id = glpi_tickets.id
+															WHERE glpi_tickets.is_deleted = 0
+															AND glpi_tickets.status NOT IN {$status_solved_and_closed}
+															AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
+															AND glpi_groups_tickets.type = 2
+															" . $entidade . "			
+															AND glpi_tickets.date " . $datas2 . "
+															ORDER BY glpi_tickets.id DESC LIMIT 1";
 											
 
 								$result_salved_and_closed = $DB->query($sql_salved_and_closed) or die("erro_ab");
@@ -352,10 +349,9 @@ if ($sel_ent == '' || $sel_ent == -1) {
 
 								// backlog FP -----------------------------------------------------------------------------------------
 								$sql_salved_and_closed_fp = "SELECT DISTINCT glpi_tickets.id AS id
-											FROM glpi_groups_tickets, glpi_tickets
-											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-											AND glpi_tickets.is_deleted = 0
+											FROM glpi_groups_tickets
+											INNER JOIN glpi_tickets oN glpi_groups_tickets.tickets_id = glpi_tickets.id
+											WHERE glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
 											AND glpi_tickets.time_to_resolve < DATE(NOW())
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
@@ -366,32 +362,18 @@ if ($sel_ent == '' || $sel_ent == -1) {
 
 								$result_salved_and_closed_fp = $DB->query($sql_salved_and_closed_fp) or die("erro_fp");
 								$data_salved_and_closed_fp = $result_salved_and_closed_fp->num_rows + 0;
-								$keys_salved_and_closed_fp = "";
-
-								if($data_salved_and_closed_fp > 0){
-									
-									$result = $result_salved_and_closed_fp->fetch_all(MYSQLI_ASSOC);
-									$array = array();
-
-									foreach($result as $value){
-										array_push($array, ("'".$value['id']."'"));
-									}
-
-									$keys_salved_and_closed_fp = "AND glpi_tickets.id NOT IN (". implode(",",  $array) .")";
-								}
 
 								// backlog DP ---------------------------------------------------------------------------------
-								$sql_salved_and_closed_dp = "SELECT count(DISTINCT glpi_tickets.id ) AS total
-											FROM glpi_tickets, glpi_groups_tickets
-											WHERE glpi_tickets.id = glpi_groups_tickets.tickets_id
-											AND glpi_groups_tickets.tickets_id = glpi_tickets.id
-											AND glpi_tickets.is_deleted = 0
+								$sql_salved_and_closed_dp = "SELECT COUNT(DISTINCT glpi_tickets.id ) AS total
+											FROM glpi_tickets
+											INNER JOIN glpi_groups_tickets ON glpi_groups_tickets.tickets_id = glpi_tickets.id
+											WHERE glpi_tickets.is_deleted = 0
 											AND glpi_tickets.status NOT IN {$status_solved_and_closed}
 											AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											AND glpi_groups_tickets.type = 2
 											{$entidade}			
 											AND glpi_tickets.date " . $datas2 . "
-											{$keys_salved_and_closed_fp}
+											AND glpi_tickets.id NOT IN ({$sql_salved_and_closed_fp})
 											ORDER BY glpi_tickets.id DESC LIMIT 1";
 
 								$result_salved_and_closed_dp = $DB->query($sql_salved_and_closed_dp) or die("erro_dp");
