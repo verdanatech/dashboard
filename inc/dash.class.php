@@ -24,7 +24,7 @@ class NewDashboard
 
         if ($group != 0) {
             $groups = implode(",", $group);
-            $gt = "AND gt.groups_id IN ($groups) AND gt.type =2";
+            $gt = "AND gt.groups_id IN ($groups) AND gt.type = 2";
         }
 
         $query = $DB->query("SELECT
@@ -34,6 +34,7 @@ class NewDashboard
             " . $gt . "
             " . $slaid . "
             " . $impact . "
+            AND t.is_deleted = 0 
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`
@@ -132,6 +133,7 @@ class NewDashboard
             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
             " . $gt . "
+            " . $impact . "
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`
@@ -142,7 +144,6 @@ class NewDashboard
              ORDER BY t.id DESC LIMIT 1) as tickets_total
             
             ");
-
 
 
 
