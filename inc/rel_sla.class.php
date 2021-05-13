@@ -25,7 +25,8 @@ class Relatorio_SLA
 
         if ($group != 0) {
             $groups = implode(",", $group);
-            $gt = "AND gt.groups_id IN ($groups)";
+            $gt = "AND gt.groups_id IN ($groups)
+            AND gt.type=2";
         }
         if ($data_inicial_time > $data_final_time) {
             return false;
@@ -46,21 +47,22 @@ class Relatorio_SLA
 
             //Consulta
             $query = $DB->query("SELECT
-            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
-            LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN ' $date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
+            (SELECT DISTINCT count(t.id)
+             From glpi_tickets  as t
+             LEFT JOIN  glpi_groups_tickets AS gt ON (t.id = gt.tickets_id)
+            WHERE t.is_deleted = 0       
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $impacto . "
-            AND gt.type = 2
-            AND t.is_deleted = 0
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
             AND (t.`solvedate` > t.`time_to_resolve`
             OR (t.`solvedate` IS NULL
             AND t.`time_to_resolve` < NOW())),
-                  1,
-             0) = 0) 
+               1,
+              0) = 0)
+	    	AND (`t`.`date` > '$date_inicial_formater 00:00:00'
+            AND `t`.`date` < '$date_inicial_formater 23:55:00')
             ORDER BY t.id DESC LIMIT 1) AS dentro,
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
@@ -68,8 +70,7 @@ class Relatorio_SLA
             WHERE t.date BETWEEN  '$date_inicial_formater 00:00:00' AND '$date_inicial_formater 23:59:59'
             AND t.slas_id_ttr = $sla
             " . $gt . "
-            " . $impacto . "
-            AND gt.type = 2
+            " . $impacto . "           
             AND t.is_deleted = 0
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -86,8 +87,7 @@ class Relatorio_SLA
             AND t.slas_id_ttr = $sla
             " . $gt . "
             " . $impacto . "
-            AND t.is_deleted = 0
-            AND gt.type = 2
+            AND t.is_deleted = 0            
             AND t.status < 5
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -105,7 +105,6 @@ class Relatorio_SLA
             " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
-            AND gt.type = 2
             AND t.status < 5
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -123,7 +122,6 @@ class Relatorio_SLA
             " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
-            AND gt.type = 2
             AND t.status = 4  
             AND (IF(t.`time_to_resolve` IS NOT NULL
             AND t.`status` <> 4
@@ -141,9 +139,7 @@ class Relatorio_SLA
             " . $impacto . "
             " . $gt . "
             AND t.is_deleted = 0
-            AND gt.type = 2   
             ORDER BY t.id DESC LIMIT 1) as total");
-
 
 
             while ($rows = $DB->fetch_assoc($query)) {
