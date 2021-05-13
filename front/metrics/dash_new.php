@@ -526,23 +526,44 @@ if (!empty($_POST['submit'])) {
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
                     document.getElementById("cf-gauge-4-a").innerHTML = total;
-                    var target4 = document.getElementById('cf-gauge-5-g');
-                    var gauge4 = new Gauge(target4).setOptions(opts);
-                    gauge4.maxValue = total;
-                    gauge4.setMinValue(0);
-                    gauge4.animationSpeed = 32;
-                    gauge4.set(requisicao);
-                    document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
-                    document.getElementById("cf-gauge-5-a").innerHTML = total;
-                    var target5 = document.getElementById('cf-gauge-6-g');
-                    var gauge5 = new Gauge(target5).setOptions(opts);
-                    gauge5.maxValue = total;
-                    gauge5.setMinValue(0);
-                    gauge5.animationSpeed = 32;
-                    gauge5.set(incidentes);
-                    document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
-                    document.getElementById("cf-gauge-6-a").innerHTML = total;
-
+                    if (chamado == 1) {
+                        var target4 = document.getElementById('cf-gauge-5-g');
+                        var gauge4 = new Gauge(target4).setOptions(opts);
+                        gauge4.maxValue = total;
+                        gauge4.setMinValue(0);
+                        gauge4.animationSpeed = 32;
+                        gauge4.set(0);
+                        document.getElementById("cf-gauge-5-m").innerHTML = 0;
+                        document.getElementById("cf-gauge-5-a").innerHTML = total;
+                    } else {
+                        var target4 = document.getElementById('cf-gauge-5-g');
+                        var gauge4 = new Gauge(target4).setOptions(opts);
+                        gauge4.maxValue = total;
+                        gauge4.setMinValue(0);
+                        gauge4.animationSpeed = 32;
+                        gauge4.set(requisicao);
+                        document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
+                        document.getElementById("cf-gauge-5-a").innerHTML = total;
+                    }
+                    if (chamado == 2) {
+                        var target5 = document.getElementById('cf-gauge-6-g');
+                        var gauge5 = new Gauge(target5).setOptions(opts);
+                        gauge5.maxValue = total;
+                        gauge5.setMinValue(0);
+                        gauge5.animationSpeed = 32;
+                        gauge5.set(0);
+                        document.getElementById("cf-gauge-6-m").innerHTML = 0;
+                        document.getElementById("cf-gauge-6-a").innerHTML = total;
+                    } else {
+                        var target5 = document.getElementById('cf-gauge-6-g');
+                        var gauge5 = new Gauge(target5).setOptions(opts);
+                        gauge5.maxValue = total;
+                        gauge5.setMinValue(0);
+                        gauge5.animationSpeed = 32;
+                        gauge5.set(incidentes);
+                        document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
+                        document.getElementById("cf-gauge-6-a").innerHTML = total;
+                    }
 
                 },
                 error: (error) => {

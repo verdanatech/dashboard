@@ -170,7 +170,7 @@ class PluginDashboardTicktsReopened
     {
         global $DB;
 
-        $query_group = "SELECT DISTINCT
+        $query_group = "SELECT
                         ticket_group.groups_id AS id_group,
                         grupo.name AS name_group
                         FROM glpi_groups_tickets AS ticket_group
@@ -299,12 +299,13 @@ class PluginDashboardTicktsReopened
         global $DB;
 
         //requerente	
-        $sql_user = "SELECT glpi_tickets.id AS id, glpi_tickets.name AS title, glpi_tickets.content AS content, glpi_users.firstname AS name, glpi_users.realname AS sname
+        $sql_user = "SELECT DISTINCT glpi_tickets.id AS id, glpi_tickets.name AS title, glpi_tickets.content AS content, glpi_users.firstname AS name, glpi_users.realname AS sname
                         FROM glpi_tickets_users , glpi_tickets, glpi_users
                         WHERE glpi_tickets.id = glpi_tickets_users.tickets_id
                         AND glpi_tickets.id = {$id}
                         AND glpi_tickets_users.users_id = glpi_users.id
-                        AND glpi_tickets_users.type = 1 ";
+                        AND glpi_tickets_users.type = 1 
+                        ORDER BY glpi_tickets.id DESC";
 
         $result_user = $DB->query($sql_user);
 
@@ -316,12 +317,13 @@ class PluginDashboardTicktsReopened
     {
         global $DB;
         //tecnico	
-        $sql_tec = "SELECT glpi_tickets.id AS id, glpi_users.firstname AS name, glpi_users.realname AS sname
+        $sql_tec = "SELECT DISTINCT glpi_tickets.id AS id, glpi_users.firstname AS name, glpi_users.realname AS sname
                         FROM glpi_tickets_users , glpi_tickets, glpi_users
                         WHERE glpi_tickets.id = glpi_tickets_users.tickets_id
                         AND glpi_tickets.id = {$id}
                         AND glpi_tickets_users.users_id = glpi_users.id
-                        AND glpi_tickets_users.type = 2 ";
+                        AND glpi_tickets_users.type = 2
+                        ORDER BY glpi_tickets.id DESC ";
 
         $result_tec = $DB->query($sql_tec);
 
@@ -334,10 +336,11 @@ class PluginDashboardTicktsReopened
         global $DB;
 
         //origem	
-        $sql_req = "SELECT glpi_tickets.id AS id, glpi_requesttypes.name AS name
+        $sql_req = "SELECT DISTINCT glpi_tickets.id AS id, glpi_requesttypes.name AS name
                             FROM glpi_tickets , glpi_requesttypes
                             WHERE glpi_tickets.requesttypes_id = glpi_requesttypes.id
-                            AND glpi_tickets.id = {$id} ";
+                            AND glpi_tickets.id = {$id} 
+                            ORDER BY glpi_tickets.id DESC";
 
         $result_req = $DB->query($sql_req);
         return $DB->fetch_assoc($result_req);
@@ -362,10 +365,11 @@ class PluginDashboardTicktsReopened
     {
         global $DB;
         //categoria	
-        $sql_cat = "SELECT glpi_tickets.id AS id, glpi_itilcategories.completename AS name
+        $sql_cat = "SELECT DISTINCT glpi_tickets.id AS id, glpi_itilcategories.completename AS name
                              FROM glpi_tickets, glpi_itilcategories
                              WHERE glpi_tickets.itilcategories_id = glpi_itilcategories.id
-                             AND glpi_tickets.id = {$id} ";
+                             AND glpi_tickets.id = {$id} 
+                             ORDER BY glpi_tickets.id DESC";
 
         $result_cat = $DB->query($sql_cat);
         return $DB->fetch_assoc($result_cat);
@@ -446,7 +450,7 @@ class PluginDashboardTicktsReopened
 
         if ($this->saerch["id_sel_resolver"] != 0) {
 
-            return "AND t.id IN (SELECT tickets_id FROM glpi_groups_tickets WHERE groups_id = '" . $this->saerch['id_sel_resolver'] . "' AND type = 2 ORDER BY id DESC) ";
+            return "AND t.id IN (SELECT DISTINCT tickets_id FROM glpi_groups_tickets WHERE groups_id = '" . $this->saerch['id_sel_resolver'] . "' AND type = 2 ORDER BY id DESC) ";
         }
 
         return '';
@@ -498,7 +502,7 @@ class PluginDashboardTicktsReopened
 
         //count by status
         $query_stat = "SELECT
-                        COUNT(t.id) AS ticket,
+                        COUNT(DISTINCT t.id) AS ticket,
                         SUM(case when t.status = 1 then 1 else 0 end) AS new,
                         SUM(case when t.status = 2 then 1 else 0 end) AS assig,
                         SUM(case when t.status = 3 then 1 else 0 end) AS plan,
@@ -558,7 +562,7 @@ class PluginDashboardTicktsReopened
         $id_tip = $this->saerch['id_sel_typ'] == 0 ? '' : $this->saerch['id_sel_typ'];
         $id_localizacao = $this->saerch['id_sel_location'] == 0 ? '' : $this->saerch['id_sel_location'];
 
-        $sql_cham = "SELECT 
+        $sql_cham = "SELECT DISTINCT 
                             t.id,
                             t.entities_id,
                             t.name,
