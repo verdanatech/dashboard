@@ -20,7 +20,7 @@ class Relatorio_SLA
         $impacto = "";
         $gt = "";
         if ($impact != 0) {
-            $impacto = " AND t.impact LIKE '%$impact%'";
+            $impacto = " AND glpi_tickets.impact LIKE '%$impact%'";
         }
 
         if ($group != 0) {
@@ -53,15 +53,14 @@ class Relatorio_SLA
               WHERE
              `glpi_tickets`.`is_deleted` = 0
                 
-               AND glpi_tickets.slas_id_ttr = $sla
-                 AND (IF(`glpi_tickets`.`time_to_resolve` IS NOT NULL
+                  AND glpi_tickets.slas_id_ttr = $sla
+                      AND (IF(`glpi_tickets`.`time_to_resolve` IS NOT NULL
                      AND `glpi_tickets`.`status` <> 4
                      AND (`glpi_tickets`.`solvedate` > `glpi_tickets`.`time_to_resolve`
                      OR (`glpi_tickets`.`solvedate` IS NULL
                      AND `glpi_tickets`.`time_to_resolve` < NOW())),
                  1,
                  0) = 0)
-                 
                  AND (`glpi_tickets`.`date` > '$date_inicial_formater 00:00:00'
                  AND `glpi_tickets`.`date` < '$date_inicial_formater 23:59:00')
                  " . $gt . "
