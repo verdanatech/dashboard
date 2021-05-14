@@ -373,6 +373,18 @@ if (!empty($_POST['submit'])) {
             $('#graf04').removeAttr('href');
             $('#graf05').removeAttr('href');
             $('#graf06').removeAttr('href');
+            $("#graf01 > div").removeClass('metrich');
+            $("#graf01 > div").addClass('metric');
+            $("#graf02 > div").removeClass('metrich');
+            $("#graf02 > div").addClass('metric');
+            $("#graf03 > div").removeClass('metrich');
+            $("#graf03 > div").addClass('metric');
+            $("#graf04 > div").removeClass('metrich');
+            $("#graf04 > div").addClass('metric');
+            $("#graf05 > div").removeClass('metrich');
+            $("#graf05 > div").addClass('metric');
+            $("#graf06 > div").removeClass('metrich');
+            $("#graf06 > div").addClass('metric');
             $.ajax({
                 url: 'ajax/ajax_dash.php',
                 type: 'GET',
@@ -432,46 +444,70 @@ if (!empty($_POST['submit'])) {
                     var impact = impacto;
                     if (impact != 0) {
                         impact = impact;
-                        console.log(impact);
+
                     } else {
                         impact = 0;
 
                     }
 
-                    if (chamado != 0 && groups == 0) {
+                    if (muito_alto == 0) {
+                        $('#graf01').removeAttr('href');
+                        $("#graf01 > div").addClass("metrich");
+                        $("#graf01 > div").removeClass('metric');
+                    } else if (chamado != 0 && groups == 0) {
                         $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=5&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else if (chamado == 0 && groups == 0) {
                         $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=5&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else {
                         $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_muito_alto}`);
                     }
-                    if (chamado != 0 && groups == 0) {
+                    if (medio == 0) {
+                        $('#graf02').removeAttr('href');
+                        $("#graf02 > div").addClass("metrich");
+                        $("#graf02 > div").removeClass('metric');
+                    } else if (chamado != 0 && groups == 0) {
                         $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=3&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else if (chamado == 0 && groups == 0) {
                         $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=3&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else {
                         $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_medio}`);
                     }
-                    if (chamado != 0 && groups == 0) {
+                    if (alto == 0) {
+                        $('#graf03').removeAttr('href');
+                        $("#graf03 > div").addClass("metrich");
+                        $("#graf03 > div").removeClass('metric');
+                    } else if (chamado != 0 && groups == 0) {
                         $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=4&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`)
                     } else if (chamado == 0 && groups == 0) {
                         $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=4&search=Pesquisar&itemtype=Ticket&start=0`)
                     } else {
                         $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_alto}`);
                     }
-                    if (chamado != 0 && groups == 0) {
+                    if (baixo == 0) {
+                        $('#graf04').removeAttr('href');
+                        $("#graf04 > div").addClass("metrich");
+                        $("#graf04 > div").removeClass('metric');
+                    } else if (chamado != 0 && groups == 0) {
                         $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=2&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else if (chamado == 0 && groups == 0) {
                         $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else {
                         $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_baixo}`);
                     }
-                    if (groups == 0) {
+                    if (requisicao == 0) {
+                        $('#graf05').removeAttr('href');
+                        $("#graf05 > div").addClass("metrich");
+                        $("#graf05 > div").removeClass('metric');
+                    } else if (groups == 0) {
                         $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else {
                         $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_requisicao}`);
                     }
-                    if (groups == 0) {
+                    if (incidentes == 0) {
+                        $('#graf06').removeAttr('href');
+                        $("#graf06 > div").addClass("metrich");
+                        $("#graf06 > div").removeClass('metric');
+                    } else if (groups == 0) {
                         $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
                     } else {
                         $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_incidente}`);
