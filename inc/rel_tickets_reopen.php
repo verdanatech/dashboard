@@ -435,10 +435,10 @@ class PluginDashboardTicktsReopened
     {
 
         if ($this->saerch['id_sel_due'] == 1) {
-            return "AND time_to_resolve < solvedate";
+            return "AND ( (IF(t.time_to_resolve IS NOT NULL AND t.status <> 4 AND (t.solvedate > t.time_to_resolve OR (t.solvedate IS NULL AND t.time_to_resolve < NOW())), 1, 0) = 1) )";
         }
         if ($this->saerch['id_sel_due'] == 2) {
-            return "AND time_to_resolve >= solvedate";
+            return "AND ( (IF(t.time_to_resolve IS NOT NULL AND t.status <> 4 AND (t.solvedate > t.time_to_resolve OR (t.solvedate IS NULL AND t.time_to_resolve < NOW())), 1, 0) = 0) )";
         }
 
         return '';
@@ -456,19 +456,52 @@ class PluginDashboardTicktsReopened
         return '';
     }
 
+    public function getCountTickets(){
+
+        global $DB;
+
+        // Query Where
+        $entidade = "AND t.entities_id IN (" . $this->entitySearch() . ")";
+        $period = $this->getQueryPeriod(); // Beetwen do periodo referente a pesquisa
+        $id_sta = $this->getQueryState(); // Retorna o and para id do status
+        $id_due = $this->getQueryDue(); // Retorna and para chamados vencidos
+        $id_resolver = $this->getQueryResolver(); // Retorna and para resolvedor
+        $id_impact = $this->getQueryImpact();
+        // ID Like
+        $id_req = $this->saerch['id_sel_font'] == 0 ? '' : $this->saerch['id_sel_font'];
+        $id_pri = $this->saerch['id_sel_pri'] == 0 ? '' : $this->saerch['id_sel_pri'];
+        $id_cat = $this->saerch['id_sel_cat'] == 0 ? '' : $this->saerch['id_sel_cat'];
+        $id_tip = $this->saerch['id_sel_typ'] == 0 ? '' : $this->saerch['id_sel_typ'];
+        $id_localizacao = $this->saerch['id_sel_location'] == 0 ? '' : $this->saerch['id_sel_location'];
+
+        //count by status
+        $query_stat = "SELECT
+                        COUNT(DISTINCT t.id) AS ticket
+                        FROM glpi_tickets AS t
+                        WHERE 
+                            t.is_deleted = 0
+                            {$entidade} 
+                            {$period}
+                            {$id_sta}
+                            {$id_due}
+                            {$id_impact}
+                            {$id_resolver}
+                            AND t.requesttypes_id LIKE '%{$id_req}'
+                            AND t.priority LIKE '%{$id_pri}'
+                            AND t.itilcategories_id LIKE '%{$id_cat}'
+                            AND t.type LIKE '%{$id_tip}'
+                            AND t.locations_id LIKE '%{$id_localizacao}' 
+                        ORDER BY t.id DESC ";
+
+        // var_dump($query_stat);exit;
+
+        return $DB->result($DB->query($query_stat), 0, 'ticket') + 0;
+    }
+
     // Porcentagem de tickets reabertos
     public function getPorcentageTicket($tickets_reopen){
 
-        global $DB;
-        $query = "SELECT 
-                    COUNT(DISTINCT t.id) AS ticket
-                  FROM
-                    glpi_tickets AS t
-                  WHERE t.is_deleted = 0
-                  AND t.status IN ('5','6')
-                  ORDER BY t.id DESC";
-
-        $tickets = $DB->result($DB->query($query), 0, 'ticket') + 0;
+        $tickets = $this->getCountTickets();
 
         if($tickets_reopen >= $tickets){
             return 100;
@@ -493,6 +526,7 @@ class PluginDashboardTicktsReopened
         $id_due = $this->getQueryDue(); // Retorna and para chamados vencidos
         $id_resolver = $this->getQueryResolver(); // Retorna and para resolvedor
         $id_impact = $this->getQueryImpact();
+        $count_ticket = $this->getCountTickets();
         // ID Like
         $id_req = $this->saerch['id_sel_font'] == 0 ? '' : $this->saerch['id_sel_font'];
         $id_pri = $this->saerch['id_sel_pri'] == 0 ? '' : $this->saerch['id_sel_pri'];
@@ -528,18 +562,19 @@ class PluginDashboardTicktsReopened
 
         $result_stat = $DB->query($query_stat);
 
-        $tickets = $DB->result($result_stat, 0, 'ticket') + 0;
-        $porcent = $this->getPorcentageTicket($tickets);
+        $tickets_reopen = $DB->result($result_stat, 0, 'ticket') + 0;
+        $porcent = $this->getPorcentageTicket($tickets_reopen);
 
         return array(
-            'ticket' => $tickets,
+            'ticket_reopen' => $tickets_reopen,
             'new' => $DB->result($result_stat, 0, 'new') + 0,
             'assig' => $DB->result($result_stat, 0, 'assig') + 0,
             'plan' => $DB->result($result_stat, 0, 'plan') + 0,
             'pend' => $DB->result($result_stat, 0, 'pend') + 0,
             'solve' => $DB->result($result_stat, 0, 'solve') + 0,
             'close' => $DB->result($result_stat, 0, 'close') + 0,
-            'porcent' => $porcent
+            'porcent' => $porcent,
+            'ticket'=> $count_ticket
         );
     }
 

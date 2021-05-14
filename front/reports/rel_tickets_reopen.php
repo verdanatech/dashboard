@@ -322,7 +322,7 @@ function margins()
 										<td height="12px"></td>
 									</tr>
 									<tr>
-										<td style="margin-top:2px; width:100px;"><?php echo __('Due Date', 'dashboard'); ?>: </td>
+										<td style="margin-top:2px; width:100px;">Tempo de Solução: </td>
 										<td style="margin-top:2px;">
 											<?php
 
@@ -452,7 +452,8 @@ function margins()
 
 						<table class='fluid' style=' width:100%; font-size: 18px; font-weight:bold;  margin-bottom:25px;  margin-top:20px; ' cellpadding=1px>
 							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'><?php echo __('Entity', 'dashboard'); ?>: </span><?php echo $rel_object->getSelectEntity($saerch['id_sel_ent']); ?></td>
-							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'><?php echo __('Tickets', 'dashboard'); ?>: </span><?php echo $ticket_status_count['ticket']; ?></td>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>Total de Chamados Reabertos no Periodo: </span><?php echo $ticket_status_count['ticket_reopen']; ?></td>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>Total de Chamados no Periodo: </span><?php echo $ticket_status_count['ticket']; ?></td>
 							<td colspan='3' style='font-size: 16px; font-weight:bold; vertical-align:middle; width:200px;'><span style='color:#000;'>
 									<?php echo __('Period', 'dashboard'); ?>: </span><?php echo conv_data($saerch['data_ini']) . " a " . conv_data($saerch['data_fin']); ?>
 							</td>
@@ -467,7 +468,7 @@ function margins()
 								<td><span style='color: #000;'><?php echo __('Pendente:'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Solucionado:', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
 								<td><span style='color: #000;'><?php echo __('Fechado:'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
-								<td><span style='color: #000;'>Porcentagem: </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b> <span class="glyphicon glyphicon-question-sign" style="cursor: help;" title="Fórmula = (Chamados reabertos referente a pesquisa / Chamados do tipo Incidente e Requisição com status solucionado ou fechado) * 100"></span></td>
+								<td><span style='color: #000;'>Porcentagem: </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b> <span class="glyphicon glyphicon-question-sign" style="cursor: help;" title="Fórmula = (Chamados reabertos referente a pesquisa / Chamados referente a pesquisa) * 100"></span></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -484,7 +485,6 @@ function margins()
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Priority'); ?> </th>
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Category'); ?> </th>
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Title'); ?> </th>
-									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Content'); ?> </th>
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Requester'); ?> </th>
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Technician'); ?> </th>
 									<th style='font-size: 12px; text-align: center; cursor:pointer;'><?php echo __('Opened', 'dashboard'); ?></th>
@@ -521,7 +521,6 @@ function margins()
 										<td style="vertical-align:middle;text-align:center;">' . $pri . '</td>
 										<td style="vertical-align:middle; max-width:150px;">' . ($row_cat["name"] ?? "Não definido") . '</td>		
 										<td style="vertical-align:middle;">' . substr($row_user["title"], 0, 55) . '</td>
-										<td style="vertical-align:middle; max-width:550px;">' . html_entity_decode($row_user["content"]) . '</td>
 										<td style="vertical-align:middle;">' . $row_user["name"] . ' ' . $row_user["sname"] . '</td>
 										<td style="vertical-align:middle;">' . (isset($row_tec["name"]) ? ($row_tec["name"] . ' ' . $row_tec["sname"]) : 'Não atribuido') . '</td>
 										<td style="vertical-align:middle; text-align:center;">' . conv_data_hora($ticket["date"]) . '</td>		
