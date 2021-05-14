@@ -17,6 +17,8 @@ a:hover {
     text-decoration: none;
     color: inherit; 
 }
+body.black .metrich {
+  color: #fff; }
 .fa-home {
 margin-left: 40px;
 margin-top: 20px;
