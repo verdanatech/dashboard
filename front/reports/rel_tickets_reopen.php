@@ -452,8 +452,8 @@ function margins()
 
 						<table class='fluid' style=' width:100%; font-size: 18px; font-weight:bold;  margin-bottom:25px;  margin-top:20px; ' cellpadding=1px>
 							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'><?php echo __('Entity', 'dashboard'); ?>: </span><?php echo $rel_object->getSelectEntity($saerch['id_sel_ent']); ?></td>
-							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>Total de Chamados Reabertos no Periodo: </span><?php echo $ticket_status_count['ticket_reopen']; ?></td>
-							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>Total de Chamados no Periodo: </span><?php echo $ticket_status_count['ticket']; ?></td>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>TOTAL de Chamados Reabertos no Periodo: </span><?php echo $ticket_status_count['ticket_reopen']; ?></td>
+							<td style='font-size: 16px; font-weight:bold; vertical-align:middle;'><span style='color:#000;'>TOTAL de Chamados no Periodo: </span><?php echo $ticket_status_count['ticket']; ?></td>
 							<td colspan='3' style='font-size: 16px; font-weight:bold; vertical-align:middle; width:200px;'><span style='color:#000;'>
 									<?php echo __('Period', 'dashboard'); ?>: </span><?php echo conv_data($saerch['data_ini']) . " a " . conv_data($saerch['data_fin']); ?>
 							</td>
