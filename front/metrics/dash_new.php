@@ -263,7 +263,7 @@ if (!empty($_POST['submit'])) {
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-left:10px ;">
 
             <div id="div_grafic04" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
@@ -561,7 +561,6 @@ if (!empty($_POST['submit'])) {
                     gauge3.animationSpeed = 32;
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
-
                     if (chamado == 1) {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -570,7 +569,6 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(0);
                         document.getElementById("cf-gauge-5-m").innerHTML = 0;
-
                     } else {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -579,7 +577,6 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(requisicao);
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
-
                     }
                     if (chamado == 2) {
                         var target5 = document.getElementById('cf-gauge-6-g');
@@ -589,7 +586,6 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(0);
                         document.getElementById("cf-gauge-6-m").innerHTML = 0;
-
                     } else {
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
@@ -598,7 +594,6 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(incidentes);
                         document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
-
                     }
 
                 },
