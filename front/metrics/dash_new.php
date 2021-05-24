@@ -99,7 +99,7 @@ if (!empty($_POST['submit'])) {
                         <option value="4">Alto</option>
                         <option value="3">Médio</option>
                         <option value="2">Baixo</option>
-                        <option value="1">Muito Baixo</option>
+
                     </select>
                 </td>
             </tr>
