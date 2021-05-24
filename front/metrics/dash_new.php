@@ -537,7 +537,7 @@ if (!empty($_POST['submit'])) {
                     gauge.animationSpeed = 32;
                     gauge.set(muito_alto);
                     document.getElementById("cf-gauge-1-m").innerHTML = muito_alto;
-                    document.getElementById("cf-gauge-1-a").innerHTML = total;
+
                     var target1 = document.getElementById('cf-gauge-2-g');
                     var gauge1 = new Gauge(target1).setOptions(opts);
                     gauge1.maxValue = total;
@@ -545,7 +545,7 @@ if (!empty($_POST['submit'])) {
                     gauge1.animationSpeed = 32;
                     gauge1.set(medio);
                     document.getElementById("cf-gauge-2-m").innerHTML = medio;
-                    document.getElementById("cf-gauge-2-a").innerHTML = total;
+
                     var target2 = document.getElementById('cf-gauge-3-g');
                     var gauge2 = new Gauge(target2).setOptions(opts);
                     gauge2.maxValue = total;
@@ -553,7 +553,7 @@ if (!empty($_POST['submit'])) {
                     gauge2.animationSpeed = 32;
                     gauge2.set(alto);
                     document.getElementById("cf-gauge-3-m").innerHTML = alto;
-                    document.getElementById("cf-gauge-3-a").innerHTML = total;
+
                     var target3 = document.getElementById('cf-gauge-4-g');
                     var gauge3 = new Gauge(target3).setOptions(opts);
                     gauge3.maxValue = total;
@@ -561,7 +561,7 @@ if (!empty($_POST['submit'])) {
                     gauge3.animationSpeed = 32;
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
-                    document.getElementById("cf-gauge-4-a").innerHTML = total;
+
                     if (chamado == 1) {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -570,7 +570,7 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(0);
                         document.getElementById("cf-gauge-5-m").innerHTML = 0;
-                        document.getElementById("cf-gauge-5-a").innerHTML = total;
+
                     } else {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -579,7 +579,7 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(requisicao);
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
-                        document.getElementById("cf-gauge-5-a").innerHTML = total;
+
                     }
                     if (chamado == 2) {
                         var target5 = document.getElementById('cf-gauge-6-g');
@@ -589,7 +589,7 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(0);
                         document.getElementById("cf-gauge-6-m").innerHTML = 0;
-                        document.getElementById("cf-gauge-6-a").innerHTML = total;
+
                     } else {
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
@@ -598,7 +598,7 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(incidentes);
                         document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
-                        document.getElementById("cf-gauge-6-a").innerHTML = total;
+
                     }
 
                 },
