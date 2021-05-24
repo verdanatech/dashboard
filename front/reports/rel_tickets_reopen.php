@@ -463,11 +463,6 @@ function margins()
 
 						<table style='font-size: 16px; font-weight:bold; width: 50%;' border=0>
 							<tr>
-								<td><span style='color: #000;'><?php echo _x('status', 'Novo :'); ?> </span><b><?php echo $ticket_status_count['new']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Atribuído:'); ?> </span><b><?php echo ($ticket_status_count['assig'] + $ticket_status_count['plan']); ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Pendente:'); ?> </span><b><?php echo $ticket_status_count['pend']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Solucionado:', 'dashboard'); ?> </span><b><?php echo $ticket_status_count['solve']; ?></b></td>
-								<td><span style='color: #000;'><?php echo __('Fechado:'); ?> </span><b><?php echo $ticket_status_count['close']; ?></b></td>
 								<td><span style='color: #000;'>Porcentagem: </span><b><?php echo number_format($ticket_status_count['porcent'], 2, ".", ",") . '%'; ?></b> <span class="glyphicon glyphicon-question-sign" style="cursor: help;" title="Fórmula = (Chamados reabertos referente a pesquisa / Chamados referente a pesquisa) * 100"></span></td>
 							</tr>
 							<tr>
