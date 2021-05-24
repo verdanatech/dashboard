@@ -180,7 +180,7 @@ if (!empty($_POST['submit'])) {
 
     <div id="graficos" class="container">
 
-        <div class="row">
+        <div class="row" style="position:relative;">
 
             <div id="div_grafic01" style="margin: 2%;" class="col-md-4 cf-item">
                 <header>
@@ -209,7 +209,7 @@ if (!empty($_POST['submit'])) {
             </div>
 
 
-            <div id="div_grafic03" style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic03" class="col-md-4 cf-item">
                 <header>
                     <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
                 </header>
@@ -233,7 +233,7 @@ if (!empty($_POST['submit'])) {
 
             </div>
 
-            <div id="div_grafic02" style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic02" class="col-md-4 cf-item">
                 <header>
                     <p id="graf2"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?></p>
                 </header>
@@ -263,9 +263,9 @@ if (!empty($_POST['submit'])) {
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-left:10px;">
 
-            <div id="div_grafic04" style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic04" style="" class="col-md-4 cf-item">
                 <header>
                     <p id="graf4"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?></p>
                 </header>
@@ -290,7 +290,7 @@ if (!empty($_POST['submit'])) {
             </div>
 
 
-            <div id="div_grafic05" style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic05" style="display:block;" class="col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf5"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?></p>
                 </header>
@@ -314,7 +314,7 @@ if (!empty($_POST['submit'])) {
 
             </div>
 
-            <div id="div_grafic06" style="margin: 2%;" class=" col-md-4 cf-item">
+            <div id="div_grafic06" class=" col-md-4 cf-item">
                 <header>
                     <p style="font-size:14px;" id="graf6"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?></p>
                 </header>
@@ -561,7 +561,6 @@ if (!empty($_POST['submit'])) {
                     gauge3.animationSpeed = 32;
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
-
                     if (chamado == 1) {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -570,7 +569,6 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(0);
                         document.getElementById("cf-gauge-5-m").innerHTML = 0;
-
                     } else {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
@@ -579,7 +577,6 @@ if (!empty($_POST['submit'])) {
                         gauge4.animationSpeed = 32;
                         gauge4.set(requisicao);
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
-
                     }
                     if (chamado == 2) {
                         var target5 = document.getElementById('cf-gauge-6-g');
@@ -589,7 +586,6 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(0);
                         document.getElementById("cf-gauge-6-m").innerHTML = 0;
-
                     } else {
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
@@ -598,7 +594,6 @@ if (!empty($_POST['submit'])) {
                         gauge5.animationSpeed = 32;
                         gauge5.set(incidentes);
                         document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
-
                     }
 
                 },
