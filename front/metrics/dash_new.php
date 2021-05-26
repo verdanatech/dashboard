@@ -562,6 +562,7 @@ if (!empty($_POST['submit'])) {
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
                     if (chamado == 1) {
+
                         $('#graf05').removeAttr('href');
                         $("#graf05 > div").addClass("metrich");
                         $("#graf05 > div").removeClass('metric');
@@ -582,6 +583,7 @@ if (!empty($_POST['submit'])) {
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
                     }
                     if (chamado == 2) {
+
                         $('#graf06').removeAttr('href');
                         $("#graf06 > div").addClass("metrich");
                         $("#graf06 > div").removeClass('metric');
