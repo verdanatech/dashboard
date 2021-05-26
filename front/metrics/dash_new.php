@@ -182,7 +182,7 @@ if (!empty($_POST['submit'])) {
 
         <div class="row" style="position:relative;">
 
-            <div id="div_grafic01" style="margin: 2%;" class="col-md-4 cf-item">
+            <div id="div_grafic01" class="col-md-4 cf-item">
                 <header>
                     <p id="graf1"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Muito Alto', 'dashboard'); ?></p>
                 </header>
@@ -562,6 +562,9 @@ if (!empty($_POST['submit'])) {
                     gauge3.set(baixo);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
                     if (chamado == 1) {
+                        $('#graf05').removeAttr('href');
+                        $("#graf05 > div").addClass("metrich");
+                        $("#graf05 > div").removeClass('metric');
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
                         gauge4.maxValue = total;
@@ -579,6 +582,9 @@ if (!empty($_POST['submit'])) {
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
                     }
                     if (chamado == 2) {
+                        $('#graf06').removeAttr('href');
+                        $("#graf06 > div").addClass("metrich");
+                        $("#graf06 > div").removeClass('metric');
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
                         gauge5.maxValue = total;
