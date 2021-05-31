@@ -283,9 +283,8 @@ if ($sel_ent == '' || $sel_ent == -1) {
 								$sql_tickts_reopened = "SELECT COUNT(DISTINCT glpi_tickets.id ) AS total
 											 FROM glpi_groups_tickets
 											 INNER JOIN glpi_tickets ON glpi_tickets.id = glpi_groups_tickets.tickets_id
-											 INNER JOIN glpi_itilsolutions ON glpi_itilsolutions.items_id = glpi_tickets.id
-											 WHERE glpi_itilsolutions.itemtype = 'Ticket'
-											 AND glpi_tickets.is_deleted = 0
+											 INNER JOIN  glpi_logs ON (glpi_logs.itemtype = 'Ticket' AND glpi_logs.items_id = glpi_tickets.id  AND glpi_logs.linked_action is not null AND glpi_logs.id_search_option != 150 and glpi_logs.new_value = 6)
+											 WHERE glpi_tickets.is_deleted = 0
 											 AND glpi_tickets.status != 6
 											 AND glpi_groups_tickets.groups_id = " . $id_grp['id'] . "
 											 AND glpi_groups_tickets.type = 2

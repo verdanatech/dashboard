@@ -503,7 +503,7 @@ class PluginDashboardTicktsReopened
 
         $tickets = $this->getCountTickets();
 
-        if($tickets_reopen >= $tickets){
+        if(($tickets_reopen >= $tickets) && ($tickets != 0)){
             return 100;
         }else if($tickets_reopen <= 0){
             return 0;
