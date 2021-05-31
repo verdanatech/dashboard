@@ -258,7 +258,7 @@ if (!empty($_POST['submit'])) {
                 <hr style="margin: 60px 0;">
 
                 <h2 style="text-align: center; margin-top: 20px; margin-bottom: 40px;">Informações Tabelada de SLAs</h2>
-
+                <div id="total_cham"></div>
                 <table id="table_painel" class='display' style='font-size: 12px; font-weight:bold;'>
                     <thead style="background-color: #373b40; color: #fff;">
                         <th style="text-align: center; vertical-align: middle;">Data</th>
@@ -325,6 +325,7 @@ if (!empty($_POST['submit'])) {
                 function buscarDados(data1, data2, groups, impact, sla) {
                     $('#table_painel').DataTable().destroy();
                     $('#table_painel tbody').empty().append(html);
+
                     var html = ""
 
 
@@ -345,7 +346,9 @@ if (!empty($_POST['submit'])) {
 
                             $('#table_painel').show();
                             $("#cont-table").removeClass("displayNone");
-
+                            $('#total_cham').empty();
+                            html += '<h3 style="text-align: center; margin-top: 20px; margin-bottom: 40px;">' + 'Total de Chamados - ' + res['totalcham'] + '</h3>';
+                            $(`#total_cham`).append(html);
                             $.each(res["label"], function(i, val) {
 
                                 let data = val.replace("/", "-") + "-" + data1.split("-")[0];
