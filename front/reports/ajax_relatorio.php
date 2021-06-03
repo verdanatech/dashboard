@@ -11,5 +11,6 @@ $dados = $_GET;
 
 $row = [];
 $row = $relatorio->ticketsSla($dados);
+$row['totalcham'] = array_sum($row['total']);
 
 echo json_encode($row);

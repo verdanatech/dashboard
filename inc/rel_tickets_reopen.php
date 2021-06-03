@@ -456,7 +456,8 @@ class PluginDashboardTicktsReopened
         return '';
     }
 
-    public function getCountTickets(){
+    public function getCountTickets()
+    {
 
         global $DB;
 
@@ -499,20 +500,19 @@ class PluginDashboardTicktsReopened
     }
 
     // Porcentagem de tickets reabertos
-    public function getPorcentageTicket($tickets_reopen){
+    public function getPorcentageTicket($tickets_reopen)
+    {
 
         $tickets = $this->getCountTickets();
 
-        if($tickets_reopen >= $tickets){
+        if (($tickets_reopen >= $tickets) && ($tickets != 0)) {
             return 100;
-        }else if($tickets_reopen <= 0){
+        } else if ($tickets_reopen <= 0) {
             return 0;
-        }else{
+        } else {
             $value = ($tickets_reopen / $tickets) * 100;
             return $value > 100 ? 100 : $value;
         }
-
-        
     }
 
     public function getCountState()
@@ -544,7 +544,7 @@ class PluginDashboardTicktsReopened
                         SUM(case when t.status = 5 then 1 else 0 end) AS solve,
                         SUM(case when t.status = 6 then 1 else 0 end) AS close
                         FROM glpi_tickets AS t
-                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 and l.new_value = 6)
+                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 AND l.old_value = 6 AND l.new_value != 6)
                         WHERE 
                             t.is_deleted = 0
                             {$entidade} 
@@ -573,7 +573,7 @@ class PluginDashboardTicktsReopened
             'solve' => $DB->result($result_stat, 0, 'solve') + 0,
             'close' => $DB->result($result_stat, 0, 'close') + 0,
             'porcent' => $porcent,
-            'ticket'=> $count_ticket
+            'ticket' => $count_ticket
         );
     }
 
@@ -611,7 +611,7 @@ class PluginDashboardTicktsReopened
                             t.type,
                             t.time_to_resolve 
                         FROM glpi_tickets AS t
-                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 and l.new_value = 6)
+                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 AND l.old_value = 6 AND l.new_value != 6)
                         WHERE 
                             t.is_deleted = 0
                             {$entidade} 
