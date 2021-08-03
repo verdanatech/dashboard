@@ -180,14 +180,14 @@ if (!empty($_POST['submit'])) {
 
     <div id="graficos" class="container">
 
-        <div class="row" style="position:relative;">
+        <div class="row">
 
             <div id="div_grafic01" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf1"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Muito Alto', 'dashboard'); ?></p>
+                    <p id="graf1"></p>
                 </header>
 
-                <div class="content cf-gauge1" id="cf-gauge-1">
+                <div class="content cf-gauge" id="cf-gauge-1">
 
                     <div class="val-current">
                         <a style="text-decoration:none;" id="graf01" target="_blank">
@@ -196,6 +196,7 @@ if (!empty($_POST['submit'])) {
                     </div>
 
                     <div class="canvas">
+                        <div id="muito_alto_percent"></div>
                         <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
                     </div>
                     <div class="val-min">
@@ -211,47 +212,50 @@ if (!empty($_POST['submit'])) {
 
             <div id="div_grafic03" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf3"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Alto', 'dashboard'); ?></p>
+                    <p id="graf3"></p>
                 </header>
 
-                <div class="content cf-gauge3" id="cf-gauge-3">
+                <div class="content cf-gauge" id="cf-gauge-3">
                     <div class="val-current">
                         <a style="text-decoration:none" id="graf03" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-3-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
+                        <div id="alto_percent"></div>
                         <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-3-a"></div>
                     </div>
                     <div class="val-max">
-                        <div class="metric-small"></div>
+                        <div class="metric-small" id="cf-gauge-3-b"></div>
                     </div>
+
                 </div>
 
             </div>
 
             <div id="div_grafic02" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf2"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Médios', 'dashboard'); ?></p>
+                    <p id="graf2"></p>
                 </header>
 
-                <div class="content cf-gauge2" id="cf-gauge-2">
+                <div class="content cf-gauge" id="cf-gauge-2">
                     <div class="val-current">
                         <a style="text-decoration:none" id="graf02" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-2-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
+                        <div id="medio_percent"></div>
                         <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-2-a"></div>
                     </div>
                     <div class="val-max">
-                        <div class="metric-small"></div>
+                        <div class="metric-small" id="cf-gauge-2-b"></div>
                     </div>
 
                 </div>
@@ -265,77 +269,84 @@ if (!empty($_POST['submit'])) {
 
         <div class="row" style="margin-left:10px;">
 
-            <div id="div_grafic04" style="" class="col-md-4 cf-item">
+            <div id="div_grafic04" class="col-md-4 cf-item">
                 <header>
-                    <p id="graf4"><?php echo _n('', 'Total', 2) . " " . __(' de Chamados Baixo', 'dashboard'); ?></p>
+                    <p id="graf4"></p>
                 </header>
 
-                <div class="content cf-gauge4" id="cf-gauge-4">
+                <div class="content cf-gauge" id="cf-gauge-4">
                     <div class="val-current">
                         <a style="text-decoration:none" id="graf04" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-4-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
+                        <div id="baixo_percent"></div>
                         <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
                     </div>
                     <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-4-a"> </div>
+                        <div class="metric-small" id="cf-gauge-4-a"></div>
                     </div>
                     <div class="val-max">
-                        <div class="metric-small"></div>
+                        <div class="metric-small" id="cf-gauge-4-b"></div>
                     </div>
+
                 </div>
 
             </div>
 
 
-            <div id="div_grafic05" style="display:block;" class="col-md-4 cf-item">
+            <div id="div_grafic05" class="col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf5"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Requisição', 'dashboard'); ?></p>
+                    <p style="font-size:14px;" id="graf5"></p>
                 </header>
 
-                <div class="content cf-gauge5" id="cf-gauge-5">
+                <div class="content cf-gauge" id="cf-gauge-5">
                     <div class="val-current">
                         <a style="text-decoration:none" id="graf05" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-5-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
+                        <div id="requisicao_percent"></div>
+
                         <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
                     </div>
                     <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-5-a"> </div>
+                        <div class="metric-small" id="cf-gauge-5-a"></div>
                     </div>
                     <div class="val-max">
-                        <div class="metric-small"></div>
+                        <div class="metric-small" id="cf-gauge-5-b"></div>
                     </div>
+
                 </div>
 
             </div>
 
-            <div id="div_grafic06" class=" col-md-4 cf-item">
+            <div id="div_grafic06" class="col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf6"><?php echo _n('', 'Total Geral', 2) . " " . __(' de Chamados Incidente ', 'dashboard'); ?></p>
+                    <p style="font-size:14px;" id="graf6"></p>
                 </header>
 
-                <div class="content cf-gauge6" id="cf-gauge-6">
+                <div class="content cf-gauge" id="cf-gauge-6">
                     <div class="val-current">
                         <a style="text-decoration:none" id="graf06" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-6-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
+                        <div id="incidente_percent"></div>
                         <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-6-a"> </div>
                     </div>
                     <div class="val-max">
-                        <div class="metric-small"></div>
+                        <div class="metric-small" id="cf-gauge-6-b"> </div>
                     </div>
 
                 </div>
+
 
             </div>
         </div>
@@ -367,6 +378,7 @@ if (!empty($_POST['submit'])) {
         }
 
         function buscarDados(data1, data2, groups, chamado, impacto) {
+            $("#graficos").hide();
             $('#graf01').removeAttr('href');
             $('#graf02').removeAttr('href');
             $('#graf03').removeAttr('href');
@@ -385,6 +397,20 @@ if (!empty($_POST['submit'])) {
             $("#graf05 > div").addClass('metric');
             $("#graf06 > div").removeClass('metrich');
             $("#graf06 > div").addClass('metric');
+            $('#medio_percent').empty();
+            $('#alto_percent').empty();
+            $('#muito_alto_percent').empty();
+            $('#baixo_percent').empty();
+            $('#requisicao_percent').empty();
+            $('#incidente_percent').empty();
+            $(`#graf1`).empty();
+            $(`#graf2`).empty();
+            $(`#graf3`).empty();
+            $(`#graf4`).empty();
+            $(`#graf5`).empty();
+            $(`#graf6`).empty();
+
+
             $.ajax({
                 url: 'ajax/ajax_dash.php',
                 type: 'GET',
@@ -415,8 +441,8 @@ if (!empty($_POST['submit'])) {
                             link_requisicao += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                             link_incidente += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
                             if (chamado == 0 & groups != 0) {
-                                link_muito_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=5`;
-                                link_medio += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=3`;
+                                link_muito_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=5`;
+                                link_medio += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=3`;
                                 link_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=4`;
                                 link_baixo += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2`;
                                 link_requisicao += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][3][link]=AND&criteria[${index}][criteria][3][field]=82&criteria[${index}][criteria][3][searchtype]=equals&criteria[${index}][criteria][3][value]=0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=14&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2`
@@ -444,11 +470,134 @@ if (!empty($_POST['submit'])) {
                     var impact = impacto;
                     if (impact != 0) {
                         impact = impact;
-
                     } else {
                         impact = 0;
-
                     }
+                    html = ""
+                    //----Porcentagem Alto
+                    medio_percent = "";
+                    alto_percent = "";
+                    medio_percent = res['medio_percent']
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + medio_percent + '%' + '</h3>';
+                    $(`#medio_percent`).append(html);
+                    //----Porcentagem Alto                    
+                    alto_percent = res['alto_percent']
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + alto_percent + '%' + '</h3>';
+                    $(`#alto_percent`).append(html);
+                    //----Porcentagem Muito Alto
+                    muito_alto_percent = res['muito_alto_percent']
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + muito_alto_percent + '%' + '</h3>';
+                    $(`#muito_alto_percent`).append(html);
+                    //----Porcentagem Baixo
+                    baixo_percent = res['baixo_percent']
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + baixo_percent + '%' + '</h3>';
+                    $(`#baixo_percent`).append(html);
+                    //----Porcentagem Requisição
+                    requisicao_percent = res['requisicao_percent']
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + requisicao_percent + '%' + '</h3>';
+                    $(`#requisicao_percent`).append(html);
+                    //----Porcentagem Incidente
+                    incidente_percent = res['incidente_percent'];
+                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + incidente_percent + '%' + '</h3>';
+                    $(`#incidente_percent`).append(html);
+
+
+                    // Criando URL para lista de grupos
+                    let total_link_muito_alto = "";
+                    let total_link_medio = "";
+                    let total_link_alto = "";
+                    let total_link_baixo = "";
+                    let total_link_requisicao = "";
+                    let total_link_incidente = "";
+                    if (groups != 0) {
+
+                        $.each(groups, (index, grupo) => {
+                            total_link_muito_alto += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            total_link_medio += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            total_link_alto += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            total_link_baixo += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            total_link_requisicao += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            total_link_incidente += `${(index == 0 ? "" : "&")}criteria[${index}][link]=${(index == 0 ? "AND" : "OR")}&`;
+                            if (chamado == 0 & groups != 0) {
+                                total_link_muito_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=5`;
+                                total_link_medio += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=3`;
+                                total_link_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=4`;
+                                total_link_baixo += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2`;
+                                total_link_requisicao += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=14&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2`
+                                total_link_incidente += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=14&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=1`
+                            } else if (chamado != 0 && groups != 0) {
+                                total_link_muito_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=5&criteria[${index}][criteria][9][field]=14&criteria[${index}][criteria][9][searchtype]=equals&criteria[${index}][criteria][9][value]=${chamado}`;
+                                total_link_medio += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=3&criteria[${index}][criteria][9][field]=14&criteria[${index}][criteria][9][searchtype]=equals&criteria[${index}][criteria][9][value]=${chamado}`;
+                                total_link_alto += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=4&criteria[${index}][criteria][9][field]=14&criteria[${index}][criteria][9][searchtype]=equals&criteria[${index}][criteria][9][value]=${chamado}`;
+                                total_link_baixo += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:0&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=11&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2&criteria[${index}][criteria][9][field]=14&criteria[${index}][criteria][9][searchtype]=equals&criteria[${index}][criteria][9][value]=${chamado}`;
+                                total_link_requisicao += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=14&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=2`;
+                                total_link_incidente += `criteria[${index}][criteria][1][link]=AND&criteria[${index}][criteria][1][field]=15&criteria[${index}][criteria][1][searchtype]=morethan&criteria[${index}][criteria][1][value]=${data1}+00:00&criteria[${index}][criteria][5][link]=AND&criteria[${index}][criteria][5][field]=8&criteria[${index}][criteria][5][searchtype]=equals&criteria[${index}][criteria][5][value]=${grupo}&criteria[${index}][criteria][7][link]=AND&criteria[${index}][criteria][7][field]=15&criteria[${index}][criteria][7][searchtype]=lessthan&criteria[${index}][criteria][7][value]=${data2}+23:59&criteria[${index}][criteria][8][link]=AND&criteria[${index}][criteria][8][field]=14&criteria[${index}][criteria][8][searchtype]=equals&criteria[${index}][criteria][8][value]=1`;
+                            }
+                        });
+                    }
+                    if (res['muito_alto'] == 0) {
+                        link_total_muito_alto = res['muito_alto'];
+                    } else if (chamado != 0 && groups == 0) {
+                        link_total_muito_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=5&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0  target="__blank"'> ` + res['total_muito_alto'] + ` </a>`;
+                    } else if (chamado == 0 && groups == 0) {
+                        link_total_muito_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=5&search=Pesquisar&itemtype=Ticket&start=0  target="__blank"'>` + res['total_muito_alto'] + ` </a>`;
+                    } else {
+                        link_total_muito_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_muito_alto} target="__blank"'>` + res['total_muito_alto'] + `</a>`;
+                    }
+                    if (res['alto'] == 0) {
+                        link_total_alto = res['alto'];
+                    } else if (chamado != 0 && groups == 0) {
+                        link_total_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=4&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0'> ` + res['total_alto'] + ` </a>`;
+                    } else if (chamado == 0 && groups == 0) {
+                        link_total_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=4&search=Pesquisar&itemtype=Ticket&start=0'>` + res['total_alto'] + ` </a>`;
+                    } else {
+                        link_total_alto = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_alto}'>` + res['total_alto'] + `</a>`;
+                    }
+                    if (res['medio'] == 0) {
+                        link_total_medio = res['medio'];
+                    } else if (chamado != 0 && groups == 0) {
+                        link_total_medio = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=3&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0'> ` + res['total_medio'] + ` </a>`;
+                    } else if (chamado == 0 && groups == 0) {
+                        link_total_medio = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=3&search=Pesquisar&itemtype=Ticket&start=0'>` + res['total_medio'] + ` </a>`;
+                    } else {
+                        link_total_medio = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_medio}'>` + res['total_medio'] + `</a>`;
+                    }
+                    if (res['baixo'] == 0) {
+                        link_total_baixo = res['baixo'];
+                    } else if (chamado != 0 && groups == 0) {
+                        link_total_baixo = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=2&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0'> ` + res['total_baixo'] + ` </a>`;
+                    } else if (chamado == 0 && groups == 0) {
+                        link_total_baixo = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=2&search=Pesquisar&itemtype=Ticket&start=0'>` + res['total_baixo'] + ` </a>`;
+                    } else {
+                        link_total_baixo = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_baixo}'>` + res['total_baixo'] + `</a>`;
+                    }
+                    if (res['requisicao'] == 0) {
+                        link_total_requisicao = res['requisicao'];
+                    } else if (groups == 0) {
+                        link_total_requisicao = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=2&search=Pesquisar&itemtype=Ticket&start=0'>` + res['total_requisicao'] + ` </a>`;
+                    } else {
+                        link_total_requisicao = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_requisicao}'>` + res['total_requisicao'] + `</a>`;
+                    }
+                    if (res['incidente'] == 0) {
+                        link_total_incidente = res['incidente'];
+                    } else if (groups == 0) {
+                        link_total_incidente = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=1&search=Pesquisar&itemtype=Ticket&start=0'>` + res['total_incidente'] + ` </a>`;
+                    } else {
+                        link_total_incidente = `<a target='_blank' href='<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${total_link_incidente}'>` + res['total_incidente'] + `</a>`;
+                    }
+                    html = 'Total de Chamados Muito Alto  : ' + link_total_muito_alto;
+                    $(`#graf1`).append(html);
+                    html = 'Total de Chamados  Alto    : ' + link_total_alto;
+                    $(`#graf3`).append(html);
+                    html = 'Total de Chamados Médio    : ' + link_total_medio;
+                    $(`#graf2`).append(html);
+                    html = 'Total de Chamados Baixo   : ' + link_total_baixo;
+                    $(`#graf4`).append(html);
+                    html = 'Total de Chamados Requisição   : ' + link_total_requisicao;
+                    $(`#graf5`).append(html);
+                    html = 'Total de Chamados Incidente   : ' + link_total_incidente;
+                    $(`#graf6`).append(html);
+
 
                     if (muito_alto == 0) {
                         $('#graf01').removeAttr('href');
@@ -532,35 +681,46 @@ if (!empty($_POST['submit'])) {
 
                     var target = document.getElementById('cf-gauge-1-g');
                     var gauge = new Gauge(target).setOptions(opts);
-                    gauge.maxValue = total;
+                    gauge.maxValue = 100;
                     gauge.setMinValue(0);
                     gauge.animationSpeed = 32;
-                    gauge.set(muito_alto);
+                    gauge.set(muito_alto_percent);
                     document.getElementById("cf-gauge-1-m").innerHTML = muito_alto;
+                    document.getElementById("cf-gauge-1-a").innerHTML = 0;
+                    document.getElementById("cf-gauge-1-b").innerHTML = 100;
+
+
+
 
                     var target1 = document.getElementById('cf-gauge-2-g');
                     var gauge1 = new Gauge(target1).setOptions(opts);
-                    gauge1.maxValue = total;
+                    gauge1.maxValue = 100;
                     gauge1.setMinValue(0);
                     gauge1.animationSpeed = 32;
-                    gauge1.set(medio);
+                    gauge1.set(medio_percent);
                     document.getElementById("cf-gauge-2-m").innerHTML = medio;
+                    document.getElementById("cf-gauge-2-a").innerHTML = 0;
+                    document.getElementById("cf-gauge-2-b").innerHTML = 100;
 
                     var target2 = document.getElementById('cf-gauge-3-g');
                     var gauge2 = new Gauge(target2).setOptions(opts);
-                    gauge2.maxValue = total;
+                    gauge2.maxValue = 100;
                     gauge2.setMinValue(0);
                     gauge2.animationSpeed = 32;
-                    gauge2.set(alto);
+                    gauge2.set(alto_percent);
                     document.getElementById("cf-gauge-3-m").innerHTML = alto;
+                    document.getElementById("cf-gauge-3-a").innerHTML = 0;
+                    document.getElementById("cf-gauge-3-b").innerHTML = 100;
 
                     var target3 = document.getElementById('cf-gauge-4-g');
                     var gauge3 = new Gauge(target3).setOptions(opts);
-                    gauge3.maxValue = total;
+                    gauge3.maxValue = 100;
                     gauge3.setMinValue(0);
                     gauge3.animationSpeed = 32;
-                    gauge3.set(baixo);
+                    gauge3.set(baixo_percent);
                     document.getElementById("cf-gauge-4-m").innerHTML = baixo;
+                    document.getElementById("cf-gauge-4-a").innerHTML = 0;
+                    document.getElementById("cf-gauge-4-b").innerHTML = 100;
                     if (chamado == 1) {
 
                         $('#graf05').removeAttr('href');
@@ -568,19 +728,23 @@ if (!empty($_POST['submit'])) {
                         $("#graf05 > div").removeClass('metric');
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
-                        gauge4.maxValue = total;
+                        gauge4.maxValue = 100;
                         gauge4.setMinValue(0);
                         gauge4.animationSpeed = 32;
                         gauge4.set(0);
                         document.getElementById("cf-gauge-5-m").innerHTML = 0;
+                        document.getElementById("cf-gauge-5-a").innerHTML = 0;
+                        document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     } else {
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts);
-                        gauge4.maxValue = total;
+                        gauge4.maxValue = 100;
                         gauge4.setMinValue(0);
                         gauge4.animationSpeed = 32;
-                        gauge4.set(requisicao);
+                        gauge4.set(requisicao_percent);
                         document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
+                        document.getElementById("cf-gauge-5-a").innerHTML = 0;
+                        document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     }
                     if (chamado == 2) {
 
@@ -589,20 +753,28 @@ if (!empty($_POST['submit'])) {
                         $("#graf06 > div").removeClass('metric');
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
-                        gauge5.maxValue = total;
+                        gauge5.maxValue = 100;
                         gauge5.setMinValue(0);
                         gauge5.animationSpeed = 32;
                         gauge5.set(0);
                         document.getElementById("cf-gauge-6-m").innerHTML = 0;
+                        document.getElementById("cf-gauge-6-a").innerHTML = 0;
+                        document.getElementById("cf-gauge-6-b").innerHTML = 100;
                     } else {
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts);
-                        gauge5.maxValue = total;
+                        gauge5.maxValue = 100;
                         gauge5.setMinValue(0);
                         gauge5.animationSpeed = 32;
-                        gauge5.set(incidentes);
+                        gauge5.set(incidente_percent);
                         document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
+                        document.getElementById("cf-gauge-6-a").innerHTML = 0;
+                        document.getElementById("cf-gauge-6-b").innerHTML = 100;
+
+
                     }
+
+
 
                 },
                 error: (error) => {
