@@ -26,7 +26,7 @@ if (!empty($_POST['submit'])) {
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>GLPI - <?php echo __('Metrics', 'dashboard'); ?></title>
+    <title>GLPI - <?php echo __('Dashboard por SLA', 'dashboard'); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script>
@@ -196,8 +196,8 @@ if (!empty($_POST['submit'])) {
                     </div>
 
                     <div class="canvas">
-                        <div id="muito_alto_percent"></div>
-                        <canvas height="180" width="285" id="cf-gauge-1-g"></canvas>
+                        <h3 style="text-align: center; margin-top: 30px;" id="muito_alto_percent"></h3>
+                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-1-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-1-a"></div>
@@ -217,13 +217,13 @@ if (!empty($_POST['submit'])) {
 
                 <div class="content cf-gauge" id="cf-gauge-3">
                     <div class="val-current">
-                        <a style="text-decoration:none" id="graf03" target="_blank">
+                        <a style="text-decoration:none;display:none;" id="graf03" target="_blank">
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-3-m"></div>
                         </a>
                     </div>
                     <div class="canvas">
-                        <div id="alto_percent"></div>
-                        <canvas height="180" width="285" id="cf-gauge-3-g"></canvas>
+                        <h3 style="text-align: center; margin-top: 30px;" id="alto_percent"></h3>
+                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-3-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-3-a"></div>
@@ -248,8 +248,8 @@ if (!empty($_POST['submit'])) {
                         </a>
                     </div>
                     <div class="canvas">
-                        <div id="medio_percent"></div>
-                        <canvas height="180" width="285" id="cf-gauge-2-g"></canvas>
+                        <h3 style="text-align: center; margin-top: 30px;" id="medio_percent"></h3>
+                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-2-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-2-a"></div>
@@ -267,7 +267,7 @@ if (!empty($_POST['submit'])) {
 
         </div>
 
-        <div class="row" style="margin-left:10px;">
+        <div class="row">
 
             <div id="div_grafic04" class="col-md-4 cf-item">
                 <header>
@@ -281,8 +281,8 @@ if (!empty($_POST['submit'])) {
                         </a>
                     </div>
                     <div class="canvas">
-                        <div id="baixo_percent"></div>
-                        <canvas height="180" width="285" id="cf-gauge-4-g"></canvas>
+                        <h3 style="text-align: center; margin-top: 30px;" id="baixo_percent"></h3>
+                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-4-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-4-a"></div>
@@ -298,7 +298,7 @@ if (!empty($_POST['submit'])) {
 
             <div id="div_grafic05" class="col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf5"></p>
+                    <p id="graf5"></p>
                 </header>
 
                 <div class="content cf-gauge" id="cf-gauge-5">
@@ -308,9 +308,9 @@ if (!empty($_POST['submit'])) {
                         </a>
                     </div>
                     <div class="canvas">
-                        <div id="requisicao_percent"></div>
+                        <h3 style="text-align: center; margin-top: 30px;" id="requisicao_percent"></h3>
 
-                        <canvas height="180" width="285" id="cf-gauge-5-g"></canvas>
+                        <canvas style="margin-left: 10px;" height="170" width=" 285" id="cf-gauge-5-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-5-a"></div>
@@ -325,7 +325,7 @@ if (!empty($_POST['submit'])) {
 
             <div id="div_grafic06" class="col-md-4 cf-item">
                 <header>
-                    <p style="font-size:14px;" id="graf6"></p>
+                    <p id="graf6"></p>
                 </header>
 
                 <div class="content cf-gauge" id="cf-gauge-6">
@@ -335,8 +335,9 @@ if (!empty($_POST['submit'])) {
                         </a>
                     </div>
                     <div class="canvas">
-                        <div id="incidente_percent"></div>
-                        <canvas height="180" width="285" id="cf-gauge-6-g"></canvas>
+                        <h3 style="text-align: center; margin-top: 30px; " id="incidente_percent">
+                        </h3>
+                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-6-g"></canvas>
                     </div>
                     <div class="val-min">
                         <div class="metric-small" id="cf-gauge-6-a"> </div>
@@ -478,27 +479,27 @@ if (!empty($_POST['submit'])) {
                     medio_percent = "";
                     alto_percent = "";
                     medio_percent = res['medio_percent']
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + medio_percent + '%' + '</h3>';
+                    html = +medio_percent + '%';
                     $(`#medio_percent`).append(html);
                     //----Porcentagem Alto                    
                     alto_percent = res['alto_percent']
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + alto_percent + '%' + '</h3>';
+                    html = alto_percent + '%';
                     $(`#alto_percent`).append(html);
                     //----Porcentagem Muito Alto
                     muito_alto_percent = res['muito_alto_percent']
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + muito_alto_percent + '%' + '</h3>';
+                    html = muito_alto_percent + '%';
                     $(`#muito_alto_percent`).append(html);
                     //----Porcentagem Baixo
                     baixo_percent = res['baixo_percent']
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + baixo_percent + '%' + '</h3>';
+                    html = baixo_percent + '%';
                     $(`#baixo_percent`).append(html);
                     //----Porcentagem Requisição
                     requisicao_percent = res['requisicao_percent']
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + requisicao_percent + '%' + '</h3>';
+                    html = requisicao_percent + '%';
                     $(`#requisicao_percent`).append(html);
                     //----Porcentagem Incidente
                     incidente_percent = res['incidente_percent'];
-                    html = '<h3 style="text-align: center; margin-top: 30px; margin-bottom: 40px;">' + incidente_percent + '%' + '</h3>';
+                    html = incidente_percent + '%';
                     $(`#incidente_percent`).append(html);
 
 
@@ -599,68 +600,68 @@ if (!empty($_POST['submit'])) {
                     $(`#graf6`).append(html);
 
 
-                    if (muito_alto == 0) {
-                        $('#graf01').removeAttr('href');
-                        $("#graf01 > div").addClass("metrich");
-                        $("#graf01 > div").removeClass('metric');
-                    } else if (chamado != 0 && groups == 0) {
-                        $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=5&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else if (chamado == 0 && groups == 0) {
-                        $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=5&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else {
-                        $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_muito_alto}`);
-                    }
-                    if (medio == 0) {
-                        $('#graf02').removeAttr('href');
-                        $("#graf02 > div").addClass("metrich");
-                        $("#graf02 > div").removeClass('metric');
-                    } else if (chamado != 0 && groups == 0) {
-                        $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=3&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else if (chamado == 0 && groups == 0) {
-                        $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=3&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else {
-                        $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_medio}`);
-                    }
-                    if (alto == 0) {
-                        $('#graf03').removeAttr('href');
-                        $("#graf03 > div").addClass("metrich");
-                        $("#graf03 > div").removeClass('metric');
-                    } else if (chamado != 0 && groups == 0) {
-                        $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=4&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`)
-                    } else if (chamado == 0 && groups == 0) {
-                        $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=4&search=Pesquisar&itemtype=Ticket&start=0`)
-                    } else {
-                        $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_alto}`);
-                    }
-                    if (baixo == 0) {
-                        $('#graf04').removeAttr('href');
-                        $("#graf04 > div").addClass("metrich");
-                        $("#graf04 > div").removeClass('metric');
-                    } else if (chamado != 0 && groups == 0) {
-                        $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=2&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else if (chamado == 0 && groups == 0) {
-                        $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else {
-                        $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_baixo}`);
-                    }
-                    if (requisicao == 0) {
-                        $('#graf05').removeAttr('href');
-                        $("#graf05 > div").addClass("metrich");
-                        $("#graf05 > div").removeClass('metric');
-                    } else if (groups == 0) {
-                        $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else {
-                        $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_requisicao}`);
-                    }
-                    if (incidentes == 0) {
-                        $('#graf06').removeAttr('href');
-                        $("#graf06 > div").addClass("metrich");
-                        $("#graf06 > div").removeClass('metric');
-                    } else if (groups == 0) {
-                        $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
-                    } else {
-                        $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_incidente}`);
-                    }
+                    // if (muito_alto == 0) {
+                    //     $('#graf01').removeAttr('href');
+                    //     $("#graf01 > div").addClass("metrich");
+                    //     $("#graf01 > div").removeClass('metric');
+                    // } else if (chamado != 0 && groups == 0) {
+                    //     $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=5&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else if (chamado == 0 && groups == 0) {
+                    //     $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=5&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else {
+                    //     $("#graf01").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_muito_alto}`);
+                    // }
+                    // if (medio == 0) {
+                    //     $('#graf02').removeAttr('href');
+                    //     $("#graf02 > div").addClass("metrich");
+                    //     $("#graf02 > div").removeClass('metric');
+                    // } else if (chamado != 0 && groups == 0) {
+                    //     $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=3&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else if (chamado == 0 && groups == 0) {
+                    //     $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=3&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else {
+                    //     $("#graf02").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_medio}`);
+                    // }
+                    // if (alto == 0) {
+                    //     $('#graf03').removeAttr('href');
+                    //     $("#graf03 > div").addClass("metrich");
+                    //     $("#graf03 > div").removeClass('metric');
+                    // } else if (chamado != 0 && groups == 0) {
+                    //     $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=4&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`)
+                    // } else if (chamado == 0 && groups == 0) {
+                    //     $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=4&search=Pesquisar&itemtype=Ticket&start=0`)
+                    // } else {
+                    //     $("#graf03").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_alto}`);
+                    // }
+                    // if (baixo == 0) {
+                    //     $('#graf04').removeAttr('href');
+                    //     $("#graf04 > div").addClass("metrich");
+                    //     $("#graf04 > div").removeClass('metric');
+                    // } else if (chamado != 0 && groups == 0) {
+                    //     $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][field]=15&criteria[0][searchtype]=morethan&_select_criteria[0][value]=0&_criteria[0][value]=${data1}+00:00&criteria[0][value]=${data1}+00:00&criteria[1][link]=AND&criteria[1][field]=15&criteria[1][searchtype]=lessthan&_select_criteria[1][value]=0&_criteria[1][value]=${data2}+23:59&criteria[1][value]=${data2}+23:59:00&criteria[3][link]=AND&criteria[3][field]=82&criteria[3][searchtype]=equals&criteria[3][value]=0&criteria[4][link]=AND&criteria[4][field]=11&criteria[4][searchtype]=equals&criteria[4][value]=2&criteria[6][link]=AND&criteria[6][field]=14&criteria[6][searchtype]=equals&criteria[6][value]=${chamado}&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else if (chamado == 0 && groups == 0) {
+                    //     $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?is_deleted=0&as_map=0&criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else {
+                    //     $("#graf04").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_baixo}`);
+                    // }
+                    // if (requisicao == 0) {
+                    //     $('#graf05').removeAttr('href');
+                    //     $("#graf05 > div").addClass("metrich");
+                    //     $("#graf05 > div").removeClass('metric');
+                    // } else if (groups == 0) {
+                    //     $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=2&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else {
+                    //     $("#graf05").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_requisicao}`);
+                    // }
+                    // if (incidentes == 0) {
+                    //     $('#graf06').removeAttr('href');
+                    //     $("#graf06 > div").addClass("metrich");
+                    //     $("#graf06 > div").removeClass('metric');
+                    // } else if (groups == 0) {
+                    //     $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?criteria[0][link]=AND&criteria[0][criteria][1][link]=AND&criteria[0][criteria][1][field]=15&criteria[0][criteria][1][searchtype]=morethan&_select_criteria[0][criteria][1][value]=0&_criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][1][value]=${data1}+00:00&criteria[0][criteria][3][link]=AND&criteria[0][criteria][3][field]=82&criteria[0][criteria][3][searchtype]=equals&criteria[0][criteria][3][value]=0&criteria[0][criteria][7][link]=AND&criteria[0][criteria][7][field]=15&criteria[0][criteria][7][searchtype]=lessthan&_select_criteria[0][criteria][7][value]=0&_criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][7][value]=${data2}+23:59&criteria[0][criteria][8][link]=AND&criteria[0][criteria][8][field]=11&criteria[0][criteria][8][searchtype]=equals&criteria[0][criteria][8][value]=${impacto}&criteria[0][criteria][9][link]=AND&criteria[0][criteria][9][field]=14&criteria[0][criteria][9][searchtype]=equals&criteria[0][criteria][9][value]=1&search=Pesquisar&itemtype=Ticket&start=0`);
+                    // } else {
+                    //     $("#graf06").attr("href", `<?php echo $CFG_GLPI['url_base'] ?>/front/ticket.php?${link_incidente}`);
+                    // }
                     var opts = {
                         angle: 0.15,
                         lineWidth: 0.44,
@@ -677,7 +678,161 @@ if (!empty($_POST['submit'])) {
                         strokeColor: '#898989',
                         generateGradient: false,
                         highDpiSupport: false,
+                        percentColors: [
+                            [0.0, "#FFFF00"],
+                            [0.50, "#FFFF00"],
+                            [0.60, "#FFFF00"],
+                            [0.66, "#FFFF00"],
+                            [0.70, "#FFFF00"],
+                            [0.90, "#FFFF00"],
+                            [0.91, "#FFFF00"],
+                            [0.92, "#FFFF00"],
+                            [0.93, "#FFFF00"],
+                            [0.94, "#FFFF00"],
+                            [0.95, "#228B22"],
+                            [0.951, "#228B22"],
+                            [0.952, "#228B22"],
+                            [0.953, "#228B22"],
+                            [0.954, "#228B22"],
+                            [0.955, "#228B22"],
+                            [0.956, "#228B22"],
+                            [0.957, "#228B22"],
+                            [0.958, "#228B22"],
+                            [0.959, "#228B22"],
+                            [0.96, "#ff0000"],
+                            [0.97, "#ff0000"],
+                            [0.98, "#ff0000"],
+                            [0.90, "#ff0000"],
+                            [1.0, "#ff0000"]
+
+                        ],
+
                     };
+                    var opts1 = {
+                        angle: 0.15,
+                        lineWidth: 0.44,
+                        radiusScale: 0.90,
+                        pointer: {
+                            length: 0.48,
+                            strokeWidth: 0.035,
+                            color: '#f2f2f2'
+                        },
+                        limitMax: false,
+                        limitMin: false,
+                        colorStart: '#898989',
+                        colorStop: '#15094F',
+                        strokeColor: '#898989',
+                        generateGradient: false,
+                        highDpiSupport: false,
+                        percentColors: [
+                            [0.0, "#FFFF00"],
+                            [0.50, "#FFFF00"],
+                            [0.60, "#FFFF00"],
+                            [0.65, "#FFFF00"],
+                            [0.66, "#FFFF00"],
+                            [0.67, "#FFFF00"],
+                            [0.68, "#FFFF00"],
+                            [0.69, "#FFFF00"],
+                            [0.70, "#228B22"],
+                            [0.701, "#228B22"],
+                            [0.702, "#228B22"],
+                            [0.703, "#228B22"],
+                            [0.704, "#228B22"],
+                            [0.705, "#228B22"],
+                            [0.706, "#228B22"],
+                            [0.707, "#228B22"],
+                            [0.708, "#228B22"],
+                            [0.709, "#228B22"],
+                            [0.71, "#ff0000"],
+
+                            [1.0, "#ff0000"]
+
+                        ],
+
+                    };
+                    var opts2 = {
+                        angle: 0.15,
+                        lineWidth: 0.44,
+                        radiusScale: 0.90,
+                        pointer: {
+                            length: 0.48,
+                            strokeWidth: 0.035,
+                            color: '#f2f2f2'
+                        },
+                        limitMax: false,
+                        limitMin: false,
+                        colorStart: '#898989',
+                        colorStop: '#15094F',
+                        strokeColor: '#898989',
+                        generateGradient: false,
+                        highDpiSupport: false,
+                        percentColors: [
+                            [0.0, "#FFFF00"],
+                            [0.50, "#FFFF00"],
+                            [0.60, "#FFFF00"],
+                            [0.85, "#FFFF00"],
+                            [0.86, "#FFFF00"],
+                            [0.87, "#FFFF00"],
+                            [0.88, "#FFFF00"],
+                            [0.89, "#FFFF00"],
+                            [0.90, "#228B22"],
+                            [0.901, "#228B22"],
+                            [0.902, "#228B22"],
+                            [0.903, "#228B22"],
+                            [0.904, "#228B22"],
+                            [0.905, "#228B22"],
+                            [0.906, "#228B22"],
+                            [0.907, "#228B22"],
+                            [0.908, "#228B22"],
+                            [0.909, "#228B22"],
+                            [0.91, "#ff0000"],
+
+                            [1.0, "#ff0000"]
+
+                        ],
+
+                    };
+                    var opts3 = {
+                        angle: 0.15,
+                        lineWidth: 0.44,
+                        radiusScale: 0.90,
+                        pointer: {
+                            length: 0.48,
+                            strokeWidth: 0.035,
+                            color: '#f2f2f2'
+                        },
+                        limitMax: false,
+                        limitMin: false,
+                        colorStart: '#898989',
+                        colorStop: '#15094F',
+                        strokeColor: '#898989',
+                        generateGradient: false,
+                        highDpiSupport: false,
+                        percentColors: [
+                            [0.0, "#FFFF00"],
+                            [0.50, "#FFFF00"],
+                            [0.60, "#FFFF00"],
+                            [0.80, "#FFFF00"],
+                            [0.81, "#FFFF00"],
+                            [0.82, "#FFFF00"],
+                            [0.83, "#FFFF00"],
+                            [0.84, "#FFFF00"],
+                            [0.85, "#228B22"],
+                            [0.851, "#228B22"],
+                            [0.852, "#228B22"],
+                            [0.853, "#228B22"],
+                            [0.854, "#228B22"],
+                            [0.855, "#228B22"],
+                            [0.856, "#228B22"],
+                            [0.857, "#228B22"],
+                            [0.858, "#228B22"],
+                            [0.859, "#228B22"],
+                            [0.86, "#ff0000"],
+                            [1.0, "#ff0000"]
+                        ],
+                    };
+
+
 
                     var target = document.getElementById('cf-gauge-1-g');
                     var gauge = new Gauge(target).setOptions(opts);
@@ -685,7 +840,6 @@ if (!empty($_POST['submit'])) {
                     gauge.setMinValue(0);
                     gauge.animationSpeed = 32;
                     gauge.set(muito_alto_percent);
-                    document.getElementById("cf-gauge-1-m").innerHTML = muito_alto;
                     document.getElementById("cf-gauge-1-a").innerHTML = 0;
                     document.getElementById("cf-gauge-1-b").innerHTML = 100;
 
@@ -693,12 +847,11 @@ if (!empty($_POST['submit'])) {
 
 
                     var target1 = document.getElementById('cf-gauge-2-g');
-                    var gauge1 = new Gauge(target1).setOptions(opts);
+                    var gauge1 = new Gauge(target1).setOptions(opts1);
                     gauge1.maxValue = 100;
                     gauge1.setMinValue(0);
                     gauge1.animationSpeed = 32;
                     gauge1.set(medio_percent);
-                    document.getElementById("cf-gauge-2-m").innerHTML = medio;
                     document.getElementById("cf-gauge-2-a").innerHTML = 0;
                     document.getElementById("cf-gauge-2-b").innerHTML = 100;
 
@@ -708,21 +861,18 @@ if (!empty($_POST['submit'])) {
                     gauge2.setMinValue(0);
                     gauge2.animationSpeed = 32;
                     gauge2.set(alto_percent);
-                    document.getElementById("cf-gauge-3-m").innerHTML = alto;
                     document.getElementById("cf-gauge-3-a").innerHTML = 0;
                     document.getElementById("cf-gauge-3-b").innerHTML = 100;
 
                     var target3 = document.getElementById('cf-gauge-4-g');
-                    var gauge3 = new Gauge(target3).setOptions(opts);
+                    var gauge3 = new Gauge(target3).setOptions(opts2);
                     gauge3.maxValue = 100;
                     gauge3.setMinValue(0);
                     gauge3.animationSpeed = 32;
                     gauge3.set(baixo_percent);
-                    document.getElementById("cf-gauge-4-m").innerHTML = baixo;
                     document.getElementById("cf-gauge-4-a").innerHTML = 0;
                     document.getElementById("cf-gauge-4-b").innerHTML = 100;
                     if (chamado == 1) {
-
                         $('#graf05').removeAttr('href');
                         $("#graf05 > div").addClass("metrich");
                         $("#graf05 > div").removeClass('metric');
@@ -737,17 +887,15 @@ if (!empty($_POST['submit'])) {
                         document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     } else {
                         var target4 = document.getElementById('cf-gauge-5-g');
-                        var gauge4 = new Gauge(target4).setOptions(opts);
+                        var gauge4 = new Gauge(target4).setOptions(opts3);
                         gauge4.maxValue = 100;
                         gauge4.setMinValue(0);
                         gauge4.animationSpeed = 32;
                         gauge4.set(requisicao_percent);
-                        document.getElementById("cf-gauge-5-m").innerHTML = requisicao;
                         document.getElementById("cf-gauge-5-a").innerHTML = 0;
                         document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     }
                     if (chamado == 2) {
-
                         $('#graf06').removeAttr('href');
                         $("#graf06 > div").addClass("metrich");
                         $("#graf06 > div").removeClass('metric');
@@ -757,17 +905,15 @@ if (!empty($_POST['submit'])) {
                         gauge5.setMinValue(0);
                         gauge5.animationSpeed = 32;
                         gauge5.set(0);
-                        document.getElementById("cf-gauge-6-m").innerHTML = 0;
                         document.getElementById("cf-gauge-6-a").innerHTML = 0;
                         document.getElementById("cf-gauge-6-b").innerHTML = 100;
                     } else {
                         var target5 = document.getElementById('cf-gauge-6-g');
-                        var gauge5 = new Gauge(target5).setOptions(opts);
+                        var gauge5 = new Gauge(target5).setOptions(opts3);
                         gauge5.maxValue = 100;
                         gauge5.setMinValue(0);
                         gauge5.animationSpeed = 32;
                         gauge5.set(incidente_percent);
-                        document.getElementById("cf-gauge-6-m").innerHTML = incidentes;
                         document.getElementById("cf-gauge-6-a").innerHTML = 0;
                         document.getElementById("cf-gauge-6-b").innerHTML = 100;
 
