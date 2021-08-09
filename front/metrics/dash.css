@@ -1522,3 +1522,58 @@ a:active {
     display: flex;
     justify-content: center;
 }
+
+.custom-dashboardsla-css .grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+}
+
+
+.custom-dashboardsla-css .cf-item .content {
+  padding: 0;
+  position: inherit;
+  display: inherit;
+}
+
+
+.custom-dashboardsla-css .canvas {
+  text-align: center;
+}
+
+.custom-dashboardsla-css .graph-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.custom-dashboardsla-css .cf-gauge .val-min,
+.custom-dashboardsla-css .cf-gauge .val-max {
+  position: inherit;
+  left: 0;
+  bottom: 0;
+}
+
+.custom-dashboardsla-css .cf-gauge .val-min > .metric-small,
+.custom-dashboardsla-css .cf-gauge .val-max > .metric-small {
+  transform: translateY(145px);
+}
+
+@media (min-width: 600px) {
+  .custom-dashboardsla-css .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .custom-dashboardsla-css .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 599.98px) {
+  .custom-dashboardsla-css .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

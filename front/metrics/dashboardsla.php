@@ -178,11 +178,12 @@ if (!empty($_POST['submit'])) {
         });
     </script>
 
-    <div id="graficos" class="container">
+    <div id="graficos" class="container custom-dashboardsla-css">
 
-        <div class="row">
+        
+        <div class="grid-container">
 
-            <div id="div_grafic01" class="col-md-4 cf-item">
+            <div id="div_grafic01" class="grid-item cf-item">
                 <header>
                     <p id="graf1"></p>
                 </header>
@@ -195,22 +196,24 @@ if (!empty($_POST['submit'])) {
                         </a>
                     </div>
 
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px;" id="muito_alto_percent"></h3>
-                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-1-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-1-a"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-1-b"></div>
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-1-a"></div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px;" id="muito_alto_percent"></h3>
+                            <canvas style="" height="170" width="220" id="cf-gauge-1-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-1-b"></div>
+                        </div>
                     </div>
 
                 </div>
             </div>
 
 
-            <div id="div_grafic03" class="col-md-4 cf-item">
+            <div id="div_grafic03" class="grid-item cf-item">
                 <header>
                     <p id="graf3"></p>
                 </header>
@@ -221,22 +224,24 @@ if (!empty($_POST['submit'])) {
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-3-m"></div>
                         </a>
                     </div>
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px;" id="alto_percent"></h3>
-                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-3-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-3-a"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-3-b"></div>
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-3-a"></div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px;" id="alto_percent"></h3>
+                            <canvas style="" height="170" width="220" id="cf-gauge-3-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-3-b"></div>
+                        </div>
                     </div>
 
                 </div>
 
             </div>
 
-            <div id="div_grafic02" class="col-md-4 cf-item">
+            <div id="div_grafic02" class="grid-item cf-item">
                 <header>
                     <p id="graf2"></p>
                 </header>
@@ -247,29 +252,26 @@ if (!empty($_POST['submit'])) {
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-2-m"></div>
                         </a>
                     </div>
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px;" id="medio_percent"></h3>
-                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-2-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-2-a"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-2-b"></div>
+
+
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-2-a"></div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px;" id="medio_percent"></h3>
+                            <canvas style="" height="170" width="220" id="cf-gauge-2-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-2-b"></div>
+                        </div>
                     </div>
 
                 </div>
 
             </div>
 
-
-
-
-        </div>
-
-        <div class="row">
-
-            <div id="div_grafic04" class="col-md-4 cf-item">
+            <div id="div_grafic04" class="grid-item cf-item">
                 <header>
                     <p id="graf4"></p>
                 </header>
@@ -280,23 +282,25 @@ if (!empty($_POST['submit'])) {
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-4-m"></div>
                         </a>
                     </div>
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px;" id="baixo_percent"></h3>
-                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-4-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-4-a"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-4-b"></div>
-                    </div>
 
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-4-a"></div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px;" id="baixo_percent"></h3>
+                            <canvas style="" height="170" width="220" id="cf-gauge-4-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-4-b"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
 
-            <div id="div_grafic05" class="col-md-4 cf-item">
+            <div id="div_grafic05" class="grid-item cf-item">
                 <header>
                     <p id="graf5"></p>
                 </header>
@@ -307,23 +311,24 @@ if (!empty($_POST['submit'])) {
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-5-m"></div>
                         </a>
                     </div>
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px;" id="requisicao_percent"></h3>
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-5-a"></div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px;" id="requisicao_percent"></h3>
 
-                        <canvas style="margin-left: 10px;" height="170" width=" 285" id="cf-gauge-5-g"></canvas>
+                            <canvas style="" height="170" width="220" id="cf-gauge-5-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-5-b"></div>
+                        </div>
                     </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-5-a"></div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-5-b"></div>
-                    </div>
-
                 </div>
 
             </div>
 
-            <div id="div_grafic06" class="col-md-4 cf-item">
+            <div id="div_grafic06" class="grid-item cf-item">
                 <header>
                     <p id="graf6"></p>
                 </header>
@@ -334,23 +339,25 @@ if (!empty($_POST['submit'])) {
                             <div class="metric" style="font-size: 3.5em;" id="cf-gauge-6-m"></div>
                         </a>
                     </div>
-                    <div class="canvas">
-                        <h3 style="text-align: center; margin-top: 30px; " id="incidente_percent">
-                        </h3>
-                        <canvas style="margin-left: 10px;" height="170" width="285" id="cf-gauge-6-g"></canvas>
-                    </div>
-                    <div class="val-min">
-                        <div class="metric-small" id="cf-gauge-6-a"> </div>
-                    </div>
-                    <div class="val-max">
-                        <div class="metric-small" id="cf-gauge-6-b"> </div>
+                    <div class="graph-data">
+                        <div class="val-min">
+                            <div class="metric-small" id="cf-gauge-6-a"> </div>
+                        </div>
+                        <div class="canvas">
+                            <h3 style="text-align: center; margin-top: 30px; " id="incidente_percent">
+                            </h3>
+                            <canvas style="" height="170" width="220" id="cf-gauge-6-g"></canvas>
+                        </div>
+                        <div class="val-max">
+                            <div class="metric-small" id="cf-gauge-6-b"> </div>
+                        </div>
                     </div>
 
                 </div>
 
 
-            </div>
         </div>
+    </div>
 
     </div>
 
@@ -679,11 +686,25 @@ if (!empty($_POST['submit'])) {
                         generateGradient: false,
                         highDpiSupport: false,
                         percentColors: [
-                            [0.0, "#FFFF00"],
-                            [0.50, "#FFFF00"],
-                            [0.60, "#FFFF00"],
-                            [0.66, "#FFFF00"],
-                            [0.70, "#FFFF00"],
+                            [0.0, "#ff0000"],
+                            [0.50, "#ff0000"],
+                            [0.60, "#ff0000"],
+                            [0.66, "#ff0000"],
+                            [0.70, "#ff0000"],
+                            [0.71, "#ff0000"],
+                            [0.72, "#ff0000"],
+                            [0.74, "#ff0000"],
+                            [0.75, "#ff0000"],
+                            [0.80, "#ff0000"],
+                            [0.81, "#ff0000"],
+                            [0.82, "#ff0000"],
+                            [0.83, "#ff0000"],
+                            [0.84, "#ff0000"],
+                            [0.85, "#ff0000"],
+                            [0.86, "#ff0000"],
+                            [0.87, "#ff0000"],
+                            [0.88, "#ff0000"],
+                            [0.89, "#ff0000"],
                             [0.90, "#FFFF00"],
                             [0.91, "#FFFF00"],
                             [0.92, "#FFFF00"],
@@ -699,11 +720,11 @@ if (!empty($_POST['submit'])) {
                             [0.957, "#228B22"],
                             [0.958, "#228B22"],
                             [0.959, "#228B22"],
-                            [0.96, "#ff0000"],
-                            [0.97, "#ff0000"],
-                            [0.98, "#ff0000"],
-                            [0.90, "#ff0000"],
-                            [1.0, "#ff0000"]
+                            [0.96, "#228B22"],
+                            [0.97, "#228B22"],
+                            [0.98, "#228B22"],
+                            [0.90, "#228B22"],
+                            [1.0, "#228B22"]
 
                         ],
 
@@ -725,9 +746,9 @@ if (!empty($_POST['submit'])) {
                         generateGradient: false,
                         highDpiSupport: false,
                         percentColors: [
-                            [0.0, "#FFFF00"],
-                            [0.50, "#FFFF00"],
-                            [0.60, "#FFFF00"],
+                            [0.0, "#ff0000"],
+                            [0.50, "#ff0000"],
+                            [0.60, "#ff0000"],
                             [0.65, "#FFFF00"],
                             [0.66, "#FFFF00"],
                             [0.67, "#FFFF00"],
@@ -743,9 +764,8 @@ if (!empty($_POST['submit'])) {
                             [0.707, "#228B22"],
                             [0.708, "#228B22"],
                             [0.709, "#228B22"],
-                            [0.71, "#ff0000"],
-
-                            [1.0, "#ff0000"]
+                            [0.71, "#228B22"],
+                            [1.0, "#228B22"]
 
                         ],
 
@@ -767,9 +787,11 @@ if (!empty($_POST['submit'])) {
                         generateGradient: false,
                         highDpiSupport: false,
                         percentColors: [
-                            [0.0, "#FFFF00"],
-                            [0.50, "#FFFF00"],
-                            [0.60, "#FFFF00"],
+                            [0.0, "#ff0000"],
+                            [0.50, "#ff0000"],
+                            [0.60, "#ff0000"],
+                            [0.70, "#ff0000"],
+                            [0.80, "#ff0000"],
                             [0.85, "#FFFF00"],
                             [0.86, "#FFFF00"],
                             [0.87, "#FFFF00"],
@@ -785,9 +807,9 @@ if (!empty($_POST['submit'])) {
                             [0.907, "#228B22"],
                             [0.908, "#228B22"],
                             [0.909, "#228B22"],
-                            [0.91, "#ff0000"],
+                            [0.91, "#228B22"],
+                            [1.0, "#228B22"]
 
-                            [1.0, "#ff0000"]
 
                         ],
 
@@ -809,9 +831,19 @@ if (!empty($_POST['submit'])) {
                         generateGradient: false,
                         highDpiSupport: false,
                         percentColors: [
-                            [0.0, "#FFFF00"],
-                            [0.50, "#FFFF00"],
-                            [0.60, "#FFFF00"],
+                            [0.0, "#ff0000"],
+                            [0.50, "#ff0000"],
+                            [0.60, "#ff0000"],
+                            [0.70, "#ff0000"],
+                            [0.71, "#ff0000"],
+                            [0.72, "#ff0000"],
+                            [0.73, "#ff0000"],
+                            [0.74, "#ff0000"],
+                            [0.75, "#ff0000"],
+                            [0.76, "#ff0000"],
+                            [0.77, "#ff0000"],
+                            [0.78, "#ff0000"],
+                            [0.79, "#ff0000"],
                             [0.80, "#FFFF00"],
                             [0.81, "#FFFF00"],
                             [0.82, "#FFFF00"],
@@ -827,8 +859,8 @@ if (!empty($_POST['submit'])) {
                             [0.857, "#228B22"],
                             [0.858, "#228B22"],
                             [0.859, "#228B22"],
-                            [0.86, "#ff0000"],
-                            [1.0, "#ff0000"]
+                            [0.86, "#228B22"],
+                            [1.0, "#228B22"]
                         ],
                     };
 
