@@ -486,7 +486,7 @@ if (!empty($_POST['submit'])) {
                     medio_percent = "";
                     alto_percent = "";
                     medio_percent = res['medio_percent']
-                    html = +medio_percent + '%';
+                    html = medio_percent + '%';
                     $(`#medio_percent`).append(html);
                     //----Porcentagem Alto                    
                     alto_percent = res['alto_percent']
@@ -501,13 +501,7 @@ if (!empty($_POST['submit'])) {
                     html = baixo_percent + '%';
                     $(`#baixo_percent`).append(html);
                     //----Porcentagem Requisição
-                    requisicao_percent = res['requisicao_percent']
-                    html = requisicao_percent + '%';
-                    $(`#requisicao_percent`).append(html);
-                    //----Porcentagem Incidente
-                    incidente_percent = res['incidente_percent'];
-                    html = incidente_percent + '%';
-                    $(`#incidente_percent`).append(html);
+
 
 
                     // Criando URL para lista de grupos
@@ -601,10 +595,7 @@ if (!empty($_POST['submit'])) {
                     $(`#graf2`).append(html);
                     html = 'Total de Chamados Baixo   : ' + link_total_baixo;
                     $(`#graf4`).append(html);
-                    html = 'Total de Chamados Requisição   : ' + link_total_requisicao;
-                    $(`#graf5`).append(html);
-                    html = 'Total de Chamados Incidente   : ' + link_total_incidente;
-                    $(`#graf6`).append(html);
+
 
 
                     // if (muito_alto == 0) {
@@ -875,9 +866,6 @@ if (!empty($_POST['submit'])) {
                     document.getElementById("cf-gauge-1-a").innerHTML = 0;
                     document.getElementById("cf-gauge-1-b").innerHTML = 100;
 
-
-
-
                     var target1 = document.getElementById('cf-gauge-2-g');
                     var gauge1 = new Gauge(target1).setOptions(opts1);
                     gauge1.maxValue = 100;
@@ -905,6 +893,12 @@ if (!empty($_POST['submit'])) {
                     document.getElementById("cf-gauge-4-a").innerHTML = 0;
                     document.getElementById("cf-gauge-4-b").innerHTML = 100;
                     if (chamado == 1) {
+                        html = 'Total de Chamados Requisição   : ' + 0;
+                        $(`#graf5`).append(html);
+                        requisicao_percent = res['requisicao_percent']
+                        html = 0 + '%';
+                        $(`#requisicao_percent`).append(html);
+
                         $('#graf05').removeAttr('href');
                         $("#graf05 > div").addClass("metrich");
                         $("#graf05 > div").removeClass('metric');
@@ -914,10 +908,14 @@ if (!empty($_POST['submit'])) {
                         gauge4.setMinValue(0);
                         gauge4.animationSpeed = 32;
                         gauge4.set(0);
-                        document.getElementById("cf-gauge-5-m").innerHTML = 0;
                         document.getElementById("cf-gauge-5-a").innerHTML = 0;
                         document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     } else {
+                        html = 'Total de Chamados Requisição   : ' + link_total_requisicao;
+                        $(`#graf5`).append(html);
+                        requisicao_percent = res['requisicao_percent']
+                        html = requisicao_percent + '%';
+                        $(`#requisicao_percent`).append(html);
                         var target4 = document.getElementById('cf-gauge-5-g');
                         var gauge4 = new Gauge(target4).setOptions(opts3);
                         gauge4.maxValue = 100;
@@ -928,6 +926,10 @@ if (!empty($_POST['submit'])) {
                         document.getElementById("cf-gauge-5-b").innerHTML = 100;
                     }
                     if (chamado == 2) {
+                        html = 'Total de Chamados Incidente   : ' + 0;
+                        $(`#graf6`).append(html);
+                        html = 0 + '%';
+                        $(`#incidente_percent`).append(html);
                         $('#graf06').removeAttr('href');
                         $("#graf06 > div").addClass("metrich");
                         $("#graf06 > div").removeClass('metric');
@@ -940,6 +942,13 @@ if (!empty($_POST['submit'])) {
                         document.getElementById("cf-gauge-6-a").innerHTML = 0;
                         document.getElementById("cf-gauge-6-b").innerHTML = 100;
                     } else {
+                        html = 'Total de Chamados Incidente   : ' + link_total_incidente;
+                        $(`#graf6`).append(html);
+                        //----Porcentagem Incidente
+                        incidente_percent = res['incidente_percent'];
+                        html = incidente_percent + '%';
+                        $(`#incidente_percent`).append(html);
+
                         var target5 = document.getElementById('cf-gauge-6-g');
                         var gauge5 = new Gauge(target5).setOptions(opts3);
                         gauge5.maxValue = 100;
