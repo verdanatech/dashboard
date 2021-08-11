@@ -30,7 +30,7 @@ class NewDashboard
         $query = $DB->query("SELECT
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -47,7 +47,7 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -64,7 +64,7 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -81,7 +81,7 @@ class NewDashboard
 
            (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+             WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -98,7 +98,7 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
             " . $impact . "
             AND t.type= 2
@@ -114,7 +114,7 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             " . $gt . "
             " . $impact . "
             AND t.is_deleted = 0
@@ -130,14 +130,14 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
             AND t.is_deleted = 0
             " . $gt . "
                 ORDER BY t.id DESC LIMIT 1) as tickets_total,
 
                 (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
              LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-              WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+              WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
               " . $gt . "
               " . $slaid . "
               " . $impact . "
@@ -148,7 +148,7 @@ class NewDashboard
     
              (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
              LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-             WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+             WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
              " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -158,7 +158,7 @@ class NewDashboard
 
              (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -168,7 +168,7 @@ class NewDashboard
 
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
             " . $gt . "
             " . $slaid . "
             " . $impact . "
@@ -178,7 +178,7 @@ class NewDashboard
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
             " . $gt . "
             " . $impact . "
             AND t.type = 1
@@ -187,7 +187,7 @@ class NewDashboard
             
             (SELECT COUNT(DISTINCT t.id) FROM glpi_tickets as t
             LEFT JOIN glpi_groups_tickets as gt on (t.id = gt.tickets_id)
-            WHERE t.date BETWEEN  '$data_inicial 00:00:00' AND ' $data_final 23:59:59'
+            WHERE t.closedate BETWEEN  '$data_inicial 00:00:00' AND '$data_final 23:59:59'
             " . $gt . "
                       " . $impact . "
             AND t.type = 2
