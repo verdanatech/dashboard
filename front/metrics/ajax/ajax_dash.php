@@ -20,5 +20,6 @@ $dados['data2'] = $date_fim->format('Y-m-d');
 $row = [];
 $row = $dashboard->buscarTickets($dados);
 
-
+$row['data1'] = $date_ini->format('Y-m-d');
+$row['data2'] = $date_fim->format('Y-m-d');
 echo json_encode($row);
