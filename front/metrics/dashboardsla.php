@@ -9,13 +9,15 @@ global $DB;
 Session::checkLoginUser();
 Session::checkRight("profile", READ);
 
+
 if (!empty($_POST['submit'])) {
     $data_ini = $_POST['date1'];
     $data_fin = $_POST['date2'];
 } else {
-    $data_ini = date("Y-01-01");
-    $data_fin = date("Y-m-d");
+    $data_ini = date("01/01/Y");
+    $data_fin = date("d/m/Y");
 }
+
 
 ?>
 
@@ -70,7 +72,7 @@ if (!empty($_POST['submit'])) {
                         <tr>
                             <td>
                                 <label for=data1>Data Inicial</label>
-                                <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="yyyy-mm-dd">
+                                <div class="input-group date" id="dp1" data-date="<?php echo $data_ini; ?>" data-date-format="dd/mm/yyyy">
                                     <input class="col-md-9 form-control" size="13" type="text" name="date1" value="<?php echo $data_ini; ?>">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                 </div>
@@ -78,7 +80,7 @@ if (!empty($_POST['submit'])) {
                             <td>&nbsp;</td>
                             <td>
                                 <label for=data2>Data Final</label>
-                                <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="yyyy-mm-dd">
+                                <div class="input-group date" id="dp2" data-date="<?php echo $data_fin; ?>" data-date-format="dd/mm/yyyy">
                                     <input class="col-md-9 form-control" size="13" type="text" name="date2" value="<?php echo $data_fin; ?>">
                                     <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>
                                 </div>
