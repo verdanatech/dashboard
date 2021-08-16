@@ -156,24 +156,23 @@ a:hover { color: #000099; }
 				<td style="margin-top:2px;">
 		<?php		
 
-		$sql_ent = "SELECT id, completename AS name
-					FROM glpi_entities
-					WHERE id IN (".$ents.")
-					ORDER BY name ASC ";
+		$sql_ent = "
+		SELECT id, completename AS name
+		FROM `glpi_entities`
+		WHERE id IN (".$ents.")
+		ORDER BY `name` ASC ";
 
 		$result_ent = $DB->query($sql_ent);
 
 		$arr_ent = array();
 		$arr_ent[0] = "-- ". __('Select a entity', 'dashboard') . " --" ;
 
-		//$DB->data_seek($result_ent, 0) ;
-		if($result_ent != false){
-			while ($row_result = $DB->fetch_assoc($result_ent))
-			{
-				$v_row_result = $row_result['id'];
-				$arr_ent[$v_row_result] = $row_result['name'] ;
-			}
-		}
+		//$DB->dataSeek($result_ent, 0) ;
+		while ($row_result = $DB->fetchAssoc($result_ent))
+	    {
+	    	$v_row_result = $row_result['id'];
+	    	$arr_ent[$v_row_result] = $row_result['name'] ;
+	    }
 
 		$name = 'sel_ent';
 		$options = $arr_ent;
@@ -330,7 +329,7 @@ if($con == "1") {
 	AND glpi_tickets.entities_id IN (".$ents.") " ;
 	
 	$result_ab = $DB->query($sql_ab) or die ("erro_ab");
-	$data_ab = $DB->fetch_assoc($result_ab);
+	$data_ab = $DB->fetchAssoc($result_ab);
 	
 	$abertos = $data_ab['total'];
 	
@@ -368,8 +367,8 @@ if($con == "1") {
 	
 	$result_nome = $DB->query($sql_nome) ;
 	
-	$DB->data_seek($result_cham, 0);	
-	while($row = $DB->fetch_assoc($result_nome)) {
+	$DB->dataSeek($result_cham, 0);	
+	while($row = $DB->fetchAssoc($result_nome)) {
 
 	$ent_name = $row['name'] ;
 
@@ -392,8 +391,8 @@ if($con == "1") {
 
 
 	//total costs
-	$DB->data_seek($result_cham, 0);
-	while($row = $DB->fetch_assoc($result_cham)){			
+	$DB->dataSeek($result_cham, 0);
+	while($row = $DB->fetchAssoc($result_cham)){			
 		
 		$total_cost += computeCost($row['id']);
 		
@@ -436,8 +435,8 @@ if($con == "1") {
 	}
 
 //listar chamados
-$DB->data_seek($result_cham, 0);
-while($row = $DB->fetch_assoc($result_cham)){
+$DB->dataSeek($result_cham, 0);
+while($row = $DB->fetchAssoc($result_cham)){
 
 	$status1 = $row['status'];
 
@@ -459,7 +458,7 @@ while($row = $DB->fetch_assoc($result_cham)){
 		AND glpi_tickets_users.type = 2 ";
 
 		$result_tec = $DB->query($sql_tec);
-		$row_tec = $DB->fetch_assoc($result_tec);
+		$row_tec = $DB->fetchAssoc($result_tec);
 		
 		$comp_cost = computeCost($row['id']);
 

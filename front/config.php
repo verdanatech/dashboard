@@ -96,7 +96,7 @@ function chart(theme) {
 					// selected entity for index
 					$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
 					$result_e = $DB->query($sql_e);					
-					$prev_ent = $DB->fetch_assoc($result_e);	
+					$prev_ent = $DB->fetchAssoc($result_e);	
 					
 			      echo '<div id="datas-tec2" class="col-md-12 fluid" style="background-color:#fff; margin-top:20px;">';
 					
@@ -109,11 +109,12 @@ function chart(theme) {
 						if(count($arr1)>1){
 						    $formated_arr = array_merge($formated_arr,explode(',',$arr));
 						}else{
-						    $formated_arr[]= $arr;
+						    $formated_arr[] = $arr;
 						}
 					}					
 
-					$entities = $_SESSION['glpiactiveentities'];
+					//$entities = $_SESSION['glpiactiveentities'];
+					$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);
 					$ents = implode(",",$entities);
 					
 					// lista de entidades
@@ -126,15 +127,16 @@ function chart(theme) {
 					$result_ent = $DB->query($sql_ent);
 					
 					$arr_ent = array();
-					$arr_ent[0] = "-- ". __('Select a entity', 'dashboard') . " --" ;
-				   $arr_ent[-1] = __('All', 'dashboard') ;		
 					
-					while ($row_result = $DB->fetch_assoc($result_ent))
+					while ($row_result = $DB->fetchAssoc($result_ent))
 					 {
 					    $v_row_result = $row_result['id'];
 					    $arr_ent[$v_row_result] = $row_result['cname'] ;
 					 }
 					 
+					//$arr_ent[-2] = "-- ". __('Select a entity', 'dashboard') . " --" ;
+				   $arr_ent[-1] = __('All', 'dashboard') ;
+				   		
 					//reload page	
 					if(isset($_REQUEST['up'])) {						
 						echo "<meta HTTP-EQUIV='refresh' CONTENT='0.1;URL=config.php'>";						
@@ -172,10 +174,12 @@ function chart(theme) {
 					echo '<select name="sel_ent[]" id="sel_ent" multiple style="width: 600px; height: 250px;">';
 					
 					foreach( $arr_ent as $key=>$option )
-					{						
-						if(in_array($key,$formated_arr)) { $select = 'selected'; }	
-						else {$select = '';}						
-						echo '<option value="'.$key.'" '.$select.'>'.$option.'</option>'."\n";
+					{	
+						if($key != 0) {					
+							if(in_array($key,$formated_arr)) { $select = 'selected'; }	
+							else {$select = '';}						
+							echo '<option value="'.$key.'" '.$select.'>'.$option.'</option>'."\n";
+						}
 					}					
 					echo "</select>"."\n";
 										
@@ -191,11 +195,11 @@ function chart(theme) {
 							if(in_array(-1, $ents_sel)) {	
 
 								//$entities = Profile_User::getUserEntities($_SESSION['glpiID'], true);
-								$entities = $_SESSION['glpiactiveentities'];	
+								//$entities = $_SESSION['glpiactiveentities'];
+								$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);	
 								$ent = implode(",",$entities);												
 								
-								$query = "INSERT INTO glpi_plugin_dashboard_config (name, value, users_id)
-											  VALUES ('entity', '".$ent."', '".$_SESSION['glpiID']."') ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id), value = '".$ent."' ";																
+								$query = "INSERT INTO glpi_plugin_dashboard_config (name, value, users_id) VALUES ('entity', '".$ent."', '".$_SESSION['glpiID']."') ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id), value = '".$ent."' ";																
 								$result = $DB->query($query);	
 								
 								//reload page
@@ -231,7 +235,7 @@ function chart(theme) {
 					
 					$arr_years = array();
 					
-					while ($row_y = $DB->fetch_assoc($result)) { 
+					while ($row_y = $DB->fetchAssoc($result)) { 
 						$arr_years[] = $row_y['year'];			
 					} 
 						
@@ -307,7 +311,7 @@ function chart(theme) {
 			//status for tickets page
 			$query_sta = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'status' AND users_id = ".$_SESSION['glpiID']."";
 			$result_sta = $DB->query($query_sta);
-			$prev_status = $DB->fetch_assoc($result_sta);
+			$prev_status = $DB->fetchAssoc($result_sta);
 			
 			//separa string com virgulas e converte em array
 			$format_Arr = $prev_status;

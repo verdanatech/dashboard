@@ -15,7 +15,7 @@ ORDER BY data ASC ";
 $query_tecd = $DB->query($sql_tecd);
 
 $arr_data = array();
-while ($row_result = $DB->fetch_assoc($query_tecd)){ 
+while ($row_result = $DB->fetchAssoc($query_tecd)){ 
 	$arr_data[] = $row_result['data'];	
 } 
 
@@ -23,9 +23,9 @@ $datas = json_encode($arr_data);
 	
 
 //REQUESTS 
-$DB->data_seek($query_tecd, 0);
+$DB->dataSeek($query_tecd, 0);
 
-while ($row = $DB->fetch_assoc($query_tecd)) { 
+while ($row = $DB->fetchAssoc($query_tecd)) { 
 	
 	$sql_tec = "
 	SELECT DATE_FORMAT(date, '%Y-%m-%d') as data, COUNT(id) as conta1, SUM(case when glpi_tickets.type = 2 then 1 else 0 end) AS conta
@@ -37,7 +37,7 @@ while ($row = $DB->fetch_assoc($query_tecd)) {
 	
 	$query_tec = $DB->query($sql_tec);	
 	
-	$row_result = $DB->fetch_assoc($query_tec);	
+	$row_result = $DB->fetchAssoc($query_tec);	
 	$v_row_result = $row_result['data'];
 	
 	if($row_result['conta'] != '') {
@@ -60,8 +60,8 @@ else {
 }
 
 //INCIDENTS
-$DB->data_seek($query_tecd, 0);
-while ($row = $DB->fetch_assoc($query_tecd))	{ 
+$DB->dataSeek($query_tecd, 0);
+while ($row = $DB->fetchAssoc($query_tecd))	{ 
 
 	$sql_teci = "
 	SELECT DATE_FORMAT(date, '%Y-%m-%d') as data, COUNT(id) as conta1, SUM(case when glpi_tickets.type = 1 then 1 else 0 end) AS conta
@@ -73,7 +73,7 @@ while ($row = $DB->fetch_assoc($query_tecd))	{
 		
 	$query_teci = $DB->query($sql_teci);
 	
-	$row_result = $DB->fetch_assoc($query_teci);	
+	$row_result = $DB->fetchAssoc($query_teci);	
 	$v_row_result = $row_result['data'];
 	
 	if($row_result['conta'] != '') {

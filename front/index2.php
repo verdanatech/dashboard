@@ -7,12 +7,27 @@ global $DB;
 
 Session::checkLoginUser();
 
+$userID = $_SESSION['glpiID'];
+
 # entity in index
-$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
+$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$userID."";
 $result_e = $DB->query($sql_e);
 $sel_ent = $DB->result($result_e,0,'value');
 
-if($sel_ent == '' OR strstr($sel_ent,",")) { 
+if($sel_ent == '') { 	
+	$entities = $_SESSION['glpiactiveentities'];
+	$sel_ent = implode(",",$entities);		
+	$query = "SELECT name FROM glpi_entities WHERE id IN (".$sel_ent.")";
+	$result = $DB->query($query);
+	$ent_name1 = $DB->result($result,0,'name');
+	if(count($entities)>1) {
+		$ent_name = __('Tickets Statistics','dashboard');
+	} else {
+		$ent_name = __('Tickets Statistics','dashboard')." :  ". $ent_name1 ;
+	}		
+}
+
+elseif(strstr($sel_ent,",")) { 	
 	$ent_name = __('Tickets Statistics','dashboard');
 }
 
@@ -24,7 +39,7 @@ else {
 }
 
 # years in index
-$sql_y = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'num_years' AND users_id = ".$_SESSION['glpiID']."";
+$sql_y = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'num_years' AND users_id = ".$userID."";
 $result_y = $DB->query($sql_y);
 $num_years = $DB->result($result_y,0,'value');
 
@@ -33,7 +48,7 @@ if($num_years == '') {
 }
 
 # color theme
-$sql_theme = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'theme' AND users_id = ".$_SESSION['glpiID']."";
+$sql_theme = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'theme' AND users_id = ".$userID."";
 $result_theme = $DB->query($sql_theme);
 $theme = $DB->result($result_theme,0,'value');
 $style = $theme;
@@ -47,7 +62,7 @@ $_SESSION['style'] = $theme;
 
 
 # background
-$sql_back = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'back' AND users_id = ".$_SESSION['glpiID']."";
+$sql_back = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'back' AND users_id = ".$userID."";
 $result_back = $DB->query($sql_back);
 $back = $DB->result($result_back,0,'value');
 
@@ -58,7 +73,7 @@ $_SESSION['back'] = $back;
 
 
 # charts colors 
-$sql_colors = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'charts_colors' AND users_id = ".$_SESSION['glpiID']."";
+$sql_colors = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'charts_colors' AND users_id = ".$userID."";
 $result_colors = $DB->query($sql_colors);
 $colors = $DB->result($result_colors,0,'value');
 
@@ -94,9 +109,7 @@ $_SESSION['charts_colors'] = $colors;
     }    
 
 //user image and name
-$sql_photo = "SELECT picture 
-				FROM glpi_users
-				WHERE id = ".$_SESSION["glpiID"]." ";
+$sql_photo = "SELECT picture FROM glpi_users WHERE id = ".$userID." ";
 
 $res_photo = $DB->query($sql_photo);
 $pic = $DB->result($res_photo,0,'picture');
@@ -253,7 +266,7 @@ else {
                                     <img src="<?php echo $photo_url;?>" alt="" title="Upload photo in user profile" class="avatar" style="margin-left: -8px;" />
                                     <div class="user-info">
                                         <div class="welcome"><?php echo __('Welcome','dashboard'); ?> , </div>
-                                        <div class="username"><a href="#" onclick="window.open('<?php echo $CFG_GLPI['url_base']; ?>/front/user.form.php?id=<?php echo $_SESSION['glpiID']; ?>','_blank'); scrollWin();" ><?php echo $_SESSION["glpifirstname"]; ?></a></div>
+                                        <div class="username"><a href="#" onclick="window.open('<?php echo $CFG_GLPI['url_base']; ?>/front/user.form.php?id=<?php echo $userID; ?>','_blank'); scrollWin();" ><?php echo $_SESSION["glpifirstname"]; ?></a></div>
                                         
                                     </div>                                  
                                 </div>
@@ -285,7 +298,7 @@ else {
 	                                    </a>
 													<ul  class="animated fadeInDown">
                                         <li>
-                                            <a href="./tickets/chamados.php" data-original-title=' Geral' target="_blank">
+                                            <a href="./tickets/tickets.php" data-original-title=' Geral' target="_blank">
                                                 <i class="fa fa-angle-right"></i>
                                                 <span class='hidden-minibar'> <?php echo __('Overall','dashboard'); ?> </span>
                                             </a>
@@ -1021,7 +1034,7 @@ $month = date("Y-m");
 $hoje = date("Y-m-d");
 
 //select entity
-$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
+$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$userID."";
 $result_e = $DB->query($sql_e);
 $sel_ent = $DB->result($result_e,0,'value');	
 
@@ -1077,7 +1090,7 @@ $conta_y = $DB->numrows($result_y);
 
 $arr_years = array();
 
-while ($row_y = $DB->fetch_assoc($result_y))		
+while ($row_y = $DB->fetchAssoc($result_y))		
 	{ 
 		$arr_years[] = $row_y['year'];			
 	} 
@@ -1101,7 +1114,7 @@ $sql_ano =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_ano = $DB->query($sql_ano);
-$total_ano = $DB->fetch_assoc($result_ano);
+$total_ano = $DB->fetchAssoc($result_ano);
       
 //chamados mes
 $sql_mes =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -1112,7 +1125,7 @@ $sql_mes =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_mes = $DB->query($sql_mes);
-$total_mes = $DB->fetch_assoc($result_mes);
+$total_mes = $DB->fetchAssoc($result_mes);
 
 //chamados dia
 $sql_hoje =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -1123,7 +1136,7 @@ $sql_hoje =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_hoje = $DB->query($sql_hoje);
-$total_hoje = $DB->fetch_assoc($result_hoje);
+$total_hoje = $DB->fetchAssoc($result_hoje);
 
 // total users
 $sql_users = "SELECT COUNT(id) AS total
@@ -1133,7 +1146,7 @@ $sql_users = "SELECT COUNT(id) AS total
 				AND is_active = 1";
 
 $result_users = $DB->query($sql_users);
-$total_users = $DB->fetch_assoc($result_users);
+$total_users = $DB->fetchAssoc($result_users);
 
 ?>
 

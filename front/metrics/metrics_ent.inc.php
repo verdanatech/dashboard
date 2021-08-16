@@ -21,11 +21,6 @@ $last6month = date('Y-m-d', strtotime('-180 days'));
 $datai_m2 = date('Y-m-d', strtotime('-90 days'));
 $dataf = date('Y-m-d', strtotime('-365 days'));
 
-// time period for metrics
-$sql_met = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'metric' AND users_id = ".$_SESSION['glpiID']."";
-$result_met = $DB->query($sql_met);
-$sel_period = $DB->result($result_met,0,'value');
-
 switch ($sel_period) {
     case 0:
         $period = '';
@@ -109,22 +104,22 @@ switch (date("w")) {
     case "6": $dia = __('Saturday','dashboard'); break;  
 }
 
+// time period for metrics
+$sql_met = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'metric' AND users_id = ".$_SESSION['glpiID']."";
+$result_met = $DB->query($sql_met);
+$sel_period = $DB->result($result_met,0,'value');
 
 // entity
-/*$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
-$result_e = $DB->query($sql_e);
-$sel_ent = $DB->result($result_e,0,'value');*/
-
 if($id_ent != '') {
 	
 	$sel_ent = $id_ent;
-
-	if($sel_ent != -1 && $sel_ent != '') {			
+	
+	if($sel_ent != -1) {			
 		$entidade = "AND glpi_tickets.entities_id IN (".$sel_ent.")";
 		$ent_problem =  "AND glpi_problems.entities_id IN (".$sel_ent.")";
 	}
 	
-	if($sel_ent == '') {
+/*	if($sel_ent == '') {
 		
 		$entities = $_SESSION['glpiactiveentities'];
 		$ent = implode(",",$entities);
@@ -137,11 +132,10 @@ if($id_ent != '') {
 			$entidade = "";
 			$ent_problem =  "";
 		}
-	}
+	}*/
 	
 	//entity name
-	if($sel_ent != '') {
-		
+	if($sel_ent != '') {		
 		$sql_e = "SELECT name FROM glpi_entities WHERE id = ".$sel_ent."";
 		$result_e = $DB->query($sql_e);
 		$actent = $DB->result($result_e,0,'name');	
@@ -151,7 +145,10 @@ if($id_ent != '') {
 		$actent = 'GLPI '.$CFG_GLPI['version'];
 	}	
 
-}
+} else {
+	//echo "<script>alert('Selecione uma entidade');</script>";
+	header("Location: select_ent.php"); 	
+}	
 
 //chamados ano
 $sql_ano =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -162,7 +159,7 @@ $sql_ano =	"SELECT COUNT(glpi_tickets.id) as total
       $entidade ";
 
 $result_ano = $DB->query($sql_ano);
-$total_ano = $DB->fetch_assoc($result_ano);
+$total_ano = $DB->fetchAssoc($result_ano);
   
 
 //chamados mes
@@ -175,7 +172,7 @@ $sql_mes =	"SELECT COUNT(glpi_tickets.id) as total
 		$entidade ";
 
 $result_mes = $DB->query($sql_mes);
-$total_mes = $DB->fetch_assoc($result_mes);
+$total_mes = $DB->fetchAssoc($result_mes);
 
   
 //ticktes by month
@@ -191,7 +188,7 @@ ORDER BY MONTH ASC ";
 $resultm = $DB->query($querym) or die('erro');
 
 $arr_grfm = array();
-while ($row_result = $DB->fetch_assoc($resultm))		
+while ($row_result = $DB->fetchAssoc($resultm))		
 { 
 	$v_row_result = $row_result['month_l'];
 	$arr_grfm[$v_row_result] = $row_result['nb'];			
@@ -233,7 +230,7 @@ $resultd = $DB->query($queryd) or die('erro_day');
 $arr_day = array();
 $arr_days = array();
 
-while ($row_result = $DB->fetch_assoc($resultd))		
+while ($row_result = $DB->fetchAssoc($resultd))		
 { 
 	$v_row_result = $row_result['day_l'];
 	$arr_day[$v_row_result] = $row_result['nb'];			
@@ -263,7 +260,7 @@ $result2 = $DB->query($query2) or die('erro');
 
 
 $arr_grf2 = array();
-while ($row_result = $DB->fetch_assoc($result2))		
+while ($row_result = $DB->fetchAssoc($result2))		
 { 
 	$v_row_result = $row_result['days'];
 	$arr_grf2[$v_row_result] = $row_result['chamados'];			
@@ -305,7 +302,7 @@ $conta_cons = $DB->numrows($result_cham);
 
 // Count overdue tickets
 $v = 0;
-while($row = $DB->fetch_assoc($result_cham)){
+while($row = $DB->fetchAssoc($result_cham)){
 
 	if($row['solvedate'] > $row['duedate']) {
 		$v = $v+1;
@@ -337,7 +334,7 @@ ORDER BY tick DESC ";
 $result_sta = $DB->query($query_sta) or die('erro_stat');
 
 $arr_sta = array();
-while ($row_result = $DB->fetch_assoc($result_sta))		
+while ($row_result = $DB->fetchAssoc($result_sta))		
 { 
    $v_row_result = Ticket::getStatus($row_result['stat']);
    $arr_sta[$v_row_result] = $row_result['tick'];			

@@ -1,3 +1,4 @@
+
 <?php
 
 include ("../../../../inc/includes.php");
@@ -41,7 +42,7 @@ NOT IN ".$status."
 AND glpi_tickets.is_deleted = 0" ;
 
 $result = $DB->query($sql);
-$data = $DB->fetch_assoc($result);
+$data = $DB->fetchAssoc($result);
 
 $abertos = $data['total']; 
 
@@ -76,7 +77,8 @@ $sel_ent = $DB->result($result_e,0,'value');
 //select entity
 if($sel_ent == '' || $sel_ent == -1) {
 	
-	$entities = $_SESSION['glpiactiveentities'];										
+	//$entities = $_SESSION['glpiactiveentities'];
+	$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);								
 	$ent = implode(",",$entities);
 	
 	$entidade = "WHERE entities_id IN (".$ent.") OR is_recursive = 1 ";
@@ -94,15 +96,15 @@ FROM `glpi_groups`
 ORDER BY `name` ASC";
 
 $result_grp = $DB->query($sql_grp);
-$ent = $DB->fetch_assoc($result_grp);
+$ent = $DB->fetchAssoc($result_grp);
 
 $res_grp = $DB->query($sql_grp);
 $arr_grp = array();
 $arr_grp[0] = "-- ". __('Select a group', 'dashboard') . " --" ;
 
-$DB->data_seek($result_grp, 0) ;
+$DB->dataSeek($result_grp, 0) ;
 
-while ($row_result = $DB->fetch_assoc($result_grp))		
+while ($row_result = $DB->fetchAssoc($result_grp))		
 	{ 
 	$v_row_result = $row_result['id'];
 	$arr_grp[$v_row_result] = $row_result['name'] ;			

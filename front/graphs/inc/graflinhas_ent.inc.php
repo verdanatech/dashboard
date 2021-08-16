@@ -28,7 +28,7 @@ if($interval <= "31") {
 
 	$arr_days = array();
 	
-	while ($row_result = $DB->fetch_assoc($resultd))
+	while ($row_result = $DB->fetchAssoc($resultd))
 	{
 		$v_row_result = $row_result['day'];
 		$arr_days[$v_row_result] = 0;		
@@ -37,8 +37,8 @@ if($interval <= "31") {
 	$days = array_keys($arr_days) ;
 	$quantd = array_values($arr_days);
 	
-	$DB->data_seek($resultd, 0);
-	while ($row_result = $DB->fetch_assoc($resultd))
+	$DB->dataSeek($resultd, 0);
+	while ($row_result = $DB->fetchAssoc($resultd))
 	{
 		$v_row_result = $row_result['day_l'];
 		$arr_daysn[$v_row_result] = 0;		
@@ -57,7 +57,7 @@ else {
 
 	$resultd = $DB->query($queryd) or die('erro');
 	
-	while ($row_result = $DB->fetch_assoc($resultd))
+	while ($row_result = $DB->fetchAssoc($resultd))
 	{
 		$v_row_result = $row_result['day'];
 		$arr_months[$v_row_result] = 0;		
@@ -66,8 +66,8 @@ else {
 	$months = array_keys($arr_months) ;
 	$monthsq = array_values($arr_months);
 	
-	$DB->data_seek($resultd, 0);	
-	while ($row_result = $DB->fetch_assoc($resultd))
+	$DB->dataSeek($resultd, 0);	
+	while ($row_result = $DB->fetchAssoc($resultd))
 	{
 		$v_row_result = $row_result['day_l'];
 		$arr_monthsn[$v_row_result] = 0;		
@@ -80,8 +80,8 @@ $arr_opened = array();
 
 if($interval >= "31") {
 	
-	$DB->data_seek($resultd, 0);
-	while ($row_result = $DB->fetch_assoc($resultd)) {
+	$DB->dataSeek($resultd, 0);
+	while ($row_result = $DB->fetchAssoc($resultd)) {
 	
 	   $querym = "
 		SELECT DISTINCT DATE_FORMAT(date, '%b-%Y') as day_l,  COUNT(id) as nb, DATE_FORMAT(date, '%Y-%m') as day
@@ -94,7 +94,7 @@ if($interval >= "31") {
 		ORDER BY day ";
 		
 		$resultm = $DB->query($querym) or die('erro m');
-		$row_result2 = $DB->fetch_assoc($resultm);
+		$row_result2 = $DB->fetchAssoc($resultm);
 	
 		$v_row_result = $row_result['day'];
 		if($row_result2['nb'] != '') {
@@ -110,8 +110,8 @@ if($interval >= "31") {
 
 else {
 	
-	$DB->data_seek($resultd, 0);
-	while ($row_result = $DB->fetch_assoc($resultd)) {
+	$DB->dataSeek($resultd, 0);
+	while ($row_result = $DB->fetchAssoc($resultd)) {
 	
 		$querym = "
 		SELECT DISTINCT DATE_FORMAT(date, '%b-%d') as day_l,  COUNT(id) as nb, DATE_FORMAT(date, '%Y-%m-%d') as day
@@ -124,7 +124,7 @@ else {
 		ORDER BY day ";
 	
 		$resultm = $DB->query($querym) or die('erro m');
-		$row_result2 = $DB->fetch_assoc($resultm);
+		$row_result2 = $DB->fetchAssoc($resultm);
 	
 		$v_row_result = $row_result['day'];
 		if($row_result2['nb'] != '') {
@@ -163,7 +163,7 @@ if($interval >= "31") {
 	
 	$resultf = $DB->query($queryf) or die('erro f');
 	
-	while ($row_result = $DB->fetch_assoc($resultf)) {
+	while ($row_result = $DB->fetchAssoc($resultf)) {
 	
 		$v_row_result = $row_result['day'];
 		if($row_result['nb'] != '') {
@@ -179,8 +179,8 @@ if($interval >= "31") {
 
  else {
  	
-	$DB->data_seek($resultd, 0);
-	while ($row_result = $DB->fetch_assoc($resultd))
+	$DB->dataSeek($resultd, 0);
+	while ($row_result = $DB->fetchAssoc($resultd))
 	{
 	
 		// fechados diarios
@@ -195,7 +195,7 @@ if($interval >= "31") {
 		ORDER BY day ";
 		
 		$resultf = $DB->query($queryf) or die('erro f');
-		$row_result2 = $DB->fetch_assoc($resultf);
+		$row_result2 = $DB->fetchAssoc($resultf);
 	
 		$v_row_result = $row_result['day'];
 		
@@ -226,7 +226,7 @@ if($interval >= "31") {
 	AND glpi_tickets.status <> 6 ";
 	
 	$resultb = $DB->query($queryb) or die('erro b');
-	$row_result2 = $DB->fetch_assoc($resultb);
+	$row_result2 = $DB->fetchAssoc($resultb);
 
 	//$arr_bak[] = $row_result2['nb'];	
 	//$back_ini = array_sum($arr_bak);
@@ -252,7 +252,7 @@ else {
 		AND glpi_tickets.status <> 6 ";
 	
 	$resultb = $DB->query($queryb) or die('erro b');
-	$row_result2 = $DB->fetch_assoc($resultb);
+	$row_result2 = $DB->fetchAssoc($resultb);
 
 	$back_ini = $row_result2['nb'];
 	

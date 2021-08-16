@@ -180,9 +180,9 @@ a:hover { color: #000099; }
 		$arr_tec = array();
 		$arr_tec[0] = "-- ". __('Select a technician','dashboard') . " --" ;
 		
-		$DB->data_seek($result_tec, 0) ;
+		$DB->dataSeek($result_tec, 0) ;
 		
-		while ($row_result = $DB->fetch_assoc($result_tec))
+		while ($row_result = $DB->fetchAssoc($result_tec))
 	    {
 		    $v_row_result = $row_result['id'];
 	   	 $arr_tec[$v_row_result] = $row_result['name']." ".$row_result['sname']." (".$row_result['id'].")" ;
@@ -343,7 +343,7 @@ if($con == "1") {
 	".$entidade." " ;
 	
 	$result_ab = $DB->query($sql_ab) or die ("erro_ab");
-	$data_ab = $DB->fetch_assoc($result_ab);
+	$data_ab = $DB->fetchAssoc($result_ab);
 	
 	$abertos = $data_ab['total'];
 	
@@ -381,8 +381,8 @@ if($con == "1") {
 	
 	$result_nome = $DB->query($sql_nome) ;
 	
-	$DB->data_seek($result_cham, 0);
-	while($row = $DB->fetch_assoc($result_nome)) {
+	$DB->dataSeek($result_cham, 0);
+	while($row = $DB->fetchAssoc($result_nome)) {
 
 	$tech = $row['firstname'] ." ". $row['realname'];
 
@@ -404,8 +404,8 @@ if($con == "1") {
 	</table>\n ";
 
 	//total costs
-	$DB->data_seek($result_cham, 0);
-	while($row = $DB->fetch_assoc($result_cham)){
+	$DB->dataSeek($result_cham, 0);
+	while($row = $DB->fetchAssoc($result_cham)){
 	
 	$total_cost += computeCost($row['id']);
 	
@@ -445,8 +445,8 @@ if($con == "1") {
 }
 
 //listar chamados
-$DB->data_seek($result_cham, 0);
-while($row = $DB->fetch_assoc($result_cham)){
+$DB->dataSeek($result_cham, 0);
+while($row = $DB->fetchAssoc($result_cham)){
 
 	$status1 = $row['status'];
 

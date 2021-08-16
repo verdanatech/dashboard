@@ -53,7 +53,7 @@ else {
 }
 
 
-if($DB->fetch_assoc($query_tec) != '') {
+if($DB->fetchAssoc($query_tec) != '') {
 
 echo "
 <script type='text/javascript'>
@@ -138,9 +138,9 @@ $(function () {
                 data: [  ";
 
 					//zerar rows para segundo while
-					$DB->data_seek($query_tec, 0) ;
+					$DB->dataSeek($query_tec, 0) ;
 					
-					while ($tecnico = $DB->fetch_assoc($query_tec))
+					while ($tecnico = $DB->fetchAssoc($query_tec))
 					{
 						$user_name = str_replace("'","`",$tecnico['name']." ". $tecnico['sname']);				 	
 					 	echo "{y:".$tecnico['conta'].",name:'".$user_name."',key:".$tecnico['id']."},";

@@ -177,7 +177,7 @@ else {
 										$arr_cat = array();
 										$arr_cat[0] = "-- ". __('Select a category', 'dashboard') . " --" ;
 					
-										while ($row_result = $DB->fetch_assoc($result_cat)) {
+										while ($row_result = $DB->fetchAssoc($result_cat)) {
 											$v_row_result = $row_result['id'];
 											$arr_cat[$v_row_result] = $row_result['name'] ;
 										}
@@ -372,7 +372,7 @@ else {
 			WHERE id = ".$id_cat_name." ";
 
 			$result_nm = $DB->query($sql_nm);
-			$cat_name = $DB->fetch_assoc($result_nm);
+			$cat_name = $DB->fetchAssoc($result_nm);
 
 			//listar chamados
 			echo "
@@ -457,7 +457,7 @@ else {
 				</thead>
 			<tbody> ";
 
-			while($row = $DB->fetch_assoc($result_cham)){
+			while($row = $DB->fetchAssoc($result_cham)){
 
 				$status1 = $row['status'];
 
@@ -478,7 +478,7 @@ else {
 			".$entidade." ";
 
 			$result_user = $DB->query($sql_user);
-			$row_user = $DB->fetch_assoc($result_user);
+			$row_user = $DB->fetchAssoc($result_user);
 
 			//tecnico
 				$sql_tec = "SELECT glpi_tickets.id AS id, glpi_users.firstname AS name, glpi_users.realname AS sname
@@ -490,7 +490,13 @@ else {
 			".$entidade." ";
 
 			$result_tec = $DB->query($sql_tec);
-			$row_tec = $DB->fetch_assoc($result_tec);
+			$row_tec = $DB->fetchAssoc($result_tec);
+						
+			if($row_tec != '') {
+				$tec_name_full = $row_tec['name']." ".$row_tec['sname'];			
+			}else {
+				$tec_name_full = '';
+			}
 
 			echo "
 			<tr style='font-size:11px;'>
@@ -498,7 +504,7 @@ else {
 				<td style='vertical-align:middle;'><img src=".$CFG_GLPI['url_base']."/pics/".$status1.".png title='".Ticket::getStatus($row['status'])."' style=' cursor: pointer; cursor: hand;'/>&nbsp; ".Ticket::getStatus($row['status'])."  </td>
 				<td style='vertical-align:middle;'> ". substr($row['name'],0,55) ." </td>
 				<td style='vertical-align:middle;'> ". $row_user['name'] ." ".$row_user['sname'] ." </td>
-				<td style='vertical-align:middle;'> ". $row_tec['name'] ." ".$row_tec['sname'] ." </td>
+				<td style='vertical-align:middle;'> ". $tec_name_full ." </td>
 				<td style='vertical-align:middle; text-align:center;'> ". conv_data_hora($row['date']) ." </td>
 				<td style='vertical-align:middle; text-align:center;'> ". conv_data_hora($row['closedate']) ." </td>
 				<td style='vertical-align:middle; text-align:center;'> ". time_ext($row['time']) ."</td>

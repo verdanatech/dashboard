@@ -242,7 +242,7 @@ echo "
 				</thead>
 			<tbody> ";
 			
-			while($row = $DB->fetch_assoc($result_sla)){			
+			while($row = $DB->fetchAssoc($result_sla)){			
 											
 				 // Chamados
 				$sql_cham = 
@@ -254,7 +254,7 @@ echo "
 				".$entidade." ";
 				
 				$result_cham = $DB->query($sql_cham);
-				$data_cham = $DB->fetch_assoc($result_cham);
+				$data_cham = $DB->fetchAssoc($result_cham);
 				$chamados = $data_cham['total'];			
 				
 				//chamados abertos
@@ -268,7 +268,7 @@ echo "
 				".$entidade." ";
 				
 				$result_abe = $DB->query($sql_abe);	
-				$data_abe = $DB->fetch_assoc($result_abe);
+				$data_abe = $DB->fetchAssoc($result_abe);
 				$abertos = $data_abe['total'];	
 				
 				//chamados solucionados
@@ -282,7 +282,7 @@ echo "
 				".$entidade." ";
 				
 				$result_sol = $DB->query($sql_sol);	
-				$data_sol = $DB->fetch_assoc($result_sol);
+				$data_sol = $DB->fetchAssoc($result_sol);
 				$solucionados = $data_sol['total'];
 				
 				//chamados fechados
@@ -296,25 +296,20 @@ echo "
 				".$entidade." ";
 				
 				$result_fech = $DB->query($sql_fech);	
-				$data_fech = $DB->fetch_assoc($result_fech);
+				$data_fech = $DB->fetchAssoc($result_fech);
 				$fechados = $data_fech['total'];		
 								
 				//count by status
 				$query_stat = "
-				SELECT COUNT(id) AS solve_sla				
+				SELECT SUM(case when glpi_tickets.solvedate IS NULL then 1 else 0 end) AS solve_sla				
 				FROM glpi_tickets
-				WHERE glpi_tickets.is_deleted = '0'	
-				AND status >= 5			
-				AND time_to_resolve IS NOT NULL
-				AND (closedate > time_to_resolve )
+				WHERE glpi_tickets.is_deleted = '0'				
 				AND glpi_tickets.date ".$datas2."
 				".$slaid.$row['sla_id']."
 				".$entidade."";
 			
-				$result_stat = $DB->query($query_stat);	
+				$result_stat = $DB->query($query_stat);			
 				$solve_sla = $DB->result($result_stat,0,'solve_sla');
-
-				$barra = 100;
 														
 				//barra de porcentagem
 				if($conta_cons > 0) {

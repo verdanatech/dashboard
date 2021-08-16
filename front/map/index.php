@@ -79,7 +79,7 @@ Session::checkRight("profile", READ);
 // check if any entity has address
 $query1 = "SELECT entities_id FROM glpi_plugin_dashboard_map";
 $result1 = $DB->query($query1);
-$teste = $DB->fetch_assoc($result1);
+$teste = $DB->fetchAssoc($result1);
 
 $conta_teste = count($teste);
 
@@ -171,15 +171,24 @@ else {
 
 if(isset($_SESSION['glpiID'])) {
 	
-	$entities = $_SESSION['glpiactiveentities'];
-	$ent = implode(",",$entities);
+	$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
+	$result_e = $DB->query($sql_e);
+	$sel_ent = $DB->result($result_e,0,'value');
 	
-	if($ent != '') {
+	if($sel_ent == '' || $sel_ent == -1) {
+	$entities = $_SESSION['glpiactiveentities'];
+	//$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);	
+	$ent = implode(",",$entities);	
+	$entidade = "AND gt.entities_id IN (".$ent.")";
+	} else {	
+		$entidade = "AND gt.entities_id IN (".$sel_ent.")";
+	}	
+/*	if($ent != '') {
 		$entidade = "AND gt.entities_id IN (".$ent.")";
 	}
 	else {
 		$entidade = "";
-	}
+	}*/
 }	
 
 ?>
@@ -206,7 +215,7 @@ $query_loc = "
 
 $result_loc = $DB->query($query_loc) or die ("erro");
 
-while ($row = $DB->fetch_assoc($result_loc))
+while ($row = $DB->fetchAssoc($result_loc))
 {
  
   $id = $row['entities_id'];

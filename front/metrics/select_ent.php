@@ -39,7 +39,7 @@ WHERE glpi_tickets.status NOT IN ".$status."
 AND glpi_tickets.is_deleted = 0" ;
 
 $result = $DB->query($sql);
-$data = $DB->fetch_assoc($result);
+$data = $DB->fetchAssoc($result);
 
 $abertos = $data['total']; 
 
@@ -75,6 +75,7 @@ $sel_ent = $DB->result($result_e,0,'value');
 if($sel_ent == '' || $sel_ent == -1) {
 	
 	$entities = $_SESSION['glpiactiveentities'];
+	//$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);
 	$ents = implode(",",$entities);
 
 }
@@ -89,15 +90,15 @@ WHERE id IN (".$ents.")
 ORDER BY `cname` ASC ";
 
 $result_ent = $DB->query($sql_ent);
-$ent = $DB->fetch_assoc($result_ent);
+$ent = $DB->fetchAssoc($result_ent);
 
 $res_ent = $DB->query($sql_ent);
 $arr_ent = array();
 $arr_ent[0] = "-- ". __('Select a entity', 'dashboard') . " --" ;
 
-$DB->data_seek($result_ent, 0) ;
+$DB->dataSeek($result_ent, 0) ;
 
-while ($row_result = $DB->fetch_assoc($result_ent))		
+while ($row_result = $DB->fetchAssoc($result_ent))		
 	{ 
 		$v_row_result = $row_result['id'];
 		$arr_ent[$v_row_result] = $row_result['cname'] ;			

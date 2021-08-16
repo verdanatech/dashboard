@@ -227,7 +227,7 @@ else {
 					<td align="center" >
 						<span class="titulo_cham"><?php echo __('Open Tickets','dashboard'); ?>:</span> 
 						<span class="total"> <?php echo " ".$data['total'] ; ?> </span> 
-						<span class="titulo_cham"><a href="cham_grupos.php?grp=<?php echo $grp; ?>" > <?php echo " / " . __('Today','dashboard'); ?>: </a> 
+						<span class="titulo_cham"><a href="tickets_group.php?grp=<?php echo $grp; ?>" > <?php echo " / " . __('Today','dashboard'); ?>: </a> 
 						<a href="../../../../front/ticket.php" target="_blank" class="total" style="font-size: 32pt;"> <?php echo " ".$hoje['total'] ; ?> </a>
 						<img src= <?php echo $up_down ;?> class="up_down" alt="" style="margin-top: -10px;" title= <?php echo __('Yesterday','dashboard'). ':';  echo $ontem['total'] ;?>  > </span> 
 					</td>
@@ -314,8 +314,8 @@ else {
 				echo "<table id='tickets' class='display' style='font-size: 20px; font-weight:bold;' cellpadding = 2px >				
 				<thead>
 					<tr class='up-down'>
-						<th style='text-align:center;'><a href='cham_grupos.php?grp=".$grp."&order=ta'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('ID','dashboard')."<a href='cham_grupos.php?grp=".$grp."&order=td'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
-						<th style='text-align:center;'><a href='cham_grupos.php?grp=".$grp."&order=sa'><font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Status')."<a href='cham_grupos.php?grp=".$grp."&order=sd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>";
+						<th style='text-align:center;'><a href='tickets_group.php?grp=".$grp."&order=ta'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('ID','dashboard')."<a href='tickets_group.php?grp=".$grp."&order=td'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
+						<th style='text-align:center;'><a href='tickets_group.php?grp=".$grp."&order=sa'><font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Status')."<a href='tickets_group.php?grp=".$grp."&order=sd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>";
 						
 				if($show_tit != 0 || $show_tit == '') {	
 					echo	"<th style='text-align:center;'>". __('Title')."</th>";
@@ -331,7 +331,7 @@ else {
 				if(isset($th_due)) {				
 					echo $th_due;		
 				}							
-				echo "<th style='text-align:center;'><a href='cham_grupos.php?grp=".$grp."&order=pa'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Priority')."<a href='cham_grupos.php?grp=".$grp."&order=pd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
+				echo "<th style='text-align:center;'><a href='tickets_group.php?grp=".$grp."&order=pa'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Priority')."<a href='tickets_group.php?grp=".$grp."&order=pd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
 					</tr>
 				</thead>
 				<tbody>";
@@ -430,8 +430,13 @@ else {
 			echo "<td style='vertical-align:middle;'><a href=../../../../front/ticket.form.php?id=". $row['id'] ." target=_blank > <span >" . $row['descri'] . "</span> </a></td>";
 		}
 	
-		echo "<td style='vertical-align:middle;'><span >". $row_tec['name'] ." ".$row_tec['sname'] ."</span> </td>		
-			<td style='vertical-align:middle;'><span >". $row_req['name'] ." ".$row_req['sname'] ."</span> </td>";
+		if(isset($row_tec['name'])) {		
+		echo "<td style='vertical-align:middle;'><span >". $row_tec['name'] ." ".$row_tec['sname'] ."</span> </td>";
+		} else {
+			echo "<td style='vertical-align:middle;'><span ></span> </td>";
+		}
+
+		echo "<td style='vertical-align:middle;'><span >". $row_req['name'] ." ".$row_req['sname'] ."</span> </td>";
 						
 		if($show_loc == 1) {
 			echo "<td style='vertical-align:middle; text-align:center; font-size:14pt;'>" . $row_loc['name'] . "</td>";

@@ -87,13 +87,13 @@ echo "
 	            categories: ";
 	
 					$categories = array();
-					while ($entity = $DB->fetch_assoc($query_cat)) {
+					while ($entity = $DB->fetchAssoc($query_cat)) {
 					    $categories[] = $entity['name'];
 					}
 					echo json_encode($categories);
 					
 					//zerar rows para segundo while
-					$DB->data_seek($query_cat, 0) ;
+					$DB->dataSeek($query_cat, 0) ;
 					
 					echo ",
 	                title: {
@@ -159,7 +159,7 @@ echo "
 	                data: [
 						";
 						
-						while ($entity = $DB->fetch_assoc($query_cat)) {
+						while ($entity = $DB->fetchAssoc($query_cat)) {
 							echo $entity['total'].",";
 						}
 						

@@ -75,86 +75,93 @@ Session::checkRight("profile", READ);
 		}		
 		
 		$ent = $_REQUEST['ent'];
+
+  		//$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);
+  		$entities = $_SESSION['glpiactiveentities'];	 	
+	
+		if(!in_array($ent, $entities)){	
+			header("Location: select_ent.php"); 
+		} else {		
 		
-		// contar chamados abertos
-		$sql = "SELECT COUNT(glpi_tickets.id) AS total
-		FROM glpi_tickets
-		WHERE glpi_tickets.is_deleted = 0
-		".$status1."
-		AND glpi_tickets.entities_id IN (".$ent.")" ;
-		
-		$result = $DB->query($sql);
-		$data = $DB->fetchAssoc($result);
-		
-		$abertos = $data['total']; 
-		
-		//insert if not exist entity
-		$query_i = "
-		INSERT IGNORE INTO glpi_plugin_dashboard_count (type, id, quant) 
-		VALUES ('2','". $ent ."', '" . $abertos ."')  ";
-		
-		$result_i = $DB->query($query_i);
-		
-		// get quantity
-		$query = "SELECT quant 
-		FROM glpi_plugin_dashboard_count
-		WHERE id = ".$ent." 
-		AND type = 2 ";
-		
-		$result = $DB->query($query);
-		$quant = $DB->fetchAssoc($result);
-		
-		$atual = $quant['quant']; 
-		
-		//update tickets count
-		$query_up = "UPDATE glpi_plugin_dashboard_count 
-		SET quant=".$data['total']."
-		WHERE id = ".$ent." 
-		AND type = 2 ";
-		
-		$result_up = $DB->query($query_up);
-		
-		//contar chamados de hoje - today tickets
-		$datahoje = date("Y-m-d");
-		
-		$sql = "
-		SELECT COUNT( * ) AS total
-		FROM glpi_tickets
-		WHERE glpi_tickets.date LIKE '".$datahoje."%'
-		AND glpi_tickets.is_deleted =0 
-		AND glpi_tickets.entities_id = ".$ent."" ;
-		
-		$result = $DB->query($sql);
-		$hoje = $DB->fetchAssoc($result);
-		
-		
-		// chamados de ontem - yesterday tickets
-		$dataontem = date('Y-m-d', strtotime('-1 day'));
-		
-		$sql = "
-		SELECT COUNT( * ) AS total
-		FROM glpi_tickets
-		WHERE glpi_tickets.date LIKE '".$dataontem."%'
-		AND glpi_tickets.is_deleted =0 
-		AND glpi_tickets.entities_id = ".$ent."" ;
-		
-		$result = $DB->query($sql);
-		$ontem = $DB->fetchAssoc($result);
-		
-		//$cham_ontem = "'Chamados de ontem: " . $ontem['total'] . "'";
-		if ($ontem['total'] > $hoje['total']) { $up_down = "../img/down.png"; }
-		if ($ontem['total'] < $hoje['total']) { $up_down = "../img/up.png"; }
-		if ($ontem['total'] == $hoje['total']) { $up_down = "../img/blank.gif"; }
-		
-		//entity name
-		$query_name = "
-		SELECT name 
-		FROM glpi_entities
-		WHERE glpi_entities.id = ".$ent." " ;
-		
-		$result_n = $DB->query($query_name);
-		$ent_name = $DB->result($result_n, 0, 'name');
-		
+			// contar chamados abertos
+			$sql = "SELECT COUNT(glpi_tickets.id) AS total
+			FROM glpi_tickets
+			WHERE glpi_tickets.is_deleted = 0
+			".$status1."
+			AND glpi_tickets.entities_id IN (".$ent.")" ;
+			
+			$result = $DB->query($sql);
+			$data = $DB->fetchAssoc($result);
+			
+			$abertos = $data['total']; 
+			
+			//insert if not exist entity
+			$query_i = "
+			INSERT IGNORE INTO glpi_plugin_dashboard_count (type, id, quant) 
+			VALUES ('2','". $ent ."', '" . $abertos ."')  ";
+			
+			$result_i = $DB->query($query_i);
+			
+			// get quantity
+			$query = "SELECT quant 
+			FROM glpi_plugin_dashboard_count
+			WHERE id = ".$ent." 
+			AND type = 2 ";
+			
+			$result = $DB->query($query);
+			$quant = $DB->fetchAssoc($result);
+			
+			$atual = $quant['quant']; 
+			
+			//update tickets count
+			$query_up = "UPDATE glpi_plugin_dashboard_count 
+			SET quant=".$data['total']."
+			WHERE id = ".$ent." 
+			AND type = 2 ";
+			
+			$result_up = $DB->query($query_up);
+			
+			//contar chamados de hoje - today tickets
+			$datahoje = date("Y-m-d");
+			
+			$sql = "
+			SELECT COUNT( * ) AS total
+			FROM glpi_tickets
+			WHERE glpi_tickets.date LIKE '".$datahoje."%'
+			AND glpi_tickets.is_deleted =0 
+			AND glpi_tickets.entities_id = ".$ent."" ;
+			
+			$result = $DB->query($sql);
+			$hoje = $DB->fetchAssoc($result);
+			
+			
+			// chamados de ontem - yesterday tickets
+			$dataontem = date('Y-m-d', strtotime('-1 day'));
+			
+			$sql = "
+			SELECT COUNT( * ) AS total
+			FROM glpi_tickets
+			WHERE glpi_tickets.date LIKE '".$dataontem."%'
+			AND glpi_tickets.is_deleted =0 
+			AND glpi_tickets.entities_id = ".$ent."" ;
+			
+			$result = $DB->query($sql);
+			$ontem = $DB->fetchAssoc($result);
+			
+			//$cham_ontem = "'Chamados de ontem: " . $ontem['total'] . "'";
+			if ($ontem['total'] > $hoje['total']) { $up_down = "../img/down.png"; }
+			if ($ontem['total'] < $hoje['total']) { $up_down = "../img/up.png"; }
+			if ($ontem['total'] == $hoje['total']) { $up_down = "../img/blank.gif"; }
+			
+			//entity name
+			$query_name = "
+			SELECT name 
+			FROM glpi_entities
+			WHERE glpi_entities.id = ".$ent." " ;
+			
+			$result_n = $DB->query($query_name);
+			$ent_name = $DB->result($result_n, 0, 'name');
+		}
 		?> 
 	</head>
 
@@ -216,7 +223,7 @@ else {
 			<tr>
 				<td align="center">
 					<span class="titulo_cham"><?php echo __('Open Tickets','dashboard'); ?>:</span> <span class="total"> <?php echo " ".$data['total'] ; ?> </span> 						
-					<span class="titulo_cham" ><a href="cham_entidades.php?ent=<?php echo $ent; ?>" > <?php echo "/ " . __('Today','dashboard'); ?>: </a> 
+					<span class="titulo_cham" ><a href="tickets_ent.php?ent=<?php echo $ent; ?>" > <?php echo "/ " . __('Today','dashboard'); ?>: </a> 
 					<a href="../../../../front/ticket.php" target="_blank" class="total" style="font-size: 32pt;"> <?php echo " ".$hoje['total'] ; ?> </a>
 					<img src= <?php echo $up_down ;?> class="up_down" alt="" style="margin-top: -10px;" title= <?php echo __('Yesterday','dashboard'). ':';  echo $ontem['total'] ;?>  > </span>
 				</td> 
@@ -305,8 +312,8 @@ else {
 		echo "<table id='tickets' class='display' style='font-size: 20px; font-weight:bold;' cellpadding = 2px >				
 		<thead>
 			<tr class='up-down' >
-				<th style='text-align:center;'><a href='cham_entidades.php?ent=".$ent."&order=ta'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('ID','dashboard')."<a href='cham_entidades.php?ent=".$ent."&order=td'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
-				<th style='text-align:center;'><a href='cham_entidades.php?ent=".$ent."&order=sa'><font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Status')."<a href='cham_entidades.php?ent=".$ent."&order=sd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>";
+				<th style='text-align:center;'><a href='tickets_ent.php?ent=".$ent."&order=ta'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('ID','dashboard')."<a href='tickets_ent.php?ent=".$ent."&order=td'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
+				<th style='text-align:center;'><a href='tickets_ent.php?ent=".$ent."&order=sa'><font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Status')."<a href='tickets_ent.php?ent=".$ent."&order=sd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>";
 				
 		if($show_tit != 0 || $show_tit == '') {		
 			echo	"<th style='text-align:center;'>". __('Title')."</th>";
@@ -320,7 +327,7 @@ else {
 					}	
 					
 				echo $th_due."							
-				<th style='text-align:center;'><a href='cham_entidades.php?ent=".$ent."&order=pa'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Priority')."<a href='cham_entidades.php?ent=".$ent."&order=pd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
+				<th style='text-align:center;'><a href='tickets_ent.php?ent=".$ent."&order=pa'>&nbsp<font size=2.5pt; font-family='webdings'>&#x25BE;&nbsp;</font></a>". __('Priority')."<a href='tickets_ent.php?ent=".$ent."&order=pd'><font size=2.5pt; font-family='webdings'>&nbsp;&#x25B4;</font></a></th>
 			</tr>
 		</thead>
 		<tbody>";
@@ -409,12 +416,17 @@ while($row = $DB->fetchAssoc($result_cham)){
 			echo "<td style='vertical-align:middle;'><a href=../../../../front/ticket.form.php?id=". $row['id'] ." target=_blank > <span >" . $row['descri'] . "</span> </a></td>";
 		}
 
-		echo "<td style='vertical-align:middle;'><span >". $row_tec['name'] ." ".$row_tec['sname'] ."</span> </td>
-			<td style='vertical-align:middle;'><span >". $row_req['name'] ." ".$row_req['sname'] ."</span> </td>";
+		if(isset($row_tec['name'])) {		
+		echo "<td style='vertical-align:middle;'><span >". $row_tec['name'] ." ".$row_tec['sname'] ."</span> </td>";
+		} else {
+			echo "<td style='vertical-align:middle;'><span ></span> </td>";
+		}
+
+		echo "<td style='vertical-align:middle;'><span >". $row_req['name'] ." ".$row_req['sname'] ."</span> </td>";
 			
-			if($show_loc == 1) {
-				echo "<td style='vertical-align:middle; text-align:center; font-size:14pt;'>" . $row_loc['name'] . "</td>";
-			}
+		if($show_loc == 1) {
+			echo "<td style='vertical-align:middle; text-align:center; font-size:14pt;'>" . $row_loc['name'] . "</td>";
+		}
 			
 		if($show_due != 0) {
 			if($count_due > 0) {

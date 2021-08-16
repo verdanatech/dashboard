@@ -47,7 +47,7 @@ LIMIT ".$limite." ";
 
 $query_grp = $DB->query($sql_grp);
 
-if($DB->fetch_assoc($query_grp) != 0) {
+if($DB->fetchAssoc($query_grp) != 0) {
 
 echo "
 <script type='text/javascript'>
@@ -56,8 +56,8 @@ $(function () {
 	var categoryLinks = {
 ";
 
-$DB->data_seek($query_grp, 0) ;
-while ($grupo = $DB->fetch_assoc($query_grp)) {
+$DB->dataSeek($query_grp, 0) ;
+while ($grupo = $DB->fetchAssoc($query_grp)) {
 
 echo "
         '". $grupo['name']."': '".$CFG_GLPI["url_base"]."/front/".$type.".form.php?id=".$grupo['id']."',
@@ -79,9 +79,9 @@ echo "	};
             xAxis: {
             categories: ";
 
-				$DB->data_seek($query_grp, 0) ;
+				$DB->dataSeek($query_grp, 0) ;
 				$categories = array();
-				while ($grupo = $DB->fetch_assoc($query_grp)) {
+				while ($grupo = $DB->fetchAssoc($query_grp)) {
 				    $categories[] = $grupo['name'];
 				}
 				echo json_encode($categories);
@@ -157,9 +157,9 @@ echo "	};
 
 //zerar rows para segundo while
 
-$DB->data_seek($query_grp, 0) ;
+$DB->dataSeek($query_grp, 0) ;
 
-while ($grupo = $DB->fetch_assoc($query_grp))
+while ($grupo = $DB->fetchAssoc($query_grp))
 {
 	echo $grupo['conta'].",";
 }

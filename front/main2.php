@@ -7,8 +7,10 @@ global $DB;
 
 Session::checkLoginUser();
 
+$userID = $_SESSION['glpiID'];
+
 # entity in index
-$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$_SESSION['glpiID']."";
+$sql_e = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'entity' AND users_id = ".$userID."";
 $result_e = $DB->query($sql_e);
 $sel_ent = $DB->result($result_e,0,'value');
 	
@@ -31,15 +33,16 @@ if($sel_ent != '') {
 }
 
 else {	
-	$entities = $_SESSION['glpiactiveentities'];	
+	$entities = $_SESSION['glpiactiveentities'];
+	//$ent = $entities;	
+	//$entities = Profile_User::getUserEntitiesForRight($_SESSION['glpiID'],Ticket::$rightname,Ticket::READALL);	
 	$ent = implode(",",$entities);	
 	$entidade = "AND glpi_tickets.entities_id IN (".$ent.")";
-	$entidade_u = "AND glpi_profiles_users.entities_id IN (".$ent.")";				
+	$entidade_u = "AND glpi_profiles_users.entities_id IN (".$ent.")";					
 }
 
-
 # years in index
-$sql_y = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'num_years' AND users_id = ".$_SESSION['glpiID']."";
+$sql_y = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'num_years' AND users_id = ".$userID."";
 $result_y = $DB->query($sql_y);
 $num_years = $DB->result($result_y,0,'value');
 
@@ -48,7 +51,7 @@ if($num_years == '') {
 }
 
 # color theme
-$sql_theme = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'theme' AND users_id = ".$_SESSION['glpiID']."";
+$sql_theme = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'theme' AND users_id = ".$userID."";
 $result_theme = $DB->query($sql_theme);
 $theme = $DB->result($result_theme,0,'value');
 $style = $theme;
@@ -62,7 +65,7 @@ $_SESSION['style'] = $theme;
 
 
 # background
-$sql_back = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'back' AND users_id = ".$_SESSION['glpiID']."";
+$sql_back = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'back' AND users_id = ".$userID."";
 $result_back = $DB->query($sql_back);
 $back = $DB->result($result_back,0,'value');
 
@@ -98,7 +101,7 @@ $_SESSION['back'] = $back;
 
 	$sql_photo = "SELECT picture 
 					FROM glpi_users
-					WHERE id = ".$_SESSION["glpiID"]." ";
+					WHERE id = ".$userID." ";
 	
 	$res_photo = $DB->query($sql_photo);
 	$pic = $DB->result($res_photo,0,'picture');
@@ -219,7 +222,7 @@ $conta_y = $DB->numrows($result_y);
 
 $arr_years = array();
 
-while ($row_y = $DB->fetch_assoc($result_y))		
+while ($row_y = $DB->fetchAssoc($result_y))		
 { 
 	$arr_years[] = $row_y['year'];			
 } 
@@ -243,7 +246,7 @@ $sql_ano =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_ano = $DB->query($sql_ano);
-$total_ano = $DB->fetch_assoc($result_ano);
+$total_ano = $DB->fetchAssoc($result_ano);
       
 //chamados mes
 $sql_mes =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -254,7 +257,7 @@ $sql_mes =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_mes = $DB->query($sql_mes);
-$total_mes = $DB->fetch_assoc($result_mes);
+$total_mes = $DB->fetchAssoc($result_mes);
 
 //chamados dia
 $sql_hoje =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -265,7 +268,7 @@ $sql_hoje =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_hoje = $DB->query($sql_hoje);
-$total_hoje = $DB->fetch_assoc($result_hoje);
+$total_hoje = $DB->fetchAssoc($result_hoje);
 
 // total users
 $sql_users = " SELECT COUNT(DISTINCT `glpi_users`.id) AS total
@@ -277,7 +280,7 @@ $sql_users = " SELECT COUNT(DISTINCT `glpi_users`.id) AS total
      				".$entidade_u." ";
 
 $result_users = $DB->query($sql_users);
-$total_users = $DB->fetch_assoc($result_users);
+$total_users = $DB->fetchAssoc($result_users);
 
 
 $sql_ano_ab =	"SELECT COUNT(glpi_tickets.id) as total        
@@ -289,7 +292,7 @@ $sql_ano_ab =	"SELECT COUNT(glpi_tickets.id) as total
       ".$entidade." ";
 
 $result_ano_ab = $DB->query($sql_ano_ab);
-$total_ano_ab = $DB->fetch_assoc($result_ano_ab);
+$total_ano_ab = $DB->fetchAssoc($result_ano_ab);
 
 //count due tickets
 $sql_due = "SELECT DISTINCT COUNT(glpi_tickets.id) AS total
@@ -301,7 +304,7 @@ AND glpi_tickets.time_to_resolve < NOW()
 ".$entidade." ";
 
 $result_due = $DB->query($sql_due);
-$total_due = $DB->fetch_assoc($result_due);
+$total_due = $DB->fetchAssoc($result_due);
 
 
 ?>
@@ -455,7 +458,7 @@ $total_due = $DB->fetch_assoc($result_due);
 	<?php 
 	
 		// server info
-		$query_info = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'info' AND users_id = ".$_SESSION['glpiID']." ";																
+		$query_info = "SELECT value FROM glpi_plugin_dashboard_config WHERE name = 'info' AND users_id = ".$userID." ";																
 		$result_info = $DB->query($query_info);		
 		$info = $DB->result($result_info,0,'value');
 		
@@ -605,7 +608,7 @@ $total_due = $DB->fetch_assoc($result_due);
 	        <table id="last_tickets" class="table table-hover table-condensed" >
 		        <th style="text-align: center;"><?php echo __('Tickets','dashboard'); ?></th><th style="text-align: center;" ><?php echo __('Title','dashboard'); ?></th>	        
 					<?php
-						while($row = $DB->fetch_assoc($result_wid)) 
+						while($row = $DB->fetchAssoc($result_wid)) 
 						{					
 							echo "<tr><td style='text-align: center;'><a href=../../../front/ticket.form.php?id=".$row['id']." target=_blank style='color: #526273;'>".$row['id']."</a>
 							</td><td>". substr($row['name'],0,60)."</td></tr>";											
@@ -650,7 +653,7 @@ $total_due = $DB->fetch_assoc($result_due);
 		           </th>
 		              
 						<?php
-							while($row = $DB->fetch_assoc($result_tec)) 
+							while($row = $DB->fetchAssoc($result_tec)) 
 							{					
 								echo "<tr><td><a href=./reports/rel_tecnico.php?con=1&sel_tec=".$row['id']."&stat=open target=_blank style='color: #526273;'>
 								".$row['name']." ".$row['sname']."</a></td><td style='text-align: center;' >".$row['tick']."</td></tr>";											
@@ -777,17 +780,28 @@ $total_due = $DB->fetch_assoc($result_due);
 				
 				if($conta > 0) {
 				
-				for($i=0; $i < $conta; $i++) {
-				
-					$file = $arquivos[$i];
+					for($i=0; $i < $conta; $i++) {					
 					
-					$string = file_get_contents( $file ); 										
-					$list = preg_match( '/glpiID\|s:[0-9]:"(.+)/', $string, $matches );					
-					$arr = isset($matches[0]) ? $matches[0] : '';					
-					$posicao = strpos($arr, 'glpiID|s:');					
-					$string2 = substr($arr, $posicao, 25);					
-					$string3 = explode("\"", $string2);					
-					$arr_ids[] = isset($string3[1]) ? $string3[1] : '';
+						$file = $arquivos[$i];						
+						
+						$strings = file_get_contents( $file ); 
+						
+						if (version_compare(phpversion(), '7.2', '<')) {
+
+							$list = preg_match( '/glpiID\|[a-z]:[0-9]:"(.+)/', $strings, $matches );					
+							$arr = isset($matches[0]) ? $matches[0] : '';					
+							$posicao = strpos($arr, 'glpiID|s:');					
+							$string2 = substr($arr, $posicao, 25);					
+							$string3 = explode("\"", $string2);					
+							$arr_ids[] = isset($string3[1]) ? $string3[1] : '';			
+					
+					   } else { 																		
+							$list = preg_match('/glpiID\|[a-z]:[0-9]+/', $strings, $matches);
+							$string = isset($matches[0]) ? $matches[0] : '';	
+	//						$string1 = substr("$string",0, strrpos($string,':'));
+							$string2 = substr("$string", (strrpos($string,':') + 1));	
+							$arr_ids[] = isset($string2) ? $string2 : '';
+						}									
 					
 					}
 				}
@@ -820,7 +834,7 @@ $total_due = $DB->fetch_assoc($result_due);
               <table id="logged_users" class="table table-hover table-condensed" >                         
 				<?php
 								
-				while($row_name = $DB->fetch_assoc($result_name)) 
+				while($row_name = $DB->fetchAssoc($result_name)) 
 	  			   {
 						echo "<tr>
 									<td style='text-align: left;'><img src=". User::getURLForPicture($row_name['picture']) ." alt='' width='30px' height='35px' />&nbsp; &nbsp;<a href=../../../front/user.form.php?id=".$row_name['uid']." target=_blank style='color: #526273;'>

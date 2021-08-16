@@ -99,8 +99,8 @@ $(function () {
         	colorByPoint: true,
         	data: [ ";
     
-    			//$DB->data_seek($query_gid, 0) ;  
-				while ($row = $DB->fetch_assoc($query_gid)) {				
+    			//$DB->dataSeek($query_gid, 0) ;  
+				while ($row = $DB->fetchAssoc($query_gid)) {				
 						
 					$query = "SELECT count( glpi_groups_tickets.id ) AS conta, glpi_groups.name AS name
 					FROM `glpi_groups_tickets` , glpi_tickets, glpi_groups
@@ -112,7 +112,7 @@ $(function () {
 					".$entidade." ";
 					
 					$result = $DB->query($query);
-					$grupos = $DB->fetch_assoc($result);
+					$grupos = $DB->fetchAssoc($result);
 					
 					echo "
 					{
@@ -130,8 +130,8 @@ echo "
         	series: [ ";
 
 
-				$DB->data_seek($query_gid, 0) ;  
-				while ($row = $DB->fetch_assoc($query_gid)) {					
+				$DB->dataSeek($query_gid, 0) ;  
+				while ($row = $DB->fetchAssoc($query_gid)) {					
 					
 					$query = "SELECT 
 					SUM(case when glpi_groups_tickets.type = 1 then 1 else 0 end) AS req,
@@ -148,7 +148,7 @@ echo "
 					".$entidade."	 ";
 					
 					$result = $DB->query($query);
-					$grupos = $DB->fetch_assoc($result);
+					$grupos = $DB->fetchAssoc($result);
 					
 					echo "
 					{
