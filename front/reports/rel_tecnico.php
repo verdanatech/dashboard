@@ -442,7 +442,7 @@ ORDER BY name ASC ";
 
 
 									$query_stat_c = "
-	SELECT count( glpi_tickets.id ) AS close, glpi_tickets_users.users_id AS id
+	SELECT count( DISTINCT glpi_tickets.id ) AS close, glpi_tickets_users.users_id AS id
 	FROM glpi_tickets_users, glpi_tickets
 	WHERE glpi_tickets.is_deleted = '0'
 	AND glpi_tickets.date " . $datas2 . " 
@@ -460,7 +460,7 @@ ORDER BY name ASC ";
 	SELECT SUM(case when glpi_tickets.status = 5 then 1 else 0 end) AS solve
 	FROM glpi_tickets_users, glpi_tickets
 	WHERE glpi_tickets.is_deleted = '0'
-	AND (glpi_tickets.solvedate " . $datas2 . " OR glpi_tickets.closedate " . $datas2 . ") 
+	AND (glpi_tickets.date " . $datas2 . " OR glpi_tickets.date " . $datas2 . ") 
 	AND glpi_tickets_users.users_id = " . $id_tec . "
 	AND glpi_tickets_users.type = 2
 	" . $entidade_age . "
