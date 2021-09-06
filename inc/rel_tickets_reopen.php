@@ -544,7 +544,7 @@ class PluginDashboardTicktsReopened
                         SUM(case when t.status = 5 then 1 else 0 end) AS solve,
                         SUM(case when t.status = 6 then 1 else 0 end) AS close
                         FROM glpi_tickets AS t
-                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 AND l.old_value = 6 AND l.new_value != 6)
+                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action = 0 AND l.id_search_option = 12 AND l.old_value = 6)
                         WHERE 
                             t.is_deleted = 0
                             {$entidade} 
@@ -611,7 +611,7 @@ class PluginDashboardTicktsReopened
                             t.type,
                             t.time_to_resolve 
                         FROM glpi_tickets AS t
-                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action is not null AND l.id_search_option != 150 AND l.old_value = 6 AND l.new_value != 6)
+                        INNER JOIN  glpi_logs l ON (l.itemtype = 'Ticket' AND l.items_id = t.id  AND l.linked_action = 0 AND l.id_search_option = 12 AND l.old_value = 6)
                         WHERE 
                             t.is_deleted = 0
                             {$entidade} 

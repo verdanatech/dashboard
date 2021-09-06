@@ -15,11 +15,15 @@ class NewDashboard
         $slaid = "";
         $gt = "";
         $impact = "";
+
         if ($impacto != 0) {
             $impact = "AND t.impact LIKE '%$impacto%'";
         }
+
         if ($chamado != 0) {
             $slaid = "AND t.type = $chamado";
+        } else {
+            $slaid = "AND t.type = 1";
         }
 
         if ($group != 0) {
